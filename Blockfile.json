@@ -1,0 +1,9 @@
+{
+  "require": [
+    [
+      "virtualbox",
+      "packer",
+      "vagrant"
+    ]
+  ]
+}
