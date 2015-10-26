@@ -3,29 +3,26 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
-  local nm_only=
+  local nm_only
+  for nm_only in "$@"; do
+    local pth_box=
 
-  if [[ -n "${1:-}" ]]; then
-    nm_only="$1"; shift
-  fi
+    case "$nm_only" in
+      virtualbox|vmware|parallels)
+        true ;;
+      *)
+        if [[ -f "$nm_only" ]]; then
+          pth_box="$nm_only"
+          nm_only=
+        else
+          echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
+          return 1
+        fi
+        ;;
+    esac
 
-  local pth_box=
-
-  case "$nm_only" in
-    virtualbox|vmware|parallels)
-      true ;;
-    *)
-      if [[ -f "$nm_only" ]]; then
-        pth_box="$nm_only"
-        nm_only=
-      else
-        echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
-        return 1
-      fi
-      ;;
-  esac
-
-  echo vagrant box add --name ubuntu "${pth_box:-"$(set +f; ls -d "$shome/box/$nm_only"/*.box | sort | head -1)"}"
+    vagrant box add --name ubuntu "${pth_box:-"$(set +f; ls -d "$shome/box/$nm_only"/*.box | sort | head -1)"}"
+  done
 }
 
 source sub "$0" "$@"
