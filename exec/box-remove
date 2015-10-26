@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+
+  local nm_only
+  for nm_only in "$@"; do
+    local pth_box=
+
+    case "$nm_only" in
+      vmware)
+        nm_only="vmware_desktop"
+        ;;
+      virtualbox|parallels)
+        true ;;
+      *)
+        echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
+        return 1
+        ;;
+    esac
+
+    vagrant box remove --provider "$nm_only" ubuntu
+  done
+}
+
+source sub "$0" "$@"
+
