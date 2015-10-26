@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 function main {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+
   local nm_only
 
   if [[ -n "${1:-}" ]]; then
@@ -18,7 +20,8 @@ function main {
       ;;
   esac
 
-  packer build${nm_only:+ -only="$nm_only-iso"} -var-file=ubuntu1404.json ubuntu.json
+  packer build${nm_only:+ -only="$nm_only-iso"} -var "iso_path=$shome/iso" -var-file=ubuntu1404.json ubuntu.json
 }
 
 source sub "$0" "$@"
+
