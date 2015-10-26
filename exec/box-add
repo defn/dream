@@ -21,6 +21,7 @@ function main {
         ;;
     esac
 
+    cd "$shome"
     vagrant box add --name ubuntu "${pth_box:-"$(set +f; ls -d "$shome/box/$nm_only"/*.box | sort | head -1)"}"
   done
 }
