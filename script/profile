@@ -1,0 +1,6 @@
+function profile {
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  PATH="$shome/bin:$shome/exec:$PATH"
+}
+
+profile "$@"

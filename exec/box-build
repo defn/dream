@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+function main {
+  local nm_only
+
+  if [[ -n "${1:-}" ]]; then
+    nm_only="$1"; shift
+  fi
+
+  case "$nm_only" in
+    virtualbox|vmware|parallels)
+      true ;;
+    "")
+      true ;;
+    *)
+      echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
+      return 1
+      ;;
+  esac
+
+  packer build${nm_only:+ -only="$nm_only-iso"} -var-file=ubuntu1404.json ubuntu.json
+}
+
+source sub "$0" "$@"

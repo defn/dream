@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+function main {
+  vagrant box list | tr '(,)' ' ' | talign
+}
+
+source sub "$0" "$@"
