@@ -179,7 +179,6 @@
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "script/update.sh",
-        "script/desktop.sh",
         "script/vagrant.sh",
         "script/sshd.sh",
         "script/vmware.sh",
@@ -189,7 +188,6 @@
         "script/cmtool.sh",
         "script/motd.sh",
         "custom-script.sh",
-        "script/minimize.sh",
         "script/cleanup.sh"
       ],
       "type": "shell"
