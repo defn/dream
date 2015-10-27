@@ -39,6 +39,7 @@ function main {
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
                                                       docker: "true",
+                                                      update: "true",
                                                       cpus: "2" }' > "$tmp_var"
   packer build${nm_only:+ -only="$nm_only-iso"} -var-file "$tmp_var" ubuntu.json
   rm -f "$tmp_var"
