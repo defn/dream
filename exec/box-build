@@ -42,7 +42,7 @@ function main {
                                                       docker: "true",
                                                       update: "true",
                                                       cpus: "2" }' > "$tmp_options"
-  jq -n --argfile ubuntu ubuntu.json '$ubuntu.provisioners[].scripts = [
+  cat ubuntu.json | jq '.provisioners[].scripts = [
                                                       "script/update.sh",
                                                       "script/vagrant.sh",
                                                       "script/sshd.sh",
@@ -52,7 +52,6 @@ function main {
                                                       "script/docker.sh",
                                                       "custom-script.sh",
                                                       "script/cleanup.sh" ]' > "$tmp_ubuntu"
-                    ]
   packer build${nm_only:+ -only="$nm_only-iso"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
