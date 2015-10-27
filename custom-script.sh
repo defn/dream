@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
-set -eux
+function main {
+  set -efux
 
-# Sample custom configuration script - add your own commands here
-# to add some additional commands for your environment
-#
-# For example:
-# yum install -y curl wget git tmux firefox xvfb
+  apt-get -y install git vim unzip
+  apt-get -y install python-setuptools python-dev libffi-dev libssl-dev
+  apt-get -y install libreadline-dev
+
+  apt-get -y purge nano
+}
+
+main "$@"
