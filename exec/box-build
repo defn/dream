@@ -32,11 +32,28 @@ function main {
       ;;
   esac
 
-  local tmp_var="$(mktemp -t XXXXXX)"
   cd "$shome"
-  cat ubuntu1404.json | jq '. + '"$json_var" | tee "$tmp_var"
-  packer build${nm_only:+ -only="$nm_only-iso"} -var "iso_path=$shome/iso" -var-file="$tmp_var" ubuntu.json
-  rm -f "$tmp_var"
+  local tmp_options="$(mktemp -t XXXXXX)"
+  local tmp_ubuntu="$(mktemp -t XXXXXX)"
+  jq -n --arg iso_path "$shome/iso" \
+        --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
+                                                      iso_path: $iso_path, 
+                                                      ssh_username: "ubuntu",
+                                                      docker: "true",
+                                                      update: "true",
+                                                      cpus: "2" }' > "$tmp_options"
+  cat ubuntu.json | jq '.provisioners[].scripts = [
+                                                      "script/update.sh",
+                                                      "script/vagrant.sh",
+                                                      "script/sshd.sh",
+                                                      "script/vmware.sh",
+                                                      "script/virtualbox.sh",
+                                                      "script/parallels.sh",
+                                                      "script/docker.sh",
+                                                      "custom-script.sh",
+                                                      "script/cleanup.sh" ]' > "$tmp_ubuntu"
+  packer build${nm_only:+ -only="$nm_only-iso"} -var-file "$tmp_options" "$tmp_ubuntu"
+  rm -f "$tmp_options" "$tmp_ubuntu"
 }
 
 source sub "$0" "$@"
