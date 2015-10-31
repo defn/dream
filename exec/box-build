@@ -7,6 +7,10 @@ function main {
 
   local nm_only
 
+  if [[ "$#" == 0 ]]; then
+    set -- virtualbox
+  fi
+
   if [[ -n "${1:-}" ]]; then
     nm_only="$1"; shift
   fi
