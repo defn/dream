@@ -6,6 +6,7 @@ function main {
   local json_var='{}'
 
   local nm_only
+  local nm_provider
 
   if [[ "$#" == 0 ]]; then
     set -- virtualbox
@@ -17,9 +18,11 @@ function main {
 
   case "$nm_only" in
     virtualbox|vmware|parallels)
+      nm_provider="${nm_only}"
       nm_only="${nm_only}-iso"
       true ;;
     digitalocean)
+      nm_provider="${nm_only}"
       true ;;
     "")
       true ;;
@@ -28,7 +31,7 @@ function main {
       nm_only=
       ;;
     *)
-      echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
+      echo ERROR: "Invalid virtualization type: $nm_provider" 1>&2
       return 1
       ;;
   esac
@@ -51,13 +54,12 @@ function main {
                                                       update: "true",
                                                       api_key: $api_token,
                                                       cpus: "2" }' | tee "$tmp_options"
-  cat ubuntu.json | jq '.provisioners[].scripts = [
+  cat ubuntu.json | jq --arg provider "$nm_provider" \
+                                         '.provisioners[].scripts = [
                                                       "script/update.sh",
                                                       "script/vagrant.sh",
                                                       "script/sshd.sh",
-                                                      "script/vmware.sh",
-                                                      "script/virtualbox.sh",
-                                                      "script/parallels.sh",
+                                                      "script/\($provider).sh",
                                                       "script/docker.sh",
                                                       "custom-script.sh",
                                                       "script/cleanup.sh" ]' | tee "$tmp_ubuntu"

@@ -168,6 +168,7 @@
         "digitalocean": {
           "output": "box/{{.Provider}}/{{user `vm_name`}}-{{user `version`}}-{{.ArtifactId}}.box"
         }
+      }
     }
   ],
   "provisioners": [
@@ -191,13 +192,8 @@
         "script/update.sh",
         "script/vagrant.sh",
         "script/sshd.sh",
-        "script/vmware.sh",
-        "script/virtualbox.sh",
-        "script/parallels.sh",
-        "script/digitalocean.sh",
-        "script/docker.sh",
-        "custom-script.sh",
-        "script/cleanup.sh"
+        "script/{{.Provider}}.sh",
+        "script/docker.sh"
       ],
       "type": "shell"
     }
