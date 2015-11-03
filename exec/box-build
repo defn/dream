@@ -17,6 +17,9 @@ function main {
 
   case "$nm_only" in
     virtualbox|vmware|parallels)
+      nm_only="${nm_only}-iso"
+      true ;;
+    digitalocean)
       true ;;
     "")
       true ;;
@@ -55,10 +58,9 @@ function main {
                                                       "script/parallels.sh",
                                                       "script/docker.sh",
                                                       "custom-script.sh",
-                                                      "script/cleanup.sh" ]' > "$tmp_ubuntu"
-  packer build${nm_only:+ -only="$nm_only-iso"} -var-file "$tmp_options" "$tmp_ubuntu"
+                                                      "script/cleanup.sh" ]' | tee "$tmp_ubuntu"
+  packer build${nm_only:+ -only="$nm_only"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
 
 source sub "$0" "$@"
-
