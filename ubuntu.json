@@ -148,6 +148,14 @@
       "ssh_wait_timeout": "10000s",
       "type": "parallels-iso",
       "vm_name": "{{ user `vm_name` }}"
+    },
+    {
+      "api_token": "{{ user `api_token` }}",
+      "image": "ubuntu-14-04-x64",
+      "region": "sfo1",
+      "size": "1gb",
+      "type": "digitalocean",
+      "droplet_name": "{{user `vm_name`}}"
     }
   ],
   "post-processors": [
