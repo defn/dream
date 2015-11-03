@@ -166,7 +166,6 @@
       "vagrantfile_template": "{{ user `vagrantfile_template` }}",
       "override": {
         "digitalocean": {
-          "keep_input_artifact": true,
           "output": "box/{{.Provider}}/{{user `vm_name`}}-{{user `version`}}-{{.ArtifactId}}.box"
         }
     }
