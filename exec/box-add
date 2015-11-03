@@ -8,7 +8,7 @@ function main {
     local pth_box=
 
     case "$nm_only" in
-      virtualbox|vmware|parallels)
+      virtualbox|vmware|parallels|digitalocean)
         true ;;
       *)
         if [[ -f "$nm_only" ]]; then
