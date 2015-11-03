@@ -43,12 +43,14 @@ function main {
   local tmp_options="$(mktemp -t XXXXXX)"
   local tmp_ubuntu="$(mktemp -t XXXXXX)"
   jq -n --arg iso_path "$shome/iso" \
+        --arg api_token "${API_TOKEN:-}" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
                                                       docker: "true",
                                                       update: "true",
-                                                      cpus: "2" }' > "$tmp_options"
+                                                      api_key: $api_token,
+                                                      cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq '.provisioners[].scripts = [
                                                       "script/update.sh",
                                                       "script/vagrant.sh",
