@@ -11,6 +11,9 @@ function main {
       vmware)
         nm_only="vmware_desktop"
         ;;
+      digitalocean)
+        nm_only="digital_ocean"
+        ;;
       virtualbox|parallels)
         true ;;
       *)
