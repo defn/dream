@@ -150,7 +150,7 @@
       "vm_name": "{{ user `vm_name` }}"
     },
     {
-      "api_token": "{{ user `api_token` }}",
+      "api_token": "{{ user `digitalocean_api_token` }}", 
       "image": "ubuntu-14-04-x64",
       "region": "sfo1",
       "size": "1gb",
@@ -224,7 +224,7 @@
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1404",
     "vmware_guest_os_type": "ubuntu-64",
-    "api_token": "{{env `API_TOKEN`}}"
+    "digitalocean_api_token": "{{env `DIGITALOCEAN_API_TOKEN`}}"
   }
 }
 
