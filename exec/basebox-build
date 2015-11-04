@@ -62,14 +62,14 @@ function main {
                                                       cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
                                          '.provisioners[].scripts = [
-                                                      "script/ubuntu.sh",
                                                       "script/update.sh",
                                                       "script/vagrant.sh",
                                                       "script/sshd.sh",
                                                       "script/\($provider).sh",
                                                       "script/docker.sh",
                                                       "custom-script.sh",
-                                                      "script/cleanup.sh" ]' | tee "$tmp_ubuntu"
+                                                      "script/cleanup.sh",
+                                                      "script/ubuntu.sh" ]' | tee "$tmp_ubuntu"
   packer build${nm_only:+ -only="$nm_only"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
