@@ -6,6 +6,7 @@ function main {
   apt-get -y install git vim unzip
   apt-get -y install python-setuptools python-dev libffi-dev libssl-dev
   apt-get -y install libreadline-dev
+  apt-get -y install gcc-multilib g++-multilib
 
   apt-get -y purge nano
 }
