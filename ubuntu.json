@@ -170,7 +170,6 @@
     {
       "environment_vars": [
         "CLEANUP_PAUSE={{user `cleanup_pause`}}",
-        "DESKTOP={{user `desktop`}}",
         "DOCKER={{user `docker`}}",
         "UPDATE={{user `update`}}",
         "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
@@ -191,7 +190,6 @@
     "cleanup_pause": "",
     "cpus": "1",
     "custom_script": ".",
-    "desktop": "false",
     "disk_size": "65536",
     "docker": "false",
     "ftp_proxy": "{{env `ftp_proxy`}}",
