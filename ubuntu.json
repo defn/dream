@@ -155,7 +155,6 @@
       "region": "sfo1",
       "size": "1gb",
       "type": "digitalocean",
-      "user_data": "#cloud-config\nsystem_info:\n  default_user:\n    name: Ubuntu\n    plain_text_passwd: 'ubuntu'\n    home: /home/ubuntu\n    shell: /bin/bash\n    lock_passwd: True\n    gecos: Ubuntu\n    groups: [adm, audio, cdrom, dialout, floppy, video, plugdev, dip, netdev]\n",
       "droplet_name": "{{user `vm_name`}}"
     }
   ],

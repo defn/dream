@@ -58,6 +58,7 @@ function main {
                                                       cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
                                          '.provisioners[].scripts = [
+                                                      "script/ubuntu.sh",
                                                       "script/update.sh",
                                                       "script/vagrant.sh",
                                                       "script/sshd.sh",
