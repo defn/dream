@@ -7,6 +7,7 @@ function main {
 
   local nm_only
   local nm_provider
+  local fl_vagrant_key="false"
 
   if [[ "$#" == 0 ]]; then
     set -- virtualbox
@@ -20,6 +21,7 @@ function main {
     virtualbox|vmware|parallels)
       nm_provider="${nm_only}"
       nm_only="${nm_only}-iso"
+      fl_vagrant_key="true"
       true ;;
     digitalocean)
       nm_provider="${nm_only}"
@@ -48,11 +50,13 @@ function main {
   jq -n --arg iso_path "$shome/iso" \
         --arg digitalocean_api_token "${DIGITALOCEAN_API_TOKEN:-}" \
         --arg provider "$nm_provider" \
+        --arg install_vagrant_key "$fl_vagrant_key" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
                                                       docker: "true",
                                                       update: "true",
+                                                      install_vagrant_key: $install_vagrant_key,
                                                       digitalocean_api_key: $digitalocean_api_token,
                                                       provider: $provider,
                                                       cpus: "2" }' | tee "$tmp_options"
