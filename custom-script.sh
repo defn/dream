@@ -3,12 +3,13 @@
 function main {
   set -efux
 
-  apt-get -y install git vim unzip
-  apt-get -y install python-setuptools python-dev libffi-dev libssl-dev
-  apt-get -y install libreadline-dev
-  apt-get -y install gcc-multilib g++-multilib
+  aptitude -y install git vim unzip
+  aptitude -y install python-setuptools python-dev libffi-dev libssl-dev
+  aptitude -y install libreadline-dev
+  aptitude -y install gcc-multilib g++-multilib
+  aptitude -y install openjdk-7-jdk
 
-  apt-get -y purge nano
+  aptitude -y purge nano
 }
 
 main "$@"
