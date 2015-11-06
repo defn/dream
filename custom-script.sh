@@ -3,6 +3,8 @@
 function main {
   set -efux
 
+  aptitude update
+
   aptitude -y install git vim unzip
   aptitude -y install python-setuptools python-dev libffi-dev libssl-dev
   aptitude -y install libreadline-dev
