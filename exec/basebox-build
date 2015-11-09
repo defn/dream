@@ -8,6 +8,7 @@ function main {
   local nm_only
   local nm_provider
   local nm_region
+  local nm_snapshot=
   local nm_vm="ubuntu1404"
   local fl_vagrant_key="false"
   local api_token=
@@ -35,6 +36,7 @@ function main {
       fi
       nm_vm="${nm_vm}-${nm_region}"
       api_token="$DIGITALOCEAN_API_TOKEN"
+      nm_snapshot="packer-${nm_region}-$(date +%s)"
       ;;
     "")
       true ;;
@@ -63,6 +65,7 @@ function main {
         --arg region "$nm_region" \
         --arg vm_name "$nm_vm" \
         --arg install_vagrant_key "$fl_vagrant_key" \
+        --arg snapshot "$nm_snapshot" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
@@ -72,6 +75,7 @@ function main {
                                                       api_key: $api_token,
                                                       provider: $provider,
                                                       region: $region,
+                                                      snapshot: $snapshot,
                                                       vm_name: $vm_name,
                                                       cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
