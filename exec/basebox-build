@@ -65,7 +65,7 @@ function main {
         --arg region "$nm_region" \
         --arg vm_name "$nm_vm" \
         --arg install_vagrant_key "$fl_vagrant_key" \
-        --arg snapshot "$nm_snapshot" \
+        --arg snapshot_name "$nm_snapshot" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
@@ -75,7 +75,7 @@ function main {
                                                       api_key: $api_token,
                                                       provider: $provider,
                                                       region: $region,
-                                                      snapshot: $snapshot,
+                                                      snapshot_name: $snapshot_name,
                                                       vm_name: $vm_name,
                                                       cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
