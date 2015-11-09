@@ -155,7 +155,8 @@
       "region": "{{ user `region` }}",
       "size": "2gb",
       "type": "digitalocean",
-      "droplet_name": "{{user `vm_name`}}"
+      "droplet_name": "{{user `vm_name`}}",
+      "snapshot_name": "{{user `snapshot_name`}}"
     }
   ],
   "post-processors": [
