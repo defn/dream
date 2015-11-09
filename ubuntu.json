@@ -153,7 +153,7 @@
       "api_token": "{{ user `api_token` }}", 
       "image": "ubuntu-14-04-x64",
       "region": "{{ user `region` }}",
-      "size": "1gb",
+      "size": "2gb",
       "type": "digitalocean",
       "droplet_name": "{{user `vm_name`}}"
     }
