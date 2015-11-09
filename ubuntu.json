@@ -150,9 +150,9 @@
       "vm_name": "{{ user `vm_name` }}"
     },
     {
-      "api_token": "{{ user `digitalocean_api_token` }}", 
+      "api_token": "{{ user `api_token` }}", 
       "image": "ubuntu-14-04-x64",
-      "region": "sfo1",
+      "region": "{{ user `region` }}",
       "size": "1gb",
       "type": "digitalocean",
       "droplet_name": "{{user `vm_name`}}"
@@ -215,8 +215,7 @@
     "vagrantfile_template": "",
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1404",
-    "vmware_guest_os_type": "ubuntu-64",
-    "digitalocean_api_token": "{{env `DIGITALOCEAN_API_TOKEN`}}"
+    "vmware_guest_os_type": "ubuntu-64"
   }
 }
 

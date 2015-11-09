@@ -7,7 +7,10 @@ function main {
 
   local nm_only
   local nm_provider
+  local nm_region
+  local nm_vm="ubuntu1404"
   local fl_vagrant_key="false"
+  local api_token=
 
   if [[ "$#" == 0 ]]; then
     set -- virtualbox
@@ -25,7 +28,14 @@ function main {
       true ;;
     digitalocean)
       nm_provider="${nm_only}"
-      true ;;
+      if [[ "$#" -gt 0 ]]; then
+        nm_region="$1"; shift
+      else
+        nm_region="sfo1"
+      fi
+      nm_vm="${nm_vm}-${nm_region}"
+      api_token="$DIGITALOCEAN_API_TOKEN"
+      ;;
     "")
       true ;;
     "{"*)
@@ -48,8 +58,10 @@ function main {
   local tmp_options="$(mktemp -t XXXXXX)"
   local tmp_ubuntu="$(mktemp -t XXXXXX)"
   jq -n --arg iso_path "$shome/iso" \
-        --arg digitalocean_api_token "${DIGITALOCEAN_API_TOKEN:-}" \
+        --arg api_token "$api_token" \
         --arg provider "$nm_provider" \
+        --arg region "$nm_region" \
+        --arg vm_name "$nm_vm" \
         --arg install_vagrant_key "$fl_vagrant_key" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
@@ -57,8 +69,10 @@ function main {
                                                       docker: "true",
                                                       update: "true",
                                                       install_vagrant_key: $install_vagrant_key,
-                                                      digitalocean_api_key: $digitalocean_api_token,
+                                                      api_key: $api_token,
                                                       provider: $provider,
+                                                      region: $region,
+                                                      vm_name: $vm_name,
                                                       cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
                                          '.provisioners[].scripts = [
