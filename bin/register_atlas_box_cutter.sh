@@ -58,7 +58,7 @@ get_short_description() {
     PRETTY_VERSION=${RAW_VERSION:0:2}.${RAW_VERSION:2}
     case ${PRETTY_VERSION} in
     15.10)
-        PRETTY_VERSION="15.10 Wily Werewolf Development Build"
+        PRETTY_VERSION="15.10 Wily Werewolf"
         ;;
     15.04)
         PRETTY_VERSION="15.04 Vivid Vervet"
@@ -78,7 +78,7 @@ get_short_description() {
     esac
 
     VIRTUALBOX_VERSION=$(VirtualBox --help | head -n 1 | awk '{print $NF}')
-    VMWARE_VERSION=10.0.0
+    VMWARE_VERSION=10.0.1
     PARALLELS_VERSION=$(prlctl --version | awk '{print $3}')
     SHORT_DESCRIPTION="Ubuntu${EDITION_STRING} ${PRETTY_VERSION} (${BIT_STRING})${DOCKER_STRING}"
 }
@@ -106,7 +106,7 @@ create_description() {
     PRETTY_VERSION=${RAW_VERSION:0:2}.${RAW_VERSION:2}
     case ${PRETTY_VERSION} in
     15.10)
-        PRETTY_VERSION="15.10 Wily Werewolf Development Build"
+        PRETTY_VERSION="15.10 Wily Werewolf"
         ;;
     15.04)
         PRETTY_VERSION="15.04 Vivid Vervet"
@@ -127,7 +127,7 @@ create_description() {
 
     VIRTUALBOX_VERSION=$(VirtualBox --help | head -n 1 | awk '{print $NF}')
     PARALLELS_VERSION=$(prlctl --version | awk '{print $3}')
-    VMWARE_VERSION=10.0.0
+    VMWARE_VERSION=10.0.1
 
     VMWARE_BOX_FILE=box/vmware/${BOX_NAME}${BOX_SUFFIX}
     VIRTUALBOX_BOX_FILE=box/virtualbox/${BOX_NAME}${BOX_SUFFIX}
