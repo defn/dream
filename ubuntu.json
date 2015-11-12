@@ -157,6 +157,16 @@
       "type": "digitalocean",
       "droplet_name": "{{user `vm_name`}}",
       "snapshot_name": "{{user `snapshot_name`}}"
+    },
+    {
+      "access_key": "{{ user `api_access` }}", 
+      "secret_key": "{{ user `api_key` }}", 
+      "source_ami": "ami-44b1de24",
+      "region": "{{ user `region` }}",
+      "instance_type": "c3.large",
+      "type": "amazon-ebs",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ami_name": "{{user `snapshot_name`}}"
     }
   ],
   "post-processors": [

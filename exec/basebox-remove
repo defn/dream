@@ -13,7 +13,7 @@ function main {
     digitalocean)
       nm_only="digital_ocean"
       ;;
-    virtualbox|parallels)
+    virtualbox|parallels|aws)
       true ;;
     *)
       echo ERROR: "Invalid virtualization type: $nm_only" 1>&2

@@ -12,6 +12,7 @@ function main {
   local nm_vm="ubuntu1404"
   local fl_vagrant_key="false"
   local api_token=
+  local api_access=
 
   if [[ "$#" == 0 ]]; then
     set -- virtualbox
@@ -27,6 +28,19 @@ function main {
       nm_only="${nm_only}-iso"
       fl_vagrant_key="true"
       true ;;
+    aws)
+      nm_provider="${nm_only}"
+      nm_only="amazon-ebs"
+      if [[ "$#" -gt 0 ]]; then
+        nm_region="$1"; shift
+      else
+        nm_region="us-west-1"
+      fi
+      nm_vm="${nm_vm}-${nm_region}"
+      api_access="$AWS_ACCESS_KEY"
+      api_token="$AWS_SECRET_KEY"
+      nm_snapshot="packer-${nm_region}-$(date +%s)"
+      ;;
     digitalocean)
       nm_provider="${nm_only}"
       if [[ "$#" -gt 0 ]]; then
@@ -57,27 +71,7 @@ function main {
   esac
 
   cd "$shome"
-  local tmp_options="$(mktemp -t XXXXXX)"
   local tmp_ubuntu="$(mktemp -t XXXXXX)"
-  jq -n --arg iso_path "$shome/iso" \
-        --arg api_token "$api_token" \
-        --arg provider "$nm_provider" \
-        --arg region "$nm_region" \
-        --arg vm_name "$nm_vm" \
-        --arg install_vagrant_key "$fl_vagrant_key" \
-        --arg snapshot_name "$nm_snapshot" \
-        --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
-                                                      iso_path: $iso_path, 
-                                                      ssh_username: "ubuntu",
-                                                      docker: "true",
-                                                      update: "true",
-                                                      install_vagrant_key: $install_vagrant_key,
-                                                      api_key: $api_token,
-                                                      provider: $provider,
-                                                      region: $region,
-                                                      snapshot_name: $snapshot_name,
-                                                      vm_name: $vm_name,
-                                                      cpus: "2" }' | tee "$tmp_options"
   cat ubuntu.json | jq --arg provider "$nm_provider" \
                                          '.provisioners[].scripts = [
                                                       "script/first.sh",
@@ -90,6 +84,29 @@ function main {
                                                       "script/cleanup.sh",
                                                       "script/ubuntu.sh",
                                                       "script/last.sh" ]' | tee "$tmp_ubuntu"
+
+  local tmp_options="$(mktemp -t XXXXXX)"
+  jq -n --arg iso_path "$shome/iso" \
+        --arg api_token "$api_token" \
+        --arg api_access "$api_access" \
+        --arg provider "$nm_provider" \
+        --arg region "$nm_region" \
+        --arg vm_name "$nm_vm" \
+        --arg install_vagrant_key "$fl_vagrant_key" \
+        --arg snapshot_name "$nm_snapshot" \
+        --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
+                                                      iso_path: $iso_path, 
+                                                      ssh_username: "ubuntu",
+                                                      docker: "true",
+                                                      update: "true",
+                                                      install_vagrant_key: $install_vagrant_key,
+                                                      api_access: $api_access,
+                                                      api_key: $api_token,
+                                                      provider: $provider,
+                                                      region: $region,
+                                                      snapshot_name: $snapshot_name,
+                                                      vm_name: $vm_name,
+                                                      cpus: "2" }' | tee "$tmp_options"
   packer build${nm_only:+ -only="$nm_only"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
