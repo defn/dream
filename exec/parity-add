@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+function main {
+  basebox add "$VAGRANT_DEFAULT_PROVIDER" "$@"
+}
+
+main "$@"
