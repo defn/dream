@@ -22,7 +22,12 @@ if [ -d "/var/lib/dhcp" ]; then
 fi 
 
 # Add delay to prevent "vagrant reload" from failing
-echo "pre-up sleep 2" >> /etc/network/interfaces
+if [[ -f /etc/network/interfaces.d/eth0.cfg ]]; then
+  # this works on aws
+  echo "pre-up sleep 2" >> /etc/network/interfaces.d/eth0.cfg
+else
+  echo "pre-up sleep 2" >> /etc/network/interfaces
+fi
 
 echo "==> Cleaning up tmp"
 rm -rf /tmp/*
