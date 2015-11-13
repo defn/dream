@@ -5,14 +5,14 @@ function main {
 
   local json_var='{}'
 
-  local nm_only
+  local nm_builder
   local nm_provider
   local nm_region
   local nm_snapshot=
   local nm_vm="ubuntu1404"
   local fl_vagrant_key="false"
-  local api_token=
-  local api_access=
+  local secret_key=
+  local access_key=
   local image_id=
   local instance_type=
 
@@ -21,45 +21,52 @@ function main {
   fi
 
   if [[ -n "${1:-}" ]]; then
-    nm_only="$1"; shift
+    nm_builder="$1"; shift
   fi
 
-  case "$nm_only" in
+  case "$nm_builder" in
     virtualbox|vmware|parallels)
-      nm_provider="${nm_only}"
-      nm_only="${nm_only}-iso"
+      nm_provider="${nm_builder}"
+      nm_builder="${nm_builder}-iso"
       fl_vagrant_key="true"
       true ;;
+
     aws)
-      nm_provider="${nm_only}"
-      nm_only="amazon-ebs"
+      nm_provider="${nm_builder}"
+      nm_builder="amazon-ebs"
+
       if [[ "$#" -gt 0 ]]; then
         nm_region="$1"; shift
-      else
-        nm_region="us-west-1"
       fi
+      : ${nm_region:=${AWS_DEFAULT_REGION:-us-west-1}}
+
       nm_vm="${nm_vm}-${nm_region}"
-      api_access="$AWS_ACCESS_KEY"
-      api_token="$AWS_SECRET_KEY"
+      access_key="$AWS_ACCESS_KEY"
+      secret_key="$AWS_SECRET_KEY"
       nm_snapshot="packer-${nm_region}-$(date +%s)"
       ;;
+
     digitalocean)
-      nm_provider="${nm_only}"
+      nm_provider="${nm_builder}"
+      
       if [[ "$#" -gt 0 ]]; then
         nm_region="$1"; shift
-      else
-        nm_region="sfo1"
       fi
+
+      : ${nm_region:=${DIGITALOCEAN_DEFAULT_REGION:-sfo1}}
       nm_vm="${nm_vm}-${nm_region}"
-      api_token="$DIGITALOCEAN_API_TOKEN"
+      secret_key="$DIGITALOCEAN_API_TOKEN"
       nm_snapshot="packer-${nm_region}-$(date +%s)"
       ;;
+
     "")
       true ;;
+
     "{"*)
-      json_var="$nm_only"
-      nm_only=
+      json_var="$nm_builder"
+      nm_builder=
       ;;
+
     *)
       echo ERROR: "Invalid virtualization type: $nm_provider" 1>&2
       return 1
@@ -97,8 +104,8 @@ function main {
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n --arg iso_path "$shome/iso" \
-        --arg api_token "$api_token" \
-        --arg api_access "$api_access" \
+        --arg secret_key "$secret_key" \
+        --arg access_key "$access_key" \
         --arg provider "$nm_provider" \
         --arg region "$nm_region" \
         --arg vm_name "$nm_vm" \
@@ -112,8 +119,8 @@ function main {
                                                       docker: "true",
                                                       update: "true",
                                                       install_vagrant_key: $install_vagrant_key,
-                                                      api_access: $api_access,
-                                                      api_key: $api_token,
+                                                      access_key: $access_key,
+                                                      secret_key: $secret_key,
                                                       provider: $provider,
                                                       region: $region,
                                                       snapshot_name: $snapshot_name,
@@ -121,7 +128,7 @@ function main {
                                                       image_id: $image_id,
                                                       instance_type: $instance_type,
                                                       cpus: "2" }' | tee "$tmp_options"
-  packer build${nm_only:+ -only="$nm_only"} -var-file "$tmp_options" "$tmp_ubuntu"
+  packer build${nm_builder:+ -only="$nm_builder"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
 

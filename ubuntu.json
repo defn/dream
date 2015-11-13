@@ -151,7 +151,7 @@
       "vm_name": "{{ user `vm_name` }}"
     },
     {
-      "api_token": "{{ user `api_token` }}", 
+      "api_token": "{{ user `secret_key` }}", 
       "image": "{{ user `image_id` }}",
       "region": "{{ user `region` }}",
       "size": "{{ user `instance_type` }}",
@@ -160,8 +160,8 @@
       "snapshot_name": "{{user `snapshot_name`}}"
     },
     {
-      "access_key": "{{ user `api_access` }}", 
-      "secret_key": "{{ user `api_key` }}", 
+      "access_key": "{{ user `access_key` }}", 
+      "secret_key": "{{ user `secret_key` }}", 
       "source_ami": "{{ user `image_id` }}",
       "region": "{{ user `region` }}",
       "instance_type": "{{ user `instance_type` }}",
