@@ -152,9 +152,9 @@
     },
     {
       "api_token": "{{ user `api_token` }}", 
-      "image": "ubuntu-14-04-x64",
+      "image": "{{ user `image_id` }}",
       "region": "{{ user `region` }}",
-      "size": "2gb",
+      "size": "{{ user `instance_type` }}",
       "type": "digitalocean",
       "droplet_name": "{{user `vm_name`}}",
       "snapshot_name": "{{user `snapshot_name`}}"
@@ -162,9 +162,9 @@
     {
       "access_key": "{{ user `api_access` }}", 
       "secret_key": "{{ user `api_key` }}", 
-      "source_ami": "ami-44b1de24",
+      "source_ami": "{{ user `image_id` }}",
       "region": "{{ user `region` }}",
-      "instance_type": "c3.large",
+      "instance_type": "{{ user `instance_type` }}",
       "type": "amazon-ebs",
       "ssh_username": "{{ user `ssh_username` }}",
       "ami_name": "{{user `snapshot_name`}}"
@@ -227,7 +227,9 @@
     "vagrantfile_template": "",
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1404",
-    "vmware_guest_os_type": "ubuntu-64"
+    "vmware_guest_os_type": "ubuntu-64",
+    "image_id": "",
+    "instance_type": ""
   }
 }
 

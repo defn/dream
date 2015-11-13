@@ -13,6 +13,8 @@ function main {
   local fl_vagrant_key="false"
   local api_token=
   local api_access=
+  local image_id=
+  local instance_type=
 
   if [[ "$#" == 0 ]]; then
     set -- virtualbox
@@ -64,6 +66,14 @@ function main {
       ;;
   esac
 
+  if [[ "$#" -gt 0 ]]; then
+    image_id="$1"; shift
+  fi
+
+  if [[ "$#" -gt 0 ]]; then
+    instance_type="$1"; shift
+  fi
+
   case "${1:-}" in
     "{"*)
       json_var="$1"; shift
@@ -94,6 +104,8 @@ function main {
         --arg vm_name "$nm_vm" \
         --arg install_vagrant_key "$fl_vagrant_key" \
         --arg snapshot_name "$nm_snapshot" \
+        --arg image_id "$image_id" \
+        --arg instance_type "$instance_type" \
         --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
                                                       iso_path: $iso_path, 
                                                       ssh_username: "ubuntu",
@@ -106,6 +118,8 @@ function main {
                                                       region: $region,
                                                       snapshot_name: $snapshot_name,
                                                       vm_name: $vm_name,
+                                                      image_id: $image_id,
+                                                      instance_type: $instance_type,
                                                       cpus: "2" }' | tee "$tmp_options"
   packer build${nm_only:+ -only="$nm_only"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
