@@ -5,7 +5,7 @@ function main {
 
   local json_var='{}'
 
-  local nm_builder
+  local nm_packer_builder
   local nm_provider
   local nm_region
   local nm_snapshot=
@@ -21,19 +21,19 @@ function main {
   fi
 
   if [[ -n "${1:-}" ]]; then
-    nm_builder="$1"; shift
+    nm_packer_builder="$1"; shift
   fi
 
-  case "$nm_builder" in
+  case "$nm_packer_builder" in
     virtualbox|vmware|parallels)
-      nm_provider="${nm_builder}"
-      nm_builder="${nm_builder}-iso"
+      nm_provider="${nm_packer_builder}"
+      nm_packer_builder="${nm_packer_builder}-iso"
       fl_vagrant_key="true"
       true ;;
 
     aws)
-      nm_provider="${nm_builder}"
-      nm_builder="amazon-ebs"
+      nm_provider="${nm_packer_builder}"
+      nm_packer_builder="amazon-ebs"
 
       if [[ "$#" -gt 0 ]]; then
         nm_region="$1"; shift
@@ -69,8 +69,8 @@ function main {
        ;;
 
     digitalocean|digital_ocean)
-      nm_builder='digitalocean'
-      nm_provider="${nm_builder}"
+      nm_packer_builder='digitalocean'
+      nm_provider="${nm_packer_builder}"
       
       if [[ "$#" -gt 0 ]]; then
         nm_region="$1"; shift
@@ -98,8 +98,8 @@ function main {
       true ;;
 
     "{"*)
-      json_var="$nm_builder"
-      nm_builder=
+      json_var="$nm_packer_builder"
+      nm_packer_builder=
       ;;
 
     *)
@@ -155,7 +155,7 @@ function main {
                                                       image_id: $image_id,
                                                       instance_type: $instance_type,
                                                       cpus: "2" }' | tee "$tmp_options"
-  packer build${nm_builder:+ -only="$nm_builder"} -var-file "$tmp_options" "$tmp_ubuntu"
+  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
 

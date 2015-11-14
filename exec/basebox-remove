@@ -3,25 +3,25 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
-  local nm_only="$1"; shift
+  local nm_vagrant_provider="$1"; shift
   local pth_box=
 
-  case "$nm_only" in
+  case "$nm_vagrant_provider" in
     vmware)
-      nm_only="vmware_desktop"
+      nm_vagrant_provider="vmware_desktop"
       ;;
-    digitalocean)
-      nm_only="digital_ocean"
+    digitalocean|digital_ocean)
+      nm_vagrant_provider="digital_ocean"
       ;;
     virtualbox|parallels|aws)
       true ;;
     *)
-      echo ERROR: "Invalid virtualization type: $nm_only" 1>&2
+      echo ERROR: "Invalid virtualization type: $nm_vagrant_provider" 1>&2
       return 1
       ;;
   esac
 
-  vagrant box remove --provider "$nm_only" ubuntu${1:+"-$1"}
+  vagrant box remove --provider "$nm_vagrant_provider" ubuntu${1:+"-$1"}
 }
 
 source sub "$0" "$@"
