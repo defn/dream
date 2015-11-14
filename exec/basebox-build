@@ -46,7 +46,8 @@ function main {
       nm_snapshot="packer-${nm_region}-$(date +%s)"
       ;;
 
-    digitalocean)
+    digitalocean|digital_ocean)
+      nm_builder='digitalocean'
       nm_provider="${nm_builder}"
       
       if [[ "$#" -gt 0 ]]; then
