@@ -44,7 +44,29 @@ function main {
       access_key="$AWS_ACCESS_KEY"
       secret_key="$AWS_SECRET_KEY"
       nm_snapshot="packer-${nm_region}-$(date +%s)"
-      ;;
+
+      if [[ "$#" -gt 0 ]]; then
+        image_id="$1"; shift
+      else
+        local ap_northeast_1=ami-d886a1b6
+        local ap_southeast_1=ami-a17dbac2
+        local ap_southeast_2=ami-067d2365
+        local eu_central_1=ami-99cad9f5
+        local eu_west_1=ami-a317ced0
+        local sa_east_1=ami-ae44ffc2
+        local us_east_1=ami-f7136c9d
+        local us_west_1=ami-44b1de24
+        local us_west_2=ami-46a3b427
+
+        eval image_id="\$${nm_region//-/_}"
+      fi
+
+      if [[ "$#" -gt 0 ]]; then
+        instance_type="$1"; shift
+      else
+        instance_type='c3.large'
+      fi
+       ;;
 
     digitalocean|digital_ocean)
       nm_builder='digitalocean'
@@ -53,11 +75,23 @@ function main {
       if [[ "$#" -gt 0 ]]; then
         nm_region="$1"; shift
       fi
-
       : ${nm_region:=${DIGITALOCEAN_DEFAULT_REGION:-sfo1}}
+
       nm_vm="${nm_vm}-${nm_region}"
       secret_key="$DIGITALOCEAN_API_TOKEN"
       nm_snapshot="packer-${nm_region}-$(date +%s)"
+      
+      if [[ "$#" -gt 0 ]]; then
+        image_id="$1"; shift
+      else
+        image_id='ubuntu-14-04-x64'
+      fi
+
+      if [[ "$#" -gt 0 ]]; then
+        instance_type="$1"; shift
+      else
+        instance_type='2gb'
+      fi
       ;;
 
     "")
@@ -73,14 +107,6 @@ function main {
       return 1
       ;;
   esac
-
-  if [[ "$#" -gt 0 ]]; then
-    image_id="$1"; shift
-  fi
-
-  if [[ "$#" -gt 0 ]]; then
-    instance_type="$1"; shift
-  fi
 
   case "${1:-}" in
     "{"*)
