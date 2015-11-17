@@ -64,7 +64,7 @@ function main {
       if [[ "$#" -gt 0 ]]; then
         instance_type="$1"; shift
       else
-        instance_type='c3.large'
+        instance_type='c4.large'
       fi
        ;;
 
