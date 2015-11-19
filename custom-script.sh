@@ -10,6 +10,7 @@ function main {
   aptitude -y install libreadline-dev
   aptitude -y install gcc-multilib g++-multilib
   aptitude -y install openjdk-7-jdk
+  aptitude -y install cloud-init
 
   aptitude -y purge nano
 }
