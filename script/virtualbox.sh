@@ -18,4 +18,8 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
     if [[ $VBOX_VERSION = "4.3.10" ]]; then
         ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
     fi
+
+    aptitude install -y cloud-init
+
+    echo 'datasources_list: [ NoCloud, None ]' > /etc/cloud/cloud.cfg.d/99_virtualbox.cfg
 fi
