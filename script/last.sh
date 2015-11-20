@@ -10,12 +10,14 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
 fi
 
 # make a docker image of our selves
-mkdir /tmp/meh
 mount -o bind / /mnt
-mount -o bind /tmp/meh /mnt/tmp
-mount -o bind /tmp/meh /mnt/var/lib/docker
+
+mkdir -p /tmp/meh/{tmp,docker}
+mount -o bind /tmp/meh/tmp /mnt/tmp
+mount -o bind /tmp/meh/docker /mnt/var/lib/docker
+
 pushd /mnt
-mkdir tmp run/lock run/user
+mkdir run/lock run/user
 chmod 1777 tmp run/lock
 
 tar -c . | docker import - ubuntu
