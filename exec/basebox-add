@@ -24,7 +24,7 @@ function main {
   esac
 
   cd "$shome"
-  vagrant box add --name ubuntu${1:+"-$1"} "${pth_box:-"$(set +f; ls -d "$shome/box/$nm_provider"/*${1:+-$1*}.box | sort | head -1)"}"
+  vagrant box add --name ubuntu${1:+"-$1"} "${pth_box:-"$(set +f; ls -trd "$shome/box/$nm_provider"/*${1:+-$1*}.box | tail -1)"}"
 }
 
 source sub "$0" "$@"
