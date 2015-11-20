@@ -28,6 +28,9 @@ docker_package_install() {
       sudo systemctl enable docker
     fi
 
+    # grab ubuntu trusty to play with
+    docker pull ubuntu:trusty
+
     # reboot
     echo "Rebooting the machine..."
     reboot
@@ -85,4 +88,3 @@ give_docker_non_root_access() {
 
 give_docker_non_root_access
 docker_package_install 
-docker pull ubuntu:trusty
