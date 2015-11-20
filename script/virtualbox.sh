@@ -21,5 +21,7 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
 
     aptitude install -y cloud-init
 
-    echo 'datasources_list: [ NoCloud, None ]' > /etc/cloud/cloud.cfg.d/99_virtualbox.cfg
+    #echo 'datasources_list: [ NoCloud, None ]' > /etc/cloud/cloud.cfg.d/99_virtualbox.cfg
+
+    echo '/dev/sr0 /media/cdrom auto ro,user,noauto,exec,utf8 0 0' >> /etc/fstab
 fi
