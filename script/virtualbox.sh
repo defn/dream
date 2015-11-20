@@ -19,9 +19,5 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
         ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
     fi
 
-    aptitude install -y cloud-init
-
-    #echo 'datasources_list: [ NoCloud, None ]' > /etc/cloud/cloud.cfg.d/99_virtualbox.cfg
-
     echo '/dev/sr0 /media/cdrom auto ro,user,auto,exec,utf8 0 0' >> /etc/fstab
 fi
