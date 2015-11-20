@@ -85,3 +85,4 @@ give_docker_non_root_access() {
 
 give_docker_non_root_access
 docker_package_install 
+docker pull ubuntu:trusty
