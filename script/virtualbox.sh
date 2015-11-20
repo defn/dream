@@ -1,6 +1,7 @@
 #!/bin/bash -eux
 
 SSH_USER=${SSH_USERNAME:-vagrant}
+SSH_PASS=${SSH_PASSWORD:-vagrant}
 
 if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
     echo "==> Installing VirtualBox guest additions"
@@ -19,5 +20,5 @@ if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
         ln -s /opt/VBoxGuestAdditions-4.3.10/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
     fi
 
-    #echo '/dev/sr0 /media/cdrom auto ro,user,auto,exec,utf8 0 0' >> /etc/fstab
+    echo "${SSH_USER}:${SSH_PASS}" | chpasswd
 fi

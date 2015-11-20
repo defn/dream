@@ -120,13 +120,12 @@ function main {
                                          '.provisioners[].scripts = [
                                                       "script/first.sh",
                                                       "script/update.sh",
-                                                      "script/vagrant.sh",
                                                       "script/sshd.sh",
+                                                      "script/ubuntu.sh",
                                                       "script/\($provider).sh",
                                                       "script/docker.sh",
                                                       "custom-script.sh",
                                                       "script/cleanup.sh",
-                                                      "script/ubuntu.sh",
                                                       "script/last.sh" ]' | tee "$tmp_ubuntu"
 
   local tmp_options="$(mktemp -t XXXXXX)"
@@ -136,7 +135,6 @@ function main {
         --arg provider "$nm_provider" \
         --arg region "$nm_region" \
         --arg vm_name "$nm_vm" \
-        --arg install_vagrant_key "$fl_vagrant_key" \
         --arg snapshot_name "$nm_snapshot" \
         --arg image_id "$image_id" \
         --arg instance_type "$instance_type" \
@@ -145,7 +143,6 @@ function main {
                                                       ssh_username: "ubuntu",
                                                       docker: "true",
                                                       update: "true",
-                                                      install_vagrant_key: $install_vagrant_key,
                                                       access_key: $access_key,
                                                       secret_key: $secret_key,
                                                       provider: $provider,
