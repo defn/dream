@@ -172,15 +172,21 @@
     {
       "type": "docker",
       "image": "ubuntu",
-      "commit": true
+      "commit": "true"
     }
   ],
   "post-processors": [
     {
+      "only": [ "virtualbox-iso", "vmware-iso", "parallels-iso", "amazon-ebs", "digitalocean" ],
       "keep_input_artifact": false,
       "output": "box/{{user `provider`}}/{{user `vm_name`}}.box",
       "type": "vagrant",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"
+    },
+    {
+      "only": [ "docker" ],
+      "repository": "ubuntu",
+      "tag": "packer"
     }
   ],
   "provisioners": [
