@@ -168,6 +168,11 @@
       "type": "amazon-ebs",
       "ssh_username": "{{ user `ssh_username` }}",
       "ami_name": "{{user `snapshot_name`}}"
+    },
+    {
+      "type": "docker",
+      "image": "ubuntu",
+      "commit": true
     }
   ],
   "post-processors": [

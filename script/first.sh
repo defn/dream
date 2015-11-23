@@ -1,5 +1,4 @@
 #!/bin/bash -ux
 
-sudo aptitude update
-sudo aptitude install -y at
-echo sudo poweroff | at now +55 minutes
+sudo apt-get update
+sudo apt-get install -y aptitude

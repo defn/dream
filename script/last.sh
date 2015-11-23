@@ -2,8 +2,6 @@
 
 umask 022
 
-atrm 1
-
 # install cloud-init last until TODO ssh breakage identified
 if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
   aptitude install -y cloud-init

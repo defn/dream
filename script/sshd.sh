@@ -1,3 +1,5 @@
 #!/bin/bash -eux
 
-echo "UseDNS no" >> /etc/ssh/sshd_config
+if [[ -f "/etc/ssh/sshd_config" ]]; then
+  echo "UseDNS no" >> /etc/ssh/sshd_config
+fi
