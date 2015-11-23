@@ -121,17 +121,17 @@ function main {
 
   cd "$shome"
   local tmp_ubuntu="$(mktemp -t XXXXXX)"
-  cat ubuntu.json | jq --arg provider "$nm_provider" \
-    '.provisioners[].scripts = [
-                                "script/first.sh",
-                                "script/update.sh",
-                                "script/sshd.sh",
-                                "script/ubuntu.sh",
-                                "script/\($provider).sh",
-                                "script/install-docker.sh",
-                                "custom-script.sh",
-                                "script/cleanup.sh",
-                                "script/last.sh" ]' | tee "$tmp_ubuntu"
+  cat "ubuntu.json" | jq \
+    --arg provider "$nm_provider" '.provisioners[].scripts = 
+    [ "script/first.sh",
+      "script/update.sh",
+      "script/sshd.sh",
+      "script/ubuntu.sh",
+      "script/\($provider).sh",
+      "script/install-docker.sh",
+      "custom-script.sh",
+      "script/cleanup.sh",
+      "script/last.sh" ]' | tee "$tmp_ubuntu"
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n --arg iso_path "$shome/iso" \
@@ -144,20 +144,21 @@ function main {
     --arg image_id "$image_id" \
     --arg instance_type "$instance_type" \
     --arg docker "$fl_docker" \
-    --argfile ubuntu ubuntu1404.json '$ubuntu + { headless: "true", 
-                                                  iso_path: $iso_path, 
-                                                  ssh_username: "ubuntu",
-                                                  docker: $docker,
-                                                  update: "true",
-                                                  access_key: $access_key,
-                                                  secret_key: $secret_key,
-                                                  provider: $provider,
-                                                  region: $region,
-                                                  snapshot_name: $snapshot_name,
-                                                  vm_name: $vm_name,
-                                                  image_id: $image_id,
-                                                  instance_type: $instance_type,
-                                                  cpus: "2" }' | tee "$tmp_options"
+    '{  headless: "true", 
+        iso_path: $iso_path, 
+        ssh_username: "ubuntu",
+        docker: $docker,
+        update: "true",
+        access_key: $access_key,
+        secret_key: $secret_key,
+        provider: $provider,
+        region: $region,
+        snapshot_name: $snapshot_name,
+        vm_name: $vm_name,
+        image_id: $image_id,
+        instance_type: $instance_type,
+        cpus: "2" }' | tee "$tmp_options"
+
   packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_ubuntu"
   rm -f "$tmp_options" "$tmp_ubuntu"
 }
