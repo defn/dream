@@ -170,7 +170,7 @@
     },
     {
       "type": "docker",
-      "image": "ubuntu",
+      "image": "packer",
       "commit": "true"
     }
   ],
