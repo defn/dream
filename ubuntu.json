@@ -186,7 +186,8 @@
       "type": "docker-tag",
       "only": [ "docker" ],
       "repository": "ubuntu",
-      "tag": "packer"
+      "tag": "packer",
+      "force": "true"
     }
   ],
   "provisioners": [
