@@ -171,7 +171,8 @@
     {
       "type": "docker",
       "image": "ubuntu:packer-input",
-      "commit": "true"
+      "commit": "true",
+      "pull": "false"
     }
   ],
   "post-processors": [
