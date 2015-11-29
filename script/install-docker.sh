@@ -83,7 +83,7 @@ give_docker_non_root_access() {
     gpasswd -a ${SSH_USERNAME} docker
 }
 
-if [[ ! $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
+if [[ ! $PACKER_BUILDER_TYPE =~ docker ]]; then
   give_docker_non_root_access
   docker_package_install 
 fi
