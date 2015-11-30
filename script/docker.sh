@@ -10,5 +10,5 @@ if [[ $PACKER_BUILDER_TYPE =~ docker ]]; then
   chmod 0600 ~ubuntu/.ssh/authorized_keys
 
   install -d -m 0700 -o root -g root ~root/.ssh 
-  install -m 0600 -o root -g root ~ubuntu/.ssh/authorized_keys ~/root/.ssh/authorized_keys
+  install -m 0600 -o root -g root ~ubuntu/.ssh/authorized_keys ~root/.ssh/authorized_keys
 fi
