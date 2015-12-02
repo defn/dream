@@ -35,7 +35,6 @@
       "ssh_password": "{{ user `ssh_password` }}",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
-      "ssh_skip_nat_mapping": "true",
       "vboxmanage": [
         [
           "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"
