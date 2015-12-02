@@ -1,8 +1,5 @@
 #!/bin/bash -eux
 
-SSH_USER=${SSH_USERNAME:-vagrant}
-SSH_PASS=${SSH_PASSWORD:-vagrant}
-
 if [[ $PACKER_BUILDER_TYPE =~ docker ]]; then
   # TODO stupid slow in a container
   # apt-get install -y minimal^ server^ standard^
