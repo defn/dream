@@ -7,13 +7,10 @@ function main {
   local pth_box=
 
   case "$nm_vagrant_provider" in
-    vmware)
-      nm_vagrant_provider="vmware_desktop"
-      ;;
     digitalocean|digital_ocean)
       nm_vagrant_provider="digital_ocean"
       ;;
-    virtualbox|parallels|aws)
+    virtualbox|aws)
       true ;;
     *)
       echo ERROR: "Invalid virtualization type: $nm_vagrant_provider" 1>&2

@@ -7,7 +7,7 @@ function main {
   local pth_box=
 
   case "$nm_provider" in
-    virtualbox|vmware|parallels|aws)
+    virtualbox|aws)
       true ;;
     digitalocean|digital_ocean)
       nm_provider="digitalocean"

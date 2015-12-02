@@ -25,7 +25,7 @@ function main {
   fi
 
   case "$nm_packer_builder" in
-    virtualbox|vmware|parallels)
+    virtualbox)
       nm_provider="${nm_packer_builder}"
       nm_packer_builder="${nm_packer_builder}-iso"
       ;;

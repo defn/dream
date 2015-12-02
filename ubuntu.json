@@ -1,55 +1,6 @@
 {
   "builders": [
     {
-      "type": "vmware-iso",
-      "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz auto",
-        " console-setup/ask_detect=false",
-        " console-setup/layoutcode=us",
-        " console-setup/modelcode=pc105",
-        " debconf/frontend=noninteractive",
-        " debian-installer=en_US",
-        " fb=false",
-        " initrd=/install/initrd.gz",
-        " kbd-chooser/method=us",
-        " keyboard-configuration/layout=USA",
-        " keyboard-configuration/variant=USA",
-        " locale=en_US",
-        " netcfg/get_domain=vm",
-        " netcfg/get_hostname={{ user `hostname` }}",
-        " noapic",
-        " passwd/user-fullname={{ user `ssh_fullname` }}",
-        " passwd/user-password={{ user `ssh_password` }}",
-        " passwd/user-password-again={{ user `ssh_password` }}",
-        " passwd/username={{ user `ssh_username` }}",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
-        " -- ",
-        "<enter>"
-      ],
-      "disk_size": "{{ user `disk_size` }}",
-      "guest_os_type": "{{ user `vmware_guest_os_type` }}",
-      "headless": "{{ user `headless` }}",
-      "http_directory": "http",
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_urls": [
-        "{{ user `iso_path` }}/{{ user `iso_name` }}",
-        "{{ user `iso_url` }}"
-      ],
-      "output_directory": "output-{{ user `vm_name` }}-vmware-iso",
-      "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
-      "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "tools_upload_flavor": "linux",
-      "vm_name": "{{ user `vm_name` }}",
-      "vmx_data": {
-        "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}"
-      }
-    },
-    {
       "type": "virtualbox-iso",
       "boot_command": [
         "<esc><esc><enter><wait>",
@@ -97,59 +48,6 @@
       "vm_name": "{{user `vm_name`}}"
     },
     {
-      "type": "parallels-iso",
-      "boot_command": [
-        "<esc><esc><enter><wait>",
-        "/install/vmlinuz auto",
-        " console-setup/ask_detect=false",
-        " console-setup/layoutcode=us",
-        " console-setup/modelcode=pc105",
-        " debconf/frontend=noninteractive",
-        " debian-installer=en_US",
-        " fb=false",
-        " initrd=/install/initrd.gz",
-        " kbd-chooser/method=us",
-        " keyboard-configuration/layout=USA",
-        " keyboard-configuration/variant=USA",
-        " locale=en_US",
-        " netcfg/get_domain=vm",
-        " netcfg/get_hostname={{ user `hostname` }}",
-        " passwd/user-fullname={{ user `ssh_fullname` }}",
-        " passwd/user-password={{ user `ssh_password` }}",
-        " passwd/user-password-again={{ user `ssh_password` }}",
-        " passwd/username={{ user `ssh_username` }}",
-        " noapic",
-        " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
-        " -- ",
-        "<enter>"
-      ],
-      "disk_size": "{{ user `disk_size` }}",
-      "guest_os_type": "{{ user `parallels_guest_os_type` }}",
-      "http_directory": "http",
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "iso_urls": [
-        "{{ user `iso_path` }}/{{ user `iso_name` }}",
-        "{{ user `iso_url` }}"
-      ],
-      "output_directory": "output-{{ user `vm_name` }}-parallels-iso",
-      "parallels_tools_flavor": "lin",
-      "prlctl": [
-        [
-          "set", "{{.Name}}", "--memsize", "{{ user `memory` }}"
-        ],
-        [
-          "set", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
-        ]
-      ],
-      "prlctl_version_file": ".prlctl_version",
-      "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
-      "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "vm_name": "{{ user `vm_name` }}"
-    },
-    {
       "type": "digitalocean",
       "api_token": "{{ user `secret_key` }}", 
       "image": "{{ user `image_id` }}",
@@ -178,7 +76,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "only": [ "virtualbox-iso", "vmware-iso", "parallels-iso", "amazon-ebs", "digitalocean" ],
+      "only": [ "virtualbox-iso", "amazon-ebs", "digitalocean" ],
       "keep_input_artifact": false,
       "output": "box/{{user `provider`}}/{{user `vm_name`}}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"
@@ -229,7 +127,6 @@
     "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",
     "memory": "512",
     "no_proxy": "{{env `no_proxy`}}",
-    "parallels_guest_os_type": "ubuntu",
     "preseed" : "preseed.cfg",
     "rsync_proxy": "{{env `rsync_proxy`}}",
     "hostname": "vagrant",
@@ -240,7 +137,6 @@
     "vagrantfile_template": "",
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1404",
-    "vmware_guest_os_type": "ubuntu-64",
     "image_id": "",
     "instance_type": ""
   }
