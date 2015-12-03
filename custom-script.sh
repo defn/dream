@@ -11,7 +11,7 @@ function main {
   aptitude -y install gcc-multilib g++-multilib
   aptitude -y install openjdk-7-jdk
 
-  aptitude -y purge nano
+  aptitude -y purge nano mlocate
 }
 
 main "$@"
