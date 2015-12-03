@@ -85,4 +85,5 @@ if [[ ! $PACKER_BUILDER_TYPE =~ docker ]]; then
   give_docker_non_root_access
   docker_package_install 
   docker pull ubuntu:trusty
+  gpasswd -a ubuntu docker
 fi
