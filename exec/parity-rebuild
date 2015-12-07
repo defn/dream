@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+function main {
+  basebox build "$VAGRANT_DEFAULT_PROVIDER" "$@"
+  basebox remove "$VAGRANT_DEFAULT_PROVIDER"
+  basebox add "$VAGRANT_DEFAULT_PROVIDER"
+}
+
+main "$@"
