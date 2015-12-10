@@ -9,8 +9,8 @@ function main {
   case "$nm_provider" in
     virtualbox|aws)
       true ;;
-    vmware|vmware_desktop)
-      nm_provider="vmware_desktop"
+    vmware|vmware_desktop|vmware_fusion)
+      nm_provider="vmware_fusion"
       ;;
     digitalocean|digital_ocean)
       nm_provider="digitalocean"
