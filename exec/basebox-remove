@@ -7,6 +7,9 @@ function main {
   local pth_box=
 
   case "$nm_vagrant_provider" in
+    vmware|vmware_desktop)
+      nm_vagrant_provider="vmware_desktop"
+      ;;
     digitalocean|digital_ocean)
       nm_vagrant_provider="digital_ocean"
       ;;
