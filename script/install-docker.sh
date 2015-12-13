@@ -30,11 +30,6 @@ ____EOF
     if [[ "${UBUNTU_MAJOR_VERSION}" -gt "14" ]]; then
       sudo systemctl enable docker
     fi
-
-    # reboot
-    echo "Rebooting the machine..."
-    reboot
-    sleep 60
 }
 
 docker_io_install() {
