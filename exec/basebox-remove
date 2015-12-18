@@ -8,7 +8,7 @@ function main {
 
   case "$nm_vagrant_provider" in
     vmware|vmware_desktop|vmware_fusion)
-      nm_vagrant_provider="vmware_fusion"
+      nm_vagrant_provider="vmware_desktop"
       ;;
     digitalocean|digital_ocean)
       nm_vagrant_provider="digital_ocean"
