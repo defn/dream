@@ -10,7 +10,7 @@ function main {
     virtualbox|aws)
       true ;;
     vmware|vmware_desktop|vmware_fusion)
-      nm_provider="vmware_fusion"
+      nm_provider="vmware_desktop"
       ;;
     digitalocean|digital_ocean)
       nm_provider="digitalocean"
