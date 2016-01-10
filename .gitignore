@@ -12,3 +12,6 @@ Makefile.local
 .DS_Store
 
 custom.sh
+
+# vagrant
+/.bundle
