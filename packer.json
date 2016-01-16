@@ -88,7 +88,7 @@
       "type": "vagrant",
       "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs", "digitalocean" ],
       "keep_input_artifact": false,
-      "output": "box/{{user `provider`}}/{{user `vm_name`}}.box",
+      "output": "{{env `BASEBOX_CACHE`}}/box/{{user `provider`}}/{{user `vm_name`}}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"
     },
     {
