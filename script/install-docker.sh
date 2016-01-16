@@ -82,8 +82,11 @@ give_docker_non_root_access() {
 }
 
 if [[ ! $PACKER_BUILDER_TYPE =~ docker ]]; then
-  give_docker_non_root_access
-  docker_package_install 
+  if [[ ! -x "$(which docker 2>&- || true)" ]]; then
+    give_docker_non_root_access
+    docker_package_install 
+    gpasswd -a ubuntu docker
+  fi
+  
   docker pull ubuntu:trusty
-  gpasswd -a ubuntu docker
 fi
