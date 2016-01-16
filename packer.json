@@ -67,7 +67,7 @@
     },
     {
       "type": "docker",
-      "image": "ubuntu:packer-input",
+      "image": "ubuntu:latest",
       "commit": "true",
       "pull": "false"
     }
