@@ -20,12 +20,12 @@ function main {
   case "$nm_packer_builder" in
     vmware_fusion|vmware_desktop)
       nm_provider="vmware_desktop"
-      nm_packer_builder="vmware-iso"
+      nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}"
       ;;
 
     virtualbox)
       nm_provider="${nm_packer_builder}"
-      nm_packer_builder="${nm_packer_builder}-iso"
+      nm_packer_builder="${nm_packer_builder}-${BASEBOX_TYPE:-iso}"
       ;;
 
     docker)

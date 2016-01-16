@@ -21,12 +21,8 @@
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
       "vboxmanage": [
-        [
-          "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"
-        ],
-        [
-          "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
-        ]
+        [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ]
       ],
       "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{user `vm_name`}}",
@@ -45,6 +41,21 @@
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
+    },
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "vagrant.ovf",
+      "headless": "{{ user `headless` }}",
+      "output_directory": "output-{{ user `vm_name` }}-virtualbox-ovf",
+      "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_wait_timeout": "10000s",
+      "vboxmanage": [
+        [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
+        [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ]
+      ],
+      "vm_name": "{{user `vm_name`}}"
     },
     {
       "type": "digitalocean",
@@ -75,7 +86,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "only": [ "virtualbox-iso", "amazon-ebs", "digitalocean" ],
+      "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs", "digitalocean" ],
       "keep_input_artifact": false,
       "output": "box/{{user `provider`}}/{{user `vm_name`}}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"
