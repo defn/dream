@@ -44,7 +44,7 @@
     },
     {
       "type": "virtualbox-ovf",
-      "source_path": "vagrant.ovf",
+      "source_path": "{{ env `BASEBOX_CACHE`}}/box/vagrant.ovf",
       "headless": "{{ user `headless` }}",
       "output_directory": "output-{{ user `vm_name` }}-virtualbox-ovf",
       "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
