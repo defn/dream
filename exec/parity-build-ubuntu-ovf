@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+function main {
+  export BASEBOX_TYPE='ovf'
+  exec parity build ubuntu "$@"
+}
+
+source sub "$0" "$@"

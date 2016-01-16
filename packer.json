@@ -44,7 +44,7 @@
     },
     {
       "type": "virtualbox-ovf",
-      "source_path": "{{ env `BASEBOX_CACHE`}}/box/vagrant.ovf",
+      "source_path": "{{ user `cache`}}/box/vagrant.ovf",
       "headless": "{{ user `headless` }}",
       "output_directory": "output-{{ user `vm_name` }}-virtualbox-ovf",
       "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
@@ -88,7 +88,7 @@
       "type": "vagrant",
       "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs", "digitalocean" ],
       "keep_input_artifact": false,
-      "output": "{{env `BASEBOX_CACHE`}}/box/{{user `provider`}}/{{user `vm_name`}}.box",
+      "output": "{{user `cache`}}/box/{{user `provider`}}/{{user `vm_name`}}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"
     },
     {
@@ -136,7 +136,7 @@
     "virtualbox_guest_os_type": "Ubuntu_64",
     "vm_name": "ubuntu1404",
     "image_id": "",
-    "instance_type": ""
-  }
+    "instance_type": "",
+    "cache": "{{ env `BASEBOX_CACHE`}}" }
 }
 
