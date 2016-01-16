@@ -58,15 +58,6 @@
       "vm_name": "{{user `vm_name`}}"
     },
     {
-      "type": "digitalocean",
-      "api_token": "{{ user `secret_key` }}", 
-      "image": "{{ user `image_id` }}",
-      "region": "{{ user `region` }}",
-      "size": "{{ user `instance_type` }}",
-      "droplet_name": "{{user `vm_name`}}",
-      "snapshot_name": "{{user `snapshot_name`}}"
-    },
-    {
       "type": "amazon-ebs",
       "access_key": "{{ user `access_key` }}", 
       "secret_key": "{{ user `secret_key` }}", 
@@ -86,7 +77,7 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs", "digitalocean" ],
+      "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs"  ]
       "keep_input_artifact": false,
       "output": "{{user `cache`}}/box/{{user `provider`}}/{{user `vm_name`}}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}"

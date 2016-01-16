@@ -2,11 +2,15 @@
 
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  cd "$shome"
 
   local json_var='{}'
 
   local nm_packer_builder="$VAGRANT_DEFAULT_PROVIDER"
   local nm_provider
+
   local nm_region=
   local nm_snapshot=
   local nm_vm="ubuntu1404"
@@ -15,7 +19,6 @@ function main {
   local image_id=
   local instance_type=
   local fl_docker="true"
-
 
   case "$nm_packer_builder" in
     vmware_fusion|vmware_desktop)
@@ -71,32 +74,6 @@ function main {
       fi
       ;;
 
-    digitalocean|digital_ocean)
-      nm_packer_builder='digitalocean'
-      nm_provider="${nm_packer_builder}"
-
-      if [[ "$#" -gt 0 ]]; then
-        nm_region="$1"; shift
-      fi
-      : ${nm_region:=${DIGITALOCEAN_DEFAULT_REGION:-sfo1}}
-
-      nm_vm="${nm_vm}-${nm_region}"
-      secret_key="$DIGITALOCEAN_API_TOKEN"
-      nm_snapshot="packer-${nm_region}-$(date +%s)"
-
-      if [[ "$#" -gt 0 ]]; then
-        image_id="$1"; shift
-      else
-        image_id='ubuntu-14-04-x64'
-      fi
-
-      if [[ "$#" -gt 0 ]]; then
-        instance_type="$1"; shift
-      else
-        instance_type='2gb'
-      fi
-      ;;
-
     "")
       true ;;
 
@@ -117,7 +94,7 @@ function main {
       ;;
   esac
 
-  local tmp_ubuntu="$(mktemp -t XXXXXX)"
+  local $tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer.json" | jq \
     --arg provider "$nm_provider" '.provisioners[].scripts = 
     [ "script/first.sh",
@@ -128,7 +105,8 @@ function main {
       "script/install-docker.sh",
       "custom-script.sh",
       "script/cleanup.sh",
-      "script/last.sh" ]' | tee "$tmp_ubuntu"
+      "script/last.sh" 
+      ]' | tee "$tmp_packer"
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
@@ -142,7 +120,8 @@ function main {
     --arg image_id "$image_id" \
     --arg instance_type "$instance_type" \
     --arg docker "$fl_docker" \
-    '{  headless: "true", 
+    '{  
+        headless: "true", 
         iso_path: $iso_path, 
         ssh_username: "ubuntu",
         docker: $docker,
@@ -155,10 +134,11 @@ function main {
         vm_name: $vm_name,
         image_id: $image_id,
         instance_type: $instance_type,
-        cpus: "2" }' | tee "$tmp_options"
+        cpus: "2" 
+     }' | tee "$tmp_options"
 
-  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_ubuntu"
-  rm -f "$tmp_options" "$tmp_ubuntu"
+  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_packer"
+  rm -f "$tmp_options" "$tmp_packer"
 }
 
-source sub "$0" "$@"
+source sub "$BASH_SOURCE" "$@"
