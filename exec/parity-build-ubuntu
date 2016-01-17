@@ -6,10 +6,8 @@ function main {
 
   cd "$shome"
 
-  local json_var='{}'
-
-  local nm_packer_builder="$VAGRANT_DEFAULT_PROVIDER"
-  local nm_provider
+  local nm_packer_builder=
+  local nm_provider=
 
   local nm_region=
   local nm_snapshot=
@@ -18,27 +16,25 @@ function main {
   local access_key=
   local image_id=
   local instance_type=
-  local fl_docker="true"
 
-  case "$nm_packer_builder" in
+  case "$VAGRANT_DEFAULT_PROVIDER" in
     vmware_fusion|vmware_desktop)
       nm_provider="vmware_desktop"
       nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}"
       ;;
 
     virtualbox)
-      nm_provider="${nm_packer_builder}"
-      nm_packer_builder="${nm_packer_builder}-${BASEBOX_TYPE:-iso}"
+      nm_provider="virtualbox"
+      nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}"
       ;;
 
     docker)
-      fl_docker="false"
       nm_provider='docker'
       nm_packer_builder='docker'
       ;;
 
     aws)
-      nm_provider="${nm_packer_builder}"
+      nm_provider="aws"
       nm_packer_builder="amazon-ebs"
 
       if [[ "$#" -gt 0 ]]; then
@@ -74,23 +70,9 @@ function main {
       fi
       ;;
 
-    "")
-      true ;;
-
-    "{"*)
-      json_var="$nm_packer_builder"
-      nm_packer_builder=
-      ;;
-
     *)
       echo ERROR: "Invalid virtualization type: $nm_provider" 1>&2
       return 1
-      ;;
-  esac
-
-  case "${1:-}" in
-    "{"*)
-      json_var="$1"; shift
       ;;
   esac
 
@@ -101,40 +83,37 @@ function main {
       "script/update.sh",
       "script/sshd.sh",
       "script/ubuntu.sh",
+      "script/network.sh",
       "script/\($provider).sh",
-      "script/install-docker.sh",
-      "custom-script.sh",
+      "script/site.sh",
       "script/cleanup.sh",
       "script/last.sh" 
       ]' | tee "$tmp_packer"
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
-    --arg iso_path "$shome/iso" \
+    --arg provider "$nm_provider" \
+    --arg vm_name "$nm_vm" \
     --arg secret_key "$secret_key" \
     --arg access_key "$access_key" \
-    --arg provider "$nm_provider" \
     --arg region "$nm_region" \
-    --arg vm_name "$nm_vm" \
     --arg snapshot_name "$nm_snapshot" \
     --arg image_id "$image_id" \
     --arg instance_type "$instance_type" \
-    --arg docker "$fl_docker" \
+    --arg iso_path "$shome/iso" \
+    --arg iso_dir "$shome" \
     '{  
-        headless: "true", 
         iso_path: $iso_path, 
-        ssh_username: "ubuntu",
-        docker: $docker,
-        update: "true",
+        iso_dir: $iso_dir,
+        provider: $provider,
+        vm_name: $vm_name,
+
         access_key: $access_key,
         secret_key: $secret_key,
-        provider: $provider,
         region: $region,
         snapshot_name: $snapshot_name,
-        vm_name: $vm_name,
         image_id: $image_id,
-        instance_type: $instance_type,
-        cpus: "2" 
+        instance_type: $instance_type
      }' | tee "$tmp_options"
 
   packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_packer"
