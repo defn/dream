@@ -30,9 +30,6 @@ apt-get -y autoremove --purge
 apt-get -y clean
 apt-get -y autoclean
 
-echo "==> Installed packages"
-dpkg --get-selections | grep -v deinstall
-
 # Remove Bash history
 unset HISTFILE
 rm -f /root/.bash_history
