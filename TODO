@@ -1,6 +1,4 @@
 cat images.json | jq -r '.Images | sort_by(.CreationDate)[] | select(.VirtualizationType == "hvm" and .State == "available" and .BlockDeviceMappings[0].Ebs.VolumeType == "gp2" and .Architecture == "x86_64") | "\(.ImageId) \(.OwnerId) \(.Name) \(.VirtualizationType) \(.BlockDeviceMappings[0].Ebs.VolumeType) \(.Architecture) \(.CreationDate)"' | grep ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server | tail -1 | awk '{print $1}'
 
--aptitude -y install python-setuptools python-dev libffi-dev libssl-dev
--aptitude -y install libreadline-dev
 -aptitude -y install gcc-multilib g++-multilib
 
