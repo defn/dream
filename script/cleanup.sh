@@ -7,12 +7,10 @@ sleep ${CLEANUP_PAUSE}
 # Make sure udev does not block our network - http://6.ptmc.org/?p=164
 echo "==> Cleaning up udev rules"
 rm -rf /dev/.udev/
-rm /lib/udev/rules.d/75-persistent-net-generator.rules
+rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
 
 echo "==> Cleaning up leftover dhcp leases"
-if [ -d "/var/lib/dhcp" ]; then
-    rm /var/lib/dhcp/*
-fi 
+rm -f /var/lib/dhcp/*
 
 # Add delay to prevent "vagrant reload" from failing
 if [[ -f /etc/network/interfaces.d/eth0.cfg ]]; then
