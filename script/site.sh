@@ -71,9 +71,6 @@ give_docker_non_root_access() {
 
 aptitude update
 aptitude -y install git vim unzip curl language-pack-en
-aptitude -y install python-setuptools python-dev libffi-dev libssl-dev
-aptitude -y install libreadline-dev
-aptitude -y install gcc-multilib g++-multilib
 
 aptitude -y purge nano mlocate
 
