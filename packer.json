@@ -70,7 +70,7 @@
   },
   {
     "type": "docker",
-    "image": "ubuntu:latest",
+    "image": "{{ user `docker_image` }}",
     "commit": "true",
     "pull": "false"
   }
@@ -114,6 +114,7 @@
       "update": "false",
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
+      "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
       "vagrantfile_template": "",
       "vm_name": "ubuntu1404",
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",

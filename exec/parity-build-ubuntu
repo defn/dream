@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export BASEBOX_DOCKER_IMAGE="ubuntu:latest"
+
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
