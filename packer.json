@@ -88,7 +88,7 @@
       "type": "docker-tag",
       "only": [ "docker" ],
       "repository": "ubuntu",
-      "tag": "packer",
+      "tag": "{{ user `docker_tag` }}",
       "force": "true"
     }
   ],
@@ -115,6 +115,7 @@
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
       "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
+      "docker_tag": "{{ env `BASEBOX_DOCKER_TAG` }}",
       "vagrantfile_template": "",
       "vm_name": "ubuntu1404",
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",
