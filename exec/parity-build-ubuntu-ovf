@@ -2,6 +2,7 @@
 
 function main {
   export BASEBOX_TYPE='ovf'
+  export BASEBOX_SUFFIX="${1:+-$1}"
   exec parity build ubuntu "$@"
 }
 
