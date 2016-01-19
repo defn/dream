@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ -z "${BASEBOX_DOCKER_IMAGE:-}" ]]; THEN
+if [[ -z "${BASEBOX_DOCKER_IMAGE:-}" ]]; then
   export BASEBOX_DOCKER_IMAGE='ubuntu:latest'
 fi
 
