@@ -1,21 +1,9 @@
-output-*
-*.box
-*.tar.gz
-iso
-crash.log
-tmp
-.vagrant/
-*.swp
-Makefile.local
-.tmpatlas/
-
-.DS_Store
-
-custom.sh
-
 # vagrant
 /.bundle
 
 # virtualbox
 *.vmdk
 *.ovf
+
+# packer
+/output
