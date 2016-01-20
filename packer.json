@@ -96,7 +96,12 @@
     {
       "environment_vars": [
         "SSH_USERNAME={{ user `ssh_username` }}",
-        "SSH_PASSWORD={{ user `ssh_password` }}"
+        "SSH_PASSWORD={{ user `ssh_password` }}",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "ftp_proxy={{user `ftp_proxy`}}",
+        "rsync_proxy={{user `rsync_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
         ],
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
@@ -121,6 +126,12 @@
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",
       "iso_checksum": "1d1ff8df8c3182af3192e979317f28dbfb148f50",
       "iso_checksum_type": "sha1",
+
+      "http_proxy": "{{env `http_proxy`}}",
+      "https_proxy": "{{env `https_proxy`}}",
+      "ftp_proxy": "{{env `ftp_proxy`}}",
+      "rsync_proxy": "{{env `rsync_proxy`}}",
+      "no_proxy": "{{env `no_proxy`}}",
 
       "preseed" : "preseed.cfg",
       "hostname": "vagrant",
