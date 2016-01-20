@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-apt-get install -y openssh-server
+aptitude install -y openssh-server
 
 install -d -o root -g root -m 0755  /var/run/sshd
 
