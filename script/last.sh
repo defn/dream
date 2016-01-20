@@ -8,7 +8,7 @@ passwd -l ubuntu
 aptitude install -y cloud-init
 
 aptitude -y update
-aptitude -y dist-upgrade --force-yes
+aptitude -y dist-upgrade
 aptitude -y upgrade
 
 sync
