@@ -2,6 +2,7 @@
 
 env | grep -i proxy
 uname -a
-sudo apt-get -y autoremove
-sudo apt-get install -y aptitude
-sudo aptitude -y update
+echo "Acquire::http::Proxy \"$http_proxy\";" | tee /etc/apt/apt.conf.d/99boxcache
+apt-get install -y aptitude
+aptitude -y update
+apt-get -y autoremove

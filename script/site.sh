@@ -7,13 +7,13 @@ give_docker_non_root_access() {
 
 docker_package_install() {
     # Get the latest docker package
-    curl -sSL https://get.docker.com/gpg | sudo apt-key add -
+    curl -sSL https://get.docker.com/gpg | apt-key add -
 
     # Install Docker
     curl -sSL https://get.docker.com/ | sh
 
     # listen on tcp, use device mapper
-    cat | sudo tee -a /etc/default/docker <<"____EOF"
+    cat | tee -a /etc/default/docker <<"____EOF"
 DOCKER_OPTS="-H tcp://0.0.0.0: --storage-driver=devicemapper"
 ____EOF
 
