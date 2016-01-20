@@ -29,6 +29,5 @@ if [[ ! $PACKER_BUILDER_TYPE =~ docker ]]; then
   if [[ ! -x "$(which docker 2>&- || true)" ]]; then
     give_docker_non_root_access
     docker_package_install 
-    docker pull ubuntu:trusty
   fi
 fi
