@@ -50,7 +50,7 @@
     "ssh_handshake_attempts": 100,
     "headless": "{{ user `headless` }}",
     "output_directory": "output/{{ user `vm_name` }}-virtualbox-ovf",
-    "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
+    "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -h now",
     "source_path": "{{ user `cache` }}/box/vagrant.ovf",
 
     "vboxmanage": [
@@ -119,8 +119,6 @@
       "update": "false",
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
-      "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
-      "docker_tag": "{{ env `BASEBOX_DOCKER_TAG` }}",
       "vagrantfile_template": "",
       "vm_name": "ubuntu1404",
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",
@@ -133,9 +131,14 @@
       "rsync_proxy": "{{env `rsync_proxy`}}",
       "no_proxy": "{{env `no_proxy`}}",
 
-      "preseed" : "preseed.cfg",
       "hostname": "vagrant",
+      "preseed" : "preseed.cfg",
+
+      "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
+      "docker_tag": "{{ env `BASEBOX_DOCKER_TAG` }}",
+
       "virtualbox_guest_os_type": "Ubuntu_64",
+
       "image_id": "",
       "instance_type": ""
   }
