@@ -5,7 +5,7 @@ function main {
   export BASEBOX_SUFFIX='ovf'
 
   if [[ -n "${1:-}" ]]; then
-    BASEBOX_SUFFIX="$1"; shift
+    BASEBOX_SUFFIX="-$1"; shift
   fi
   exec parity build ubuntu "$@"
 }

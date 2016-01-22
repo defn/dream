@@ -124,4 +124,6 @@ function main {
   rm -f "$tmp_options" "$tmp_packer"
 }
 
+env | grep BASEBOX
+
 source sub "$BASH_SOURCE" "$@"
