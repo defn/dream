@@ -1,9 +1,5 @@
 # vagrant
 /.bundle
 
-# virtualbox
-*.vmdk
-*.ovf
-
 # packer
 /output
