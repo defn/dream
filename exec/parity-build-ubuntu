@@ -38,7 +38,6 @@ function main {
       if [[ "$#" -gt 0 ]]; then
         AWS_DEFAULT_PROFILE="$1"; shift
       fi
-      : ${AWS_DEFAULT_PROFILE:=us-west-1}
       export AWS_DEFAULT_PROFILE
 
       nm_vm="${nm_vm}-${AWS_DEFAULT_PROFILE}"
