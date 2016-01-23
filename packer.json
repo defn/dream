@@ -105,7 +105,18 @@
         ],
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
-      "type": "shell"
+      "type": "shell",
+      "only": [ "virtualbox-iso", "virtualbox-ovf", "docker"  ]
+    },
+    {
+      "environment_vars": [
+        "SSH_USERNAME={{ user `ssh_username` }}",
+        "SSH_PASSWORD={{ user `ssh_password` }}"
+        ],
+      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [ ],
+      "type": "shell",
+      "only": [ "amazon-ebs"  ]
     }
   ],
     "variables": {

@@ -2,7 +2,9 @@
 
 env | grep -i proxy
 uname -a
-echo "Acquire::http::Proxy \"$http_proxy\";" | tee /etc/apt/apt.conf.d/99boxcache
+if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
+  echo "Acquire::http::Proxy \"$http_proxy\";" | tee /etc/apt/apt.conf.d/99boxcache
+fi
 apt-get install -y aptitude
 aptitude -y update
 apt-get -y autoremove
