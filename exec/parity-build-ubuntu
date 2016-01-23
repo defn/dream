@@ -13,13 +13,7 @@ function main {
   local nm_packer_builder=
   local nm_provider=
 
-  local nm_region=
-  local nm_snapshot=
   local nm_vm="ubuntu1404"
-  local secret_key=
-  local access_key=
-  local image_id=
-  local instance_type=
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
     vmware_fusion|vmware_desktop)
@@ -42,17 +36,17 @@ function main {
       nm_packer_builder="amazon-ebs"
 
       if [[ "$#" -gt 0 ]]; then
-        nm_region="$1"; shift
+        AWS_DEFAULT_PROFILE="$1"; shift
       fi
-      : ${nm_region:=${AWS_DEFAULT_REGION:-us-west-1}}
+      : ${AWS_DEFAULT_PROFILE:=us-west-1}
+      export AWS_DEFAULT_PROFILE
 
-      nm_vm="${nm_vm}-${nm_region}"
-      access_key="$AWS_ACCESS_KEY"
-      secret_key="$AWS_SECRET_KEY"
-      nm_snapshot="packer-${nm_region}-$(date +%s)"
+      nm_vm="${nm_vm}-${AWS_DEFAULT_PROFILE}"
+      EC2_TARGET_AMI_NAME="packer-${AWS_DEFAULT_PROFILE}-$(date +%s)"
+      export EC2_TARGET_AMI_NAME
 
       if [[ "$#" -gt 0 ]]; then
-        image_id="$1"; shift
+        EC2_SOURCE_AMI="$1"; shift
       else
         local ap_northeast_1=ami-d886a1b6
         local ap_southeast_1=ami-a17dbac2
@@ -64,14 +58,16 @@ function main {
         local us_west_1=ami-44b1de24
         local us_west_2=ami-46a3b427
 
-        eval image_id="\$${nm_region//-/_}"
+        eval EC2_SOURCE_AMI="\$${AWS_DEFAULT_PROFILE//-/_}"
       fi
+      export EC2_SOURCE_AMI
 
       if [[ "$#" -gt 0 ]]; then
-        instance_type="$1"; shift
+        EC2_INSTANCE_TYPE="$1"; shift
       else
-        instance_type='c4.large'
+        EC2_INSTANCE_TYPE='c4.large'
       fi
+      export EC2_INSTANCE_TYPE
       ;;
 
     *)
@@ -98,26 +94,13 @@ function main {
   jq -n \
     --arg provider "$nm_provider" \
     --arg vm_name "$nm_vm" \
-    --arg secret_key "$secret_key" \
-    --arg access_key "$access_key" \
-    --arg region "$nm_region" \
-    --arg snapshot_name "$nm_snapshot" \
-    --arg image_id "$image_id" \
-    --arg instance_type "$instance_type" \
     --arg iso_path "$shome/iso" \
     --arg iso_dir "$shome" \
     '{  
         iso_path: $iso_path, 
         iso_dir: $iso_dir,
         provider: $provider,
-        vm_name: $vm_name,
-
-        access_key: $access_key,
-        secret_key: $secret_key,
-        region: $region,
-        snapshot_name: $snapshot_name,
-        image_id: $image_id,
-        instance_type: $instance_type
+        vm_name: $vm_name
      }' | tee "$tmp_options"
 
   packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_packer"

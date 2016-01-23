@@ -62,11 +62,11 @@
     "type": "amazon-ebs",
     "access_key": "{{ user `access_key` }}", 
     "secret_key": "{{ user `secret_key` }}", 
-    "source_ami": "{{ user `image_id` }}",
+    "source_ami": "{{ user `source_ami` }}",
     "region": "{{ user `region` }}",
     "instance_type": "{{ user `instance_type` }}",
     "ssh_username": "{{ user `ssh_username` }}",
-    "ami_name": "{{ user `snapshot_name` }}"
+    "ami_name": "{{ user `target_ami_name` }}"
   },
   {
     "type": "docker",
@@ -139,7 +139,12 @@
 
       "virtualbox_guest_os_type": "Ubuntu_64",
 
-      "image_id": "",
-      "instance_type": ""
+      "access_key": "{{ env `AWS_ACCESS_KEY` }}",
+      "secret_key": "{{ env `AWS_SECRET_KEY` }}",
+      "region": "{{ env `AWS_DEFAULT_PROFILE` }}",
+      
+      "source_ami": "{{ env `EC2_AMI` }}",
+      "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
+      "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
   }
 }
