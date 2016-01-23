@@ -35,11 +35,6 @@ function main {
       nm_provider="aws"
       nm_packer_builder="amazon-ebs"
 
-      if [[ "$#" -gt 0 ]]; then
-        AWS_DEFAULT_PROFILE="$1"; shift
-      fi
-      export AWS_DEFAULT_PROFILE
-
       nm_vm="${nm_vm}-${AWS_DEFAULT_PROFILE}"
       EC2_TARGET_AMI_NAME="packer-${AWS_DEFAULT_PROFILE}-$(date +%s)"
       export EC2_TARGET_AMI_NAME
