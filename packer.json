@@ -143,7 +143,7 @@
       "secret_key": "{{ env `AWS_SECRET_KEY` }}",
       "region": "{{ env `AWS_DEFAULT_PROFILE` }}",
       
-      "source_ami": "{{ env `EC2_AMI` }}",
+      "source_ami": "{{ env `EC2_SOURCE_AMI` }}",
       "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
       "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
   }
