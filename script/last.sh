@@ -7,7 +7,7 @@ passwd -l ubuntu
 # install cloud-init last until TODO ssh breakage identified
 aptitude install -y cloud-init
 
-aptitude -y update
+aptitude -y update > /dev/null
 aptitude -y dist-upgrade
 aptitude -y upgrade
 rm -f /etc/apt/apt.conf.d/99boxcache
