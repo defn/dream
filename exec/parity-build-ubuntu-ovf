@@ -12,7 +12,7 @@ function main {
   if [[ -n "${1:-}" ]]; then
     BASEBOX_SUFFIX_TARGET="-$1"; shift
   else
-    BASEBOX_SUFFIX_TARGET="-$BASEBOX_SUFFIX"; shift
+    BASEBOX_SUFFIX_TARGET="$BASEBOX_SUFFIX"; shift
   else
   fi
 
