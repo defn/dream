@@ -44,7 +44,9 @@ function main {
 
   local tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer.json" | jq \
-    --arg provider "$nm_provider" '.provisioners[].scripts = 
+    --arg provider "$nm_provider" \
+    --arg builder "$nm_packer_builder" \
+  '.provisioners[].scripts = 
     [ "script/first.sh",
       "script/update.sh",
       "script/sshd.sh",
@@ -54,7 +56,8 @@ function main {
       "script/site.sh",
       "script/cleanup.sh",
       "script/last.sh" 
-      ]' | tee "$tmp_packer"
+    ] | [ .builders[] | select(.type == $builder) ]' \
+        | tee "$tmp_packer"
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
