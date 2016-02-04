@@ -3,10 +3,19 @@
 function main {
   export BASEBOX_TYPE='ovf'
   export BASEBOX_SUFFIX=
+  export BASEBOX_SUFFIX_TARGET=
 
   if [[ -n "${1:-}" ]]; then
     BASEBOX_SUFFIX="-$1"; shift
   fi
+
+  if [[ -n "${1:-}" ]]; then
+    BASEBOX_SUFFIX_TARGET="-$1"; shift
+  else
+    BASEBOX_SUFFIX_TARGET="-$BASEBOX_SUFFIX"; shift
+  else
+  fi
+
   exec parity build ubuntu "$@"
 }
 

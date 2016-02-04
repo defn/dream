@@ -79,7 +79,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}{{ user `suffix` }}.box",
+      "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}{{ user `target` }}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}",
       "compression_level": 0,
       "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs"  ]
@@ -130,6 +130,7 @@
       "update": "false",
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
+      "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
       "vagrantfile_template": "",
       "vm_name": "ubuntu1404",
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.3-server-amd64+mac.iso",
