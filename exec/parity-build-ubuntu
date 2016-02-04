@@ -54,7 +54,7 @@ function main {
       "script/site.sh",
       "script/cleanup.sh",
       "script/last.sh" 
-      ]' | tee "$tmp_packer"
+      ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
