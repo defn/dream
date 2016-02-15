@@ -51,7 +51,7 @@
     "headless": "{{ user `headless` }}",
     "output_directory": "output/{{ user `vm_name` }}-virtualbox-ovf",
     "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -h now",
-    "source_path": "{{ user `cache` }}/box/vagrant{{ user `suffix` }}.ovf",
+    "source_path": "{{ user `source`}}",
 
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
@@ -142,6 +142,8 @@
       "ftp_proxy": "{{env `ftp_proxy`}}",
       "rsync_proxy": "{{env `rsync_proxy`}}",
       "no_proxy": "{{env `no_proxy`}}",
+
+      "source": "{{env `BASEBOX_SOURCE`}}",
 
       "hostname": "vagrant",
       "preseed" : "preseed.cfg",
