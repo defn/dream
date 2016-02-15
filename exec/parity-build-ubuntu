@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ -z "${BASEBOX_DOCKER_IMAGE:-}" ]]; then
-  export BASEBOX_DOCKER_IMAGE='ubuntu:latest'
-fi
-
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"

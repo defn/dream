@@ -15,7 +15,6 @@ function main {
     BASEBOX_SUFFIX_TARGET="$BASEBOX_SUFFIX"
   fi
 
-  
   exec parity build ubuntu "$@"
 }
 
