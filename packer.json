@@ -70,7 +70,7 @@
   },
   {
     "type": "docker",
-    "image": "{{ user `docker_image` }}",
+    "image": "{{ user `source` }}",
     "commit": "true",
     "pull": "false"
   }
@@ -88,7 +88,7 @@
       "type": "docker-tag",
       "only": [ "docker" ],
       "repository": "ubuntu",
-      "tag": "{{ user `docker_tag` }}",
+      "tag": "{{ user `tag` }}",
       "force": "true"
     }
   ],
@@ -144,12 +144,10 @@
       "no_proxy": "{{env `no_proxy`}}",
 
       "source": "{{env `BASEBOX_SOURCE`}}",
+      "tag": "{{ env `BASEBOX_TAG` }}",
 
       "hostname": "vagrant",
       "preseed" : "preseed.cfg",
-
-      "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
-      "docker_tag": "{{ env `BASEBOX_DOCKER_TAG` }}",
 
       "virtualbox_guest_os_type": "Ubuntu_64",
 
