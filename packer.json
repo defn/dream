@@ -49,7 +49,7 @@
     "ssh_wait_timeout": "10000s",
     "ssh_handshake_attempts": 100,
     "headless": "{{ user `headless` }}",
-    "output_directory": "output/{{ user `vm_name` }}-virtualbox-ovf",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-virtualbox-ovf",
     "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -h now",
     "source_path": "{{ user `source`}}",
 
@@ -70,7 +70,7 @@
   },
   {
     "type": "docker",
-    "image": "{{ user `docker_image` }}",
+    "image": "{{ user `source` }}",
     "commit": "true",
     "pull": "false"
   }
@@ -88,7 +88,7 @@
       "type": "docker-tag",
       "only": [ "docker" ],
       "repository": "ubuntu",
-      "tag": "{{ user `docker_tag` }}",
+      "tag": "{{ user `tag` }}",
       "force": "true"
     }
   ],
@@ -133,7 +133,7 @@
       "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
       "vagrantfile_template": "",
       "vm_name": "ubuntu1404",
-      "iso_url": "http://cdimage.ubuntu.com/releases/14.04/release/ubuntu-14.04.4-server-amd64+mac.iso",
+      "iso_url": "http://cdimage.ubuntu.com/releases/14.04.4/release/ubuntu-14.04.4-server-amd64+mac.iso",
       "iso_checksum": "14ae82a5ff69435c35650b21d9c19acc06b09422",
       "iso_checksum_type": "sha1",
 
@@ -144,12 +144,10 @@
       "no_proxy": "{{env `no_proxy`}}",
 
       "source": "{{env `BASEBOX_SOURCE`}}",
+      "tag": "{{ env `BASEBOX_TAG` }}",
 
       "hostname": "vagrant",
       "preseed" : "preseed.cfg",
-
-      "docker_image": "{{ env `BASEBOX_DOCKER_IMAGE` }}",
-      "docker_tag": "{{ env `BASEBOX_DOCKER_TAG` }}",
 
       "virtualbox_guest_os_type": "Ubuntu_64",
 

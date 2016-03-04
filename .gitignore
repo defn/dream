@@ -1,5 +1,2 @@
 # vagrant
 /.bundle
-
-# packer
-/output
