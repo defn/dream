@@ -87,7 +87,7 @@
     {
       "type": "docker-tag",
       "only": [ "docker" ],
-      "repository": "ubuntu",
+      "repository": "{{ user `basebox_name` }}",
       "tag": "{{ user `tag` }}",
       "force": "true"
     }
@@ -143,7 +143,8 @@
       "rsync_proxy": "{{env `rsync_proxy`}}",
       "no_proxy": "{{env `no_proxy`}}",
 
-      "source": "{{env `BASEBOX_SOURCE`}}",
+      "basebox_name": "{{ env `BASEBOX_NAME` }}",
+      "source": "{{ env `BASEBOX_SOURCE` }}",
       "tag": "{{ env `BASEBOX_TAG` }}",
 
       "hostname": "vagrant",
