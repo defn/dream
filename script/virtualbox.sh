@@ -5,13 +5,17 @@ echo "==> Installing VirtualBox guest additions"
 aptitude install -y linux-headers-$(uname -r) build-essential perl
 aptitude install -y dkms
 
-VBOX_VERSION=$(cat /home/${SSH_USERNAME}/.vbox_version)
+pth_vbox_version="$(ls -d /home/*/.vbox_version 2>/dev/null || true)"
+if [[ -f "$pth_vbox_version" ]]; then
+  cd "$pth_vbox_version"
+  VBOX_VERSION=$(cat .vbox_version)
 
-if [[ -f "/home/${SSH_USERNAME}/VBoxGuestAdditions_$VBOX_VERSION.iso" ]]; then
-  mount -o loop /home/${SSH_USERNAME}/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
-  sh /mnt/VBoxLinuxAdditions.run
-  umount /mnt
+  if [[ -f "VBoxGuestAdditions_$VBOX_VERSION.iso" ]]; then
+    mount -o loop "$(pwd)/VBoxGuestAdditions_$VBOX_VERSION.iso" /mnt
+    sh /mnt/VBoxLinuxAdditions.run
+    umount /mnt
+  fi
+
+  rm -f VBoxGuestAdditions*iso
+  rm -f .vbox_version
 fi
-
-rm -f /home/${SSH_USERNAME}/VBoxGuestAdditions_$VBOX_VERSION.iso
-rm -f /home/${SSH_USERNAME}/.vbox_version

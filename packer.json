@@ -95,7 +95,6 @@
     "provisioners": [
     {
       "environment_vars": [
-        "SSH_USERNAME={{ user `ssh_username` }}"
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
         "ftp_proxy={{user `ftp_proxy`}}",
@@ -109,7 +108,6 @@
     },
     {
       "environment_vars": [
-        "SSH_USERNAME={{ user `ssh_username` }}",
         "http_proxy={{user `http_proxy`}}",
         "https_proxy={{user `https_proxy`}}",
         "ftp_proxy={{user `ftp_proxy`}}",
@@ -123,7 +121,6 @@
     },
     {
       "environment_vars": [
-        "SSH_USERNAME={{ user `ssh_username` }}"
         ],
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
@@ -140,7 +137,6 @@
       "ssh_password": "ubuntu",
       "ssh_username": "ubuntu",
       "ssh_private_key_file": "{{ env `BASEBOX_CACHE` }}/.ssh/ssh-vagrant",
-      "update": "false",
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
       "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
