@@ -2,4 +2,4 @@
 
 # Disable the release upgrader
 echo "==> Disabling the release upgrader"
-sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades || true
+sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades 2>/dev/null || true
