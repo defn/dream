@@ -10,7 +10,7 @@
     "headless": "{{ user `headless` }}",
     "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
     "output_directory": "output/{{ user `vm_name` }}-virtualbox-iso",
-    "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -P now",
+    "shutdown_command": "sudo -S shutdown -P now",
     "iso_urls": [ "{{ user `iso_url` }}" ],
     "iso_checksum": "{{ user `iso_checksum` }}",
     "iso_checksum_type": "{{ user `iso_checksum_type` }}",
@@ -44,13 +44,14 @@
   {
     "type": "virtualbox-ovf",
     "vm_name": "{{ user `vm_name` }}",
+    "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
     "ssh_password": "{{ user `ssh_password` }}",
     "ssh_username": "{{ user `ssh_username` }}",
     "ssh_wait_timeout": "10000s",
     "ssh_handshake_attempts": 100,
     "headless": "{{ user `headless` }}",
     "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-virtualbox-ovf",
-    "shutdown_command": "echo '{{ user `ssh_password` }}'|sudo -S shutdown -h now",
+    "shutdown_command": "sudo -S shutdown -h now",
     "source_path": "{{ user `source`}}",
 
     "vboxmanage": [
@@ -127,6 +128,7 @@
       "ssh_fullname": "ubuntu",
       "ssh_password": "ubuntu",
       "ssh_username": "ubuntu",
+      "ssh_private_key_file": "{{ env `BASEBOX_CACHE` }}/.ssh/ssh-vagrant",
       "update": "false",
       "cache": "{{ env `BASEBOX_CACHE` }}",
       "suffix": "{{ env `BASEBOX_SUFFIX` }}",
