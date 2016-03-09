@@ -9,8 +9,6 @@ function main {
   local nm_packer_builder=
   local nm_provider=
 
-  local nm_vm="ubuntu1404"
-
   case "$VAGRANT_DEFAULT_PROVIDER" in
     vmware_fusion|vmware_desktop)
       nm_provider="vmware_desktop"
@@ -55,14 +53,12 @@ function main {
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
     --arg provider "$nm_provider" \
-    --arg vm_name "$nm_vm" \
     --arg iso_path "$shome/iso" \
     --arg iso_dir "$shome" \
     '{  
         iso_path: $iso_path, 
         iso_dir: $iso_dir,
-        provider: $provider,
-        vm_name: $vm_name
+        provider: $provider
      }' | tee "$tmp_options"
 
   packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_packer"
