@@ -34,7 +34,7 @@ apt-get -y autoclean
 # Remove Bash history
 unset HISTFILE
 rm -f /root/.bash_history
-rm -f /home/${SSH_USERNAME}/.bash_history
+rm -f /home/*/.bash_history
 
 # Clean up log files
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
