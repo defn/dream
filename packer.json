@@ -9,7 +9,7 @@
     "ssh_wait_timeout": "10000s",
     "headless": "{{ user `headless` }}",
     "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
-    "output_directory": "output/{{ user `vm_name` }}-virtualbox-iso",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-iso",
     "shutdown_command": "sudo -S shutdown -P now",
     "iso_urls": [ "{{ user `iso_url` }}" ],
     "iso_checksum": "{{ user `iso_checksum` }}",
