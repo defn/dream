@@ -1,5 +1,7 @@
 #!/usr/bin/env bash -eux
 
+set -eux
+
 echo "==> Installing VirtualBox guest additions"
 
 aptitude install -y linux-headers-$(uname -r) build-essential perl
