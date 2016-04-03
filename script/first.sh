@@ -1,4 +1,4 @@
-#!/bin/bash -ux
+#!/usr/bin/env bash -ux
 
 env | grep -i proxy
 uname -a

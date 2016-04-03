@@ -1,4 +1,4 @@
-#!/bin/bash -ux
+#!/usr/bin/env bash -ux
 
 useradd -s /bin/bash -m ubuntu || true
 chsh -s /bin/bash ubuntu
