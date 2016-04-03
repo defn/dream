@@ -44,6 +44,7 @@ function main {
       "script/sshd.sh",
       "script/ubuntu.sh",
       "script/network.sh",
+      "script/pre-\($provider).sh",
       "script/\($provider).sh",
       "script/site.sh",
       "script/cleanup.sh",
