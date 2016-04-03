@@ -9,4 +9,3 @@ if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
 fi
 apt-get install -y aptitude
 aptitude -y update > /dev/null
-apt-get -y autoremove
