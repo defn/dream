@@ -10,7 +10,7 @@ aptitude -y update > /dev/null
 aptitude install -y cloud-init
 
 # upgrade all packages
-aptitude -y upgrade
+#aptitude -y upgrade
 
 rm -f /etc/apt/apt.conf.d/99boxcache
 
