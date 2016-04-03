@@ -14,7 +14,7 @@ if [[ -f "$pth_vbox_version" ]]; then
 
   if [[ -f "VBoxGuestAdditions_$VBOX_VERSION.iso" ]]; then
     mount -o loop "$(pwd)/VBoxGuestAdditions_$VBOX_VERSION.iso" /mnt
-    sh /mnt/VBoxLinuxAdditions.run
+    sh /mnt/VBoxLinuxAdditions.run || true
     umount /mnt
   fi
 
