@@ -62,7 +62,7 @@ function main {
         provider: $provider
      }' | tee "$tmp_options"
 
-  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -var-file "$tmp_options" "$tmp_packer"
+  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -force -var-file "$tmp_options" "$tmp_packer"
   rm -f "$tmp_options" "$tmp_packer"
 }
 
