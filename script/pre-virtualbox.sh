@@ -10,7 +10,5 @@ aptitude upgrade -y
 
 sync
 
-if [[ -f /var/run/reboot-required ]]; then
-  reboot
-  sleep 120
-fi
+reboot
+sleep 120
