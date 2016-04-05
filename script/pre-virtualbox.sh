@@ -4,9 +4,9 @@ set -eux
 
 umask 022
 
-aptitude install -y linux-generic-lts-xenial
 aptitude dist-upgrade -y
 aptitude upgrade -y
+aptitude install -y linux-generic-lts-xenial
 
 sync
 
