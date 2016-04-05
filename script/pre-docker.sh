@@ -1,3 +1,9 @@
-#!/usr/bin/env bash -ux
+#!/usr/bin/env bash
 
-true
+set -eux
+
+umask 022
+
+aptitude dist-upgrade -y
+aptitude upgrade -y
+aptitude install -y linux-generic-lts-xenial

@@ -8,7 +8,5 @@ aptitude dist-upgrade -y
 aptitude upgrade -y
 aptitude install -y linux-generic-lts-xenial
 
-sync
-
 reboot
 sleep 120
