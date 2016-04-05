@@ -2,8 +2,7 @@
 
 umask 022
 
-# upgrade everything except libpcre3
-aptitude hold libpcre3
+aptitude install -y linux-generic-lts-xenial
 aptitude dist-upgrade -y
 aptitude upgrade -y
 
