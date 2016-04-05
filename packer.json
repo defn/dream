@@ -107,6 +107,7 @@
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
       "type": "shell",
+      "skip_clean": "true",
       "only": [ "virtualbox-iso" ]
     },
     {
@@ -120,6 +121,7 @@
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
       "type": "shell",
+      "skip_clean": "true",
       "only": [ "virtualbox-ovf", "docker"  ]
     },
     {
@@ -128,6 +130,7 @@
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
       "type": "shell",
+      "skip_clean": "true",
       "only": [ "amazon-ebs"  ]
     }
   ],
