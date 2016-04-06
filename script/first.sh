@@ -7,4 +7,6 @@ if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
 fi
 apt-get install -y aptitude
 aptitude hold -y libpcre3
+apt-get install -y software-properties-common
+add-apt-repository ppa:ubuntu-lxc/lxd-stable
 aptitude -y update > /dev/null
