@@ -2,7 +2,7 @@
 
 source /etc/lsb-release
 
-aptitude -y install unzip curl language-pack-en lvm2 ruby git lxd
+aptitude -y install unzip curl lvm2 ruby git lxd
 aptitude -y purge nano mlocate
 
 case "$DISTRIB_CODENAME" in
