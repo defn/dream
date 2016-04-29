@@ -69,7 +69,10 @@
     "region": "{{ user `region` }}",
     "instance_type": "{{ user `instance_type` }}",
     "ssh_username": "{{ user `ssh_username` }}",
-    "ami_name": "{{ user `target_ami_name` }}"
+    "ami_name": "{{ user `target_ami_name` }}",
+    "run_tags": {
+      "Provisioner": "packer"
+    }
   },
   {
     "type": "docker",
