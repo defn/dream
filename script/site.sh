@@ -2,17 +2,20 @@
 
 source /etc/lsb-release
 
-aptitude -y install unzip curl lvm2 ruby git lxd
 aptitude -y purge nano mlocate
+
+aptitude install -y software-properties-common
 
 case "$DISTRIB_CODENAME" in
   trusty)
+    add-apt-repository ppa:ubuntu-lxc/lxd-stable
     apt-add-repository -y ppa:zfs-native/stable
     aptitude update
-    aptitude install -y ubuntu-zfs
+    aptitude install -y lxd ubuntu-zfs
     ;;
 
   xenial)
-    aptitude install -y zfsutils-linux
+    aptitude install -y lxd zfsutils-linux
     ;;
 esac
+

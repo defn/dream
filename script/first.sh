@@ -13,7 +13,4 @@ aptitude hold -y libpcre3
 aptitude -y install language-pack-en
 update-locale LANG=en_US.UTF-8
 
-apt-get install -y software-properties-common
-add-apt-repository ppa:ubuntu-lxc/lxd-stable
-
 aptitude -y update > /dev/null
