@@ -6,11 +6,11 @@ if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
   fi
 fi
 
-apt-get update > /dev/null
-
 apt-get install -y aptitude
 
 aptitude hold -y libpcre3
+
+aptitude update
 
 aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 linux-headers-$(uname -r)
 update-locale LANG=en_US.UTF-8
