@@ -10,7 +10,7 @@ function main {
   local nm_provider=
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
-    vmware_fusion|vmware_desktop)
+    vmware*)
       nm_provider="vmware_desktop"
       nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}"
       ;;

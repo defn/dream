@@ -1,15 +1,12 @@
 {
   "builders": [
   {
-    "type": "virtualbox-iso",
     "vm_name": "{{ user `vm_name` }}",
     "disk_size": "{{ user `disk_size` }}",
     "ssh_password": "{{ user `ssh_password` }}",
     "ssh_username": "{{ user `ssh_username` }}",
     "ssh_wait_timeout": "10000s",
     "headless": "{{ user `headless` }}",
-    "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
-    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-iso",
     "shutdown_command": "sudo -S shutdown -P now",
     "iso_urls": [ "{{ user `iso_url` }}" ],
     "iso_checksum": "{{ user `iso_checksum` }}",
@@ -25,7 +22,6 @@
       [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ],
       [ "modifyvm", "{{.Name}}", "--nictype1", "virtio" ]
     ],
-    "virtualbox_version_file": ".vbox_version",
     "boot_command": [
       "<esc><esc><enter><wait>",
       "/install/vmlinuz noapic ",
@@ -40,20 +36,23 @@
       "passwd/user-password-again={{ user `ssh_password` }} ",
       "passwd/username={{ user `ssh_username` }} ",
       "initrd=/install/initrd.gz -- <enter>"
-      ]
+      ],
+    "type": "virtualbox-iso",
+    "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-iso",
+    "virtualbox_version_file": ".vbox_version"
   },
   {
-    "type": "virtualbox-ovf",
     "vm_name": "{{ user `vm_name` }}",
     "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
     "ssh_username": "{{ user `ssh_username` }}",
     "ssh_wait_timeout": "10000s",
     "ssh_handshake_attempts": 100,
     "headless": "{{ user `headless` }}",
-    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-virtualbox-ovf",
     "shutdown_command": "sudo -S shutdown -h now",
     "source_path": "{{ user `source`}}",
-
+    "type": "virtualbox-ovf",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-virtualbox-ovf",
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
       [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ],
@@ -61,6 +60,46 @@
       [ "modifyvm", "{{.Name}}", "--nictype2", "virtio" ]
     ]
   },
+	{
+    "vm_name": "{{ user `vm_name` }}",
+    "disk_size": "{{ user `disk_size` }}",
+    "ssh_password": "{{ user `ssh_password` }}",
+    "ssh_username": "{{ user `ssh_username` }}",
+    "ssh_wait_timeout": "10000s",
+    "headless": "{{ user `headless` }}",
+		"guest_os_type": "{{ user `vmware_guest_os_type` }}",
+    "shutdown_command": "sudo -S shutdown -P now",
+    "iso_urls": [ "{{ user `iso_url` }}" ],
+    "iso_checksum": "{{ user `iso_checksum` }}",
+    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+    "floppy_files": [
+      "http/{{ user `preseed` }}"
+    ],
+		"boot_command": [
+			"{{ user `vmware_boot_command` }}",
+			"/install/vmlinuz noapic ",
+			"file=/floppy/{{ user `preseed` }} ",
+			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			"hostname={{ user `hostname` }} ",
+			"grub-installer/bootdev=/dev/sda<wait> ",
+			"fb=false debconf/frontend=noninteractive ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+			"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			"passwd/user-fullname={{ user `ssh_fullname` }} ",
+			"passwd/user-password={{ user `ssh_password` }} ",
+			"passwd/user-password-again={{ user `ssh_password` }} ",
+			"passwd/username={{ user `ssh_username` }} ",
+			"initrd=/install/initrd.gz -- <enter>"
+		],
+		"type": "vmware-iso",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-iso",
+		"tools_upload_flavor": "linux",
+		"vmx_data": {
+			"memsize": "{{ user `memory` }}",
+			"numvcpus": "{{ user `cpus` }}"
+		}
+	},
   {
     "type": "amazon-ebs",
     "access_key": "{{ user `access_key` }}", 
@@ -88,7 +127,7 @@
       "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}{{ user `target` }}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}",
       "compression_level": 0,
-      "only": [ "virtualbox-iso", "virtualbox-ovf", "amazon-ebs"  ]
+      "only": [ "virtualbox-iso", "virtualbox-ovf", "vmware-iso", "amazon-ebs"  ]
     },
     {
       "type": "docker-tag",
@@ -111,7 +150,7 @@
       "scripts": [ ],
       "type": "shell",
       "skip_clean": "true",
-      "only": [ "virtualbox-iso" ]
+      "only": [ "virtualbox-iso", "vmware-iso"  ]
     },
     {
       "environment_vars": [
@@ -138,19 +177,21 @@
     }
   ],
     "variables": {
+      "headless": "false",
+      "vm_name": "{{ env `BASEBOX_NAME` }}",
+      "hostname": "{{ env `BASEBOX_NAME` }}",
+
       "cpus": "2",
       "disk_size": "100000",
-      "headless": "true",
       "memory": "2048",
+
       "ssh_fullname": "ubuntu",
       "ssh_password": "ubuntu",
       "ssh_username": "ubuntu",
       "ssh_private_key_file": "{{ env `BASEBOX_CACHE` }}/.ssh/ssh-vagrant",
-      "cache": "{{ env `BASEBOX_CACHE` }}",
-      "suffix": "{{ env `BASEBOX_SUFFIX` }}",
-      "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
+
       "vagrantfile_template": "",
-      "vm_name": "{{ env `BASEBOX_NAME` }}",
+
       "iso_url": "http://cdimage.ubuntu.com/releases/14.04.4/release/ubuntu-14.04.4-server-amd64+mac.iso",
       "iso_checksum": "14ae82a5ff69435c35650b21d9c19acc06b09422",
       "iso_checksum_type": "sha1",
@@ -161,14 +202,14 @@
       "rsync_proxy": "{{env `rsync_proxy`}}",
       "no_proxy": "{{env `no_proxy`}}",
 
+      "preseed" : "preseed.cfg",
+
       "basebox_name": "{{ env `BASEBOX_NAME` }}",
       "source": "{{ env `BASEBOX_SOURCE` }}",
       "tag": "{{ env `BASEBOX_TAG` }}",
-
-      "hostname": "{{ env `BASEBOX_NAME` }}",
-      "preseed" : "preseed.cfg",
-
-      "virtualbox_guest_os_type": "Ubuntu_64",
+      "cache": "{{ env `BASEBOX_CACHE` }}",
+      "suffix": "{{ env `BASEBOX_SUFFIX` }}",
+      "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
 
       "access_key": "{{ env `AWS_ACCESS_KEY` }}",
       "secret_key": "{{ env `AWS_SECRET_KEY` }}",
@@ -176,6 +217,11 @@
       
       "source_ami": "{{ env `EC2_SOURCE_AMI` }}",
       "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
-      "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
+      "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
+
+      "virtualbox_guest_os_type": "Ubuntu_64",
+
+      "vmware_boot_command": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "vmware_guest_os_type": "ubuntu-64"
   }
 }

@@ -14,7 +14,11 @@ if [[ -f "$pth_vbox_version" ]]; then
 
   if [[ -f "VBoxGuestAdditions_$VBOX_VERSION.iso" ]]; then
     mount -o loop "$(pwd)/VBoxGuestAdditions_$VBOX_VERSION.iso" /mnt
+
+    # install
     sh /mnt/VBoxLinuxAdditions.run || true
+    echo "==> Installed VirtualBox Guest Additions ${VBOX_VERSION}" 
+
     umount /mnt
   fi
 
