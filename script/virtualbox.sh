@@ -21,7 +21,4 @@ if [[ -f "$pth_vbox_version" ]]; then
 
     umount /mnt
   fi
-
-  rm -f VBoxGuestAdditions*iso
-  rm -f .vbox_version
 fi
