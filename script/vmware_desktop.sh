@@ -38,6 +38,4 @@ if [[ -f "$pth_vmware_iso" ]]; then
 
     umount /mnt
   fi
-
-  rm -f linux.iso
 fi
