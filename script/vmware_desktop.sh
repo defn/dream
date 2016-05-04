@@ -31,8 +31,6 @@ if [[ -f "$pth_vmware_iso" ]]; then
         /tmp/vmware-tools-distrib/vmware-install.pl -f
     fi
 
-    echo "answer AUTO_KMODS_ENABLED yes" | tee -a /etc/vmware-tools/locations
-
     VMWARE_TOOLBOX_CMD_VERSION=$(vmware-toolbox-cmd -v)
     echo "==> Installed VMware Tools ${VMWARE_TOOLBOX_CMD_VERSION}" 
 
