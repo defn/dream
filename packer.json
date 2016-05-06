@@ -98,6 +98,10 @@
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
 			"numvcpus": "{{ user `cpus` }}"
+      "ethernet0.present": "TRUE",
+      "ethernet0.connectionType": "custom",
+      "ethernet0.vnet": "vmnet3",
+      "ethernet0.virtualdev": "vmxnet3"
 		}
 	},
   {
