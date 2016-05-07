@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function main {
-  export BASEBOX_TYPE="${0:##*-}"
+  export BASEBOX_TYPE="${0##*-}"
 
   export BASEBOX_SUFFIX=
   export BASEBOX_SUFFIX_TARGET=
