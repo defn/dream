@@ -67,7 +67,6 @@
     "ssh_username": "{{ user `ssh_username` }}",
     "ssh_wait_timeout": "10000s",
     "headless": "{{ user `headless` }}",
-		"guest_os_type": "{{ user `vmware_guest_os_type` }}",
     "shutdown_command": "sudo -S shutdown -P now",
     "iso_urls": [ "{{ user `iso_url` }}" ],
     "iso_checksum": "{{ user `iso_checksum` }}",
@@ -77,7 +76,7 @@
       "http/{{ user `preseed` }}"
     ],
 		"boot_command": [
-			"{{ user `vmware_boot_command` }}",
+			"{{ user `boot_command` }}",
 			"/install/vmlinuz noapic ",
 			"file=/floppy/{{ user `preseed` }} ",
 			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
@@ -93,12 +92,56 @@
 			"initrd=/install/initrd.gz -- <enter>"
 		],
 		"type": "vmware-iso",
+		"guest_os_type": "{{ user `vmware_guest_os_type` }}",
     "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-iso",
 		"tools_upload_flavor": "linux",
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
 			"numvcpus": "{{ user `cpus` }}"
 		}
+	},
+	{
+    "vm_name": "{{ user `vm_name` }}",
+    "disk_size": "{{ user `disk_size` }}",
+    "ssh_password": "{{ user `ssh_password` }}",
+    "ssh_username": "{{ user `ssh_username` }}",
+    "ssh_wait_timeout": "10000s",
+    "shutdown_command": "echo '{{ user `ssh_password` }}' | sudo -S shutdown -P now",
+    "iso_urls": [ "{{ user `iso_url` }}" ],
+    "iso_checksum": "{{ user `iso_checksum` }}",
+    "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+
+    "floppy_files": [
+      "http/{{ user `preseed` }}"
+    ],
+		"boot_command": [
+			"{{ user `boot_command` }}",
+			"/install/vmlinuz noapic ",
+			"file=/floppy/{{ user `preseed` }} ",
+			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			"hostname={{ user `hostname` }} ",
+			"grub-installer/bootdev=/dev/sda<wait> ",
+			"fb=false debconf/frontend=noninteractive ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+			"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			"passwd/user-fullname={{ user `ssh_fullname` }} ",
+			"passwd/user-password={{ user `ssh_password` }} ",
+			"passwd/user-password-again={{ user `ssh_password` }} ",
+			"passwd/username={{ user `ssh_username` }} ",
+			"initrd=/install/initrd.gz -- <wait><enter>" 
+		],
+		"floppy_files": [
+			"http/{{ user `preseed` }}"
+		],
+		"prlctl": [
+			[ "set", "{{.Name}}", "--memsize", "{{ user `memory` }}" ],
+			[ "set", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ]
+		],
+		"type": "parallels-iso",
+		"guest_os_type": "{{ user `parallels_guest_os_type` }}",
+		"output_directory": "output-{{ user `vm_name` }}-parallels-iso",
+		"prlctl_version_file": ".prlctl_version",
+		"parallels_tools_flavor": "lin"
 	},
   {
     "type": "amazon-ebs",
@@ -219,9 +262,10 @@
       "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
       "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
 
-      "virtualbox_guest_os_type": "Ubuntu_64",
+      "boot_command": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
 
-      "vmware_boot_command": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-      "vmware_guest_os_type": "ubuntu-64"
+      "virtualbox_guest_os_type": "Ubuntu_64",
+      "vmware_guest_os_type": "ubuntu-64",
+			"parallels_guest_os_type": "ubuntu"
   }
 }
