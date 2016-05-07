@@ -97,7 +97,8 @@
 		"tools_upload_flavor": "linux",
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
-			"numvcpus": "{{ user `cpus` }}"
+			"numvcpus": "{{ user `cpus` }}",
+      "ethernet0.virtualdev": "vmnet3"
 		}
 	},
 	{
@@ -220,7 +221,7 @@
     }
   ],
     "variables": {
-      "headless": "false",
+      "headless": "true",
       "vm_name": "{{ env `BASEBOX_NAME` }}",
       "hostname": "{{ env `BASEBOX_NAME` }}",
 
