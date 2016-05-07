@@ -178,7 +178,7 @@
     }
   ],
     "variables": {
-      "headless": "false",
+      "headless": "true",
       "vm_name": "{{ env `BASEBOX_NAME` }}",
       "hostname": "{{ env `BASEBOX_NAME` }}",
 
