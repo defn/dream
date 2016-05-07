@@ -97,8 +97,7 @@
 		"tools_upload_flavor": "linux",
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
-			"numvcpus": "{{ user `cpus` }}",
-      "ethernet0.virtualdev": "vmnet3"
+			"numvcpus": "{{ user `cpus` }}"
 		}
 	},
 	{
