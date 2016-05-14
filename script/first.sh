@@ -6,6 +6,14 @@ if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
   fi
 fi
 
+apt-get update
+apt-get install -y aptitude
+
+aptitude update
+aptitude hold -y libpcre3
+
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 linux-headers-$(uname -r)
+update-locale LANG=en_US.UTF-8
 
 useradd -s /bin/bash -m ubuntu || true
 chsh -s /bin/bash ubuntu
@@ -16,14 +24,5 @@ cat > /etc/sudoers.d/90-cloud-init-users <<EOF
 ubuntu ALL=(ALL) NOPASSWD:ALL
 EOF
 chmod 440 /etc/sudoers.d/90-cloud-init-users
-
-apt-get update
-apt-get install -y aptitude
-
-aptitude update
-aptitude hold -y libpcre3
-
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 linux-headers-$(uname -r)
-update-locale LANG=en_US.UTF-8
 
 install -d -o ubuntu -g ubuntu /opt/pkgsrc /vagrant
