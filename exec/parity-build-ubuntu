@@ -47,7 +47,6 @@ function main {
     [ "script/first.sh",
       "script/update.sh",
       "script/sshd.sh",
-      "script/ubuntu.sh",
       "script/network.sh",
       "script/pre-\($provider).sh",
       "script/\($provider).sh",
