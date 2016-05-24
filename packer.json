@@ -20,7 +20,8 @@
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
       [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ],
-      [ "modifyvm", "{{.Name}}", "--nictype1", "virtio" ]
+      [ "modifyvm", "{{.Name}}", "--nictype1", "virtio" ],
+      [ "storagectl", "{{.Name}}", "--name", "SATA Controller", "--hostiocache", "on" ]
     ],
     "boot_command": [
       "<esc><esc><enter><wait>",
@@ -57,7 +58,8 @@
       [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
       [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ],
       [ "modifyvm", "{{.Name}}", "--nictype1", "virtio" ],
-      [ "modifyvm", "{{.Name}}", "--nictype2", "virtio" ]
+      [ "modifyvm", "{{.Name}}", "--nictype2", "virtio" ],
+      [ "storagectl", "{{.Name}}", "--name", "SATA Controller", "--hostiocache", "on" ]
     ]
   },
 	{
