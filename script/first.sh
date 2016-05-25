@@ -12,19 +12,7 @@ apt-get install -y aptitude
 aptitude update >/dev/null
 aptitude hold -y libpcre3
 
-aptitude install -y lvm2
-
-if [[ ! $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
-  if dmsetup status | grep system-docker--data; then
-    if ! dmsetup status | grep system-docker--data | grep thin-pool; then
-      if lvremove -f /dev/system/docker-data; then
-        lvcreate -T -L 20G system/docker-data
-      fi
-    fi
-  fi
-fi
-
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms linux-headers-$(uname -r)
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 linux-headers-$(uname -r)
 update-locale LANG=en_US.UTF-8
 
 useradd -s /bin/bash -m ubuntu || true
