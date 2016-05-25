@@ -26,3 +26,8 @@ EOF
 chmod 440 /etc/sudoers.d/90-cloud-init-users
 
 install -d -o ubuntu -g ubuntu /opt/pkgsrc /vagrant
+
+pvs
+vgs
+lvs
+df -klh
