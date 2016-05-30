@@ -8,12 +8,10 @@ aptitude install -y software-properties-common
 
 case "$DISTRIB_CODENAME" in
   trusty)
-    if [[ ! $PACKER_BUILDER_TYPE =~ null ]]; then
-      add-apt-repository ppa:ubuntu-lxc/lxd-stable
-      apt-add-repository -y ppa:zfs-native/stable
-      aptitude update
-      aptitude install -y lxd ubuntu-zfs dkms
-    fi
+    add-apt-repository ppa:ubuntu-lxc/lxd-stable
+    apt-add-repository -y ppa:zfs-native/stable
+    aptitude update
+    aptitude install -y lxd ubuntu-zfs dkms
     ;;
 
   xenial)
