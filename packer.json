@@ -2,8 +2,8 @@
   "builders": [
   {
     "ssh_host": "{{ user `ssh_host` }}",
-    "ssh_password": "{{ user `ssh_password` }}",
     "ssh_username": "{{ user `ssh_username` }}",
+    "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
     "type": "null"
   },
   {
