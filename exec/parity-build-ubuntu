@@ -9,7 +9,7 @@ function main {
   local nm_packer_builder=
   local nm_provider=
 
-  case "$VAGRANT_DEFAULT_PROVIDER" in
+  case "${VAGRANT_DEFAULT_PROVIDER:-}" in
     vmware*)
       nm_provider="vmware_desktop"
       nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}"
@@ -33,6 +33,15 @@ function main {
     aws)
       nm_provider="aws"
       nm_packer_builder="amazon-ebs"
+      ;;
+
+    null)
+      nm_provider="null"
+      nm_packer_builder="null"
+      if [[ -n "${1:-}" ]]; then
+        export BASEBOX_REMOTE="${1:-}"
+        shift
+      fi
       ;;
 
     *)
