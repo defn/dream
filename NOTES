@@ -1,0 +1,9 @@
+for packet:
+
+#cloud-config
+system_info:
+  default_user:
+      name: ubuntu
+
+need to copy over ssh keys
+sudoers no password
