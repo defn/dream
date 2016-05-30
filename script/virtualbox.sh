@@ -4,9 +4,6 @@ set -eux
 
 echo "==> Installing VirtualBox guest additions"
 
-aptitude install -y linux-headers-$(uname -r) build-essential perl
-aptitude install -y dkms
-
 pth_vbox_version="$(ls -d /home/*/.vbox_version 2>/dev/null || true)"
 if [[ -f "$pth_vbox_version" ]]; then
   cd "$(dirname "$pth_vbox_version")"

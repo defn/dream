@@ -4,9 +4,6 @@ set -eux
 
 echo "==> Installing VMware Tools"
 
-aptitude install -y linux-headers-$(uname -r) build-essential perl
-aptitude install -y dkms
-
 pth_vmware_iso="$(ls -d /home/*/linux.iso 2>/dev/null || true)"
 if [[ -f "$pth_vmware_iso" ]]; then
   cd "$(dirname "$pth_vmware_iso")"
