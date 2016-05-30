@@ -1,6 +1,14 @@
 {
   "builders": [
   {
+    "ssh_host": "{{ user `ssh_host` }}",
+    "ssh_password": "{{ user `ssh_password` }}",
+    "ssh_username": "{{ user `ssh_username` }}",
+    "ssh_wait_timeout": "10000s",
+    "shutdown_command": "sudo -S shutdown -P now",
+    "type": "null"
+  },
+  {
     "vm_name": "{{ user `vm_name` }}",
     "disk_size": "{{ user `disk_size` }}",
     "ssh_password": "{{ user `ssh_password` }}",
@@ -24,7 +32,7 @@
       [ "storagectl", "{{.Name}}", "--name", "SATA Controller", "--hostiocache", "on" ]
     ],
     "boot_command": [
-      "<esc><esc><enter><wait>",
+			"{{ user `boot_command` }}",
       "/install/vmlinuz noapic ",
       "file=/floppy/{{ user `preseed` }} ",
       "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
@@ -209,16 +217,23 @@
       "scripts": [ ],
       "type": "shell",
       "skip_clean": "true",
-      "only": [ "virtualbox-ovf", "docker"  ]
+      "only": [ "virtualbox-ovf", "docker" ]
     },
     {
-      "environment_vars": [
-        ],
+      "environment_vars": [ ],
       "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [ ],
       "type": "shell",
       "skip_clean": "true",
       "only": [ "amazon-ebs"  ]
+    },
+    {
+      "environment_vars": [ ],
+      "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [ ],
+      "type": "shell",
+      "skip_clean": "true",
+      "only": [ "null"  ]
     }
   ],
     "variables": {
@@ -233,6 +248,7 @@
       "ssh_fullname": "ubuntu",
       "ssh_password": "ubuntu",
       "ssh_username": "ubuntu",
+      "ssh_host": "{{env `BASEBOX_REMOTE`}}",
       "ssh_private_key_file": "{{ env `BASEBOX_CACHE` }}/.ssh/ssh-vagrant",
 
       "vagrantfile_template": "",
@@ -264,7 +280,7 @@
       "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
       "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
 
-      "boot_command": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+      "boot_command": "<esc><esc><enter><wait>",
 
       "virtualbox_guest_os_type": "Ubuntu_64",
       "vmware_guest_os_type": "ubuntu-64",
