@@ -102,12 +102,30 @@
 		"type": "vmware-iso",
 		"guest_os_type": "{{ user `vmware_guest_os_type` }}",
     "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-iso",
-		"tools_upload_flavor": "linux",
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
-			"numvcpus": "{{ user `cpus` }}"
+			"numvcpus": "{{ user `cpus` }}",
+      "ethernet0.vnet": "vmnet3"
 		}
 	},
+  {
+    "vm_name": "{{ user `vm_name` }}",
+    "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
+    "ssh_username": "{{ user `ssh_username` }}",
+    "ssh_wait_timeout": "10000s",
+    "ssh_handshake_attempts": 100,
+    "headless": "{{ user `headless` }}",
+    "shutdown_command": "sudo -S shutdown -h now",
+    "source_path": "{{ user `source`}}",
+    "type": "vmware-vmx",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-vmware-vmx",
+		"vmx_data": {
+			"memsize": "{{ user `memory` }}",
+			"numvcpus": "{{ user `cpus` }}",
+      "ethernet0.vnet": "vmnet3",
+      "ethernet1.vnet": "vmnet3"
+		}
+  },
 	{
     "vm_name": "{{ user `vm_name` }}",
     "disk_size": "{{ user `disk_size` }}",
@@ -178,7 +196,7 @@
       "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}{{ user `target` }}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}",
       "compression_level": 0,
-      "only": [ "virtualbox-iso", "virtualbox-ovf", "vmware-iso", "amazon-ebs"  ]
+      "only": [ "virtualbox-iso", "virtualbox-ovf", "vmware-iso", "vmware-vmx", "amazon-ebs"  ]
     },
     {
       "type": "docker-tag",
@@ -215,7 +233,7 @@
       "scripts": [ ],
       "type": "shell",
       "skip_clean": "true",
-      "only": [ "virtualbox-ovf", "docker" ]
+      "only": [ "virtualbox-ovf", "vmware-vmx", "docker" ]
     },
     {
       "environment_vars": [ ],
