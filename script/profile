@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function profile {
-  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
+  local shome="${_basebox_ubuntu_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   PATH="$shome/exec:$PATH"
 }
 
