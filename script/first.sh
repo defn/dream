@@ -12,7 +12,7 @@ apt-get install -y aptitude
 aptitude update >/dev/null
 aptitude hold -y libpcre3
 
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump linux-headers-$(uname -r)
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils linux-headers-$(uname -r)
 update-locale LANG=en_US.UTF-8
 
 useradd -s /bin/bash -m ubuntu || true
