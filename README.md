@@ -1,3 +1,1 @@
-### Acknowledgments
-
-These templates are based on [Boxcutter](https://github.com/boxcutter/ubuntu).
+Visit http://defn.sh/basebox-ubuntu/ or open `docs/index.html`
