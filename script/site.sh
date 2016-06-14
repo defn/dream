@@ -9,9 +9,10 @@ aptitude install -y software-properties-common
 case "$DISTRIB_CODENAME" in
   trusty)
     add-apt-repository ppa:ubuntu-lxc/lxd-stable
-    apt-add-repository -y ppa:zfs-native/stable
+    #apt-add-repository -y ppa:zfs-native/stable
     aptitude update
-    aptitude install -y lxd ubuntu-zfs dkms
+    #aptitude install -y ubuntu-zfs dkms
+    aptitude install -y lxd
     ;;
 
   xenial)
