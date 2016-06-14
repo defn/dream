@@ -1,9 +1,5 @@
 #!/usr/bin/env bash -eux
 
-CLEANUP_PAUSE=${CLEANUP_PAUSE:-0}
-echo "==> Pausing for ${CLEANUP_PAUSE} seconds..."
-sleep ${CLEANUP_PAUSE}
-
 # virtualbox
 rm -f ~ubuntu/VBoxGuestAdditions.iso || true
 
@@ -14,14 +10,6 @@ rm -f /lib/udev/rules.d/75-persistent-net-generator.rules
 
 echo "==> Cleaning up leftover dhcp leases"
 rm -f /var/lib/dhcp/*
-
-# Add delay to prevent "vagrant reload" from failing
-if [[ -f /etc/network/interfaces.d/eth0.cfg ]]; then
-  # this works on aws
-  echo "pre-up sleep 2" >> /etc/network/interfaces.d/eth0.cfg
-else
-  echo "pre-up sleep 2" >> /etc/network/interfaces
-fi
 
 echo "==> Cleaning up tmp"
 rm -rf /tmp/*
