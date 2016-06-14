@@ -12,10 +12,11 @@ case "$DISTRIB_CODENAME" in
     #apt-add-repository -y ppa:zfs-native/stable
     aptitude update
     #aptitude install -y ubuntu-zfs dkms
-    aptitude install -y lxd
     ;;
 
   xenial)
-    aptitude install -y lxd zfsutils-linux
+    #aptitude install -y zfsutils-linux
     ;;
 esac
+
+aptitude install -y lxd
