@@ -16,6 +16,7 @@ case "$DISTRIB_CODENAME" in
 
   xenial)
     #aptitude install -y zfsutils-linux
+    true
     ;;
 esac
 
