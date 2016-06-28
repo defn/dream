@@ -52,16 +52,18 @@ function main {
 
   local tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer.json" | jq \
-    --arg provider "$nm_provider" '.provisioners[].scripts = 
-    [ "script/first.sh",
-      "script/update.sh",
-      "script/sshd.sh",
-      "script/network.sh",
-      "script/pre-\($provider).sh",
-      "script/\($provider).sh",
-      "script/site.sh",
-      "script/cleanup.sh",
-      "script/last.sh" 
+    --arg provider "$nm_provider" \
+    --arg basebox_type "${BASEBOX_TYPE:+-${BASEBOX_TYPE}}" \
+    '.provisioners[].scripts = [
+        "script/first.sh",
+        "script/update.sh",
+        "script/sshd.sh",
+        "script/network.sh",
+        "script/pre-\($provider)\($basebox_type).sh",
+        "script/\($provider).sh",
+        "script/site.sh",
+        "script/cleanup.sh",
+        "script/last.sh" 
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
