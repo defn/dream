@@ -59,7 +59,7 @@
     "shutdown_command": "sudo -S shutdown -h now",
     "source_path": "{{ user `source`}}",
     "type": "virtualbox-ovf",
-    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-virtualbox-ovf",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-ovf",
     "vboxmanage": [
       [ "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}" ],
       [ "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}" ],
@@ -118,7 +118,7 @@
     "shutdown_command": "sudo -S shutdown -h now",
     "source_path": "{{ user `source`}}",
     "type": "vmware-vmx",
-    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}{{ user `target` }}-vmware-vmx",
+    "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-vmx",
 		"vmx_data": {
 			"memsize": "{{ user `memory` }}",
 			"numvcpus": "{{ user `cpus` }}",
@@ -193,7 +193,7 @@
     {
       "type": "vagrant",
       "keep_input_artifact": false,
-      "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}{{ user `target` }}.box",
+      "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}.box",
       "vagrantfile_template": "{{ user `vagrantfile_template` }}",
       "compression_level": 0,
       "only": [ "virtualbox-iso", "virtualbox-ovf", "vmware-iso", "vmware-vmx", "amazon-ebs"  ]
@@ -285,8 +285,6 @@
       "source": "{{ env `BASEBOX_SOURCE` }}",
       "tag": "{{ env `BASEBOX_TAG` }}",
       "cache": "{{ env `BASEBOX_CACHE` }}",
-      "suffix": "{{ env `BASEBOX_SUFFIX` }}",
-      "target": "{{ env `BASEBOX_SUFFIX_TARGET` }}", 
 
       "access_key": "{{ env `AWS_ACCESS_KEY` }}",
       "secret_key": "{{ env `AWS_SECRET_KEY` }}",
