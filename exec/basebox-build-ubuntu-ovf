@@ -3,7 +3,7 @@
 function main {
   export BASEBOX_TYPE="${0##*-}"
 
-  exec parity build ubuntu "$@"
+  exec basebox build ubuntu "$@"
 }
 
 source sub "$0" "$@"

@@ -7,37 +7,19 @@ function main {
   cd "$shome"
 
   local nm_packer_builder=
-  local nm_provider=
 
   case "${VAGRANT_DEFAULT_PROVIDER:-}" in
-    vmware*)
-      nm_provider="vmware_desktop"
-      nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}"
-      ;;
+    vmware*) nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}" ;;
 
-    virtualbox)
-      nm_provider="virtualbox"
-      nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}"
-      ;;
+    virtualbox) nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}" ;;
 
-    parallels)
-      nm_provider="parallels"
-      nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}"
-      ;;
+    parallels) nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}" ;;
 
-    docker)
-      nm_provider='docker'
-      nm_packer_builder='docker'
-      ;;
+    docker) nm_packer_builder='docker' ;;
 
-    aws)
-      nm_provider="aws"
-      nm_packer_builder="amazon-ebs"
-      ;;
+    aws) nm_packer_builder="amazon-ebs" ;;
 
-    null)
-      nm_provider="null"
-      nm_packer_builder="null"
+    null) nm_packer_builder="null"
       if [[ -n "${1:-}" ]]; then
         export BASEBOX_REMOTE="${1:-}"
         shift
@@ -45,14 +27,14 @@ function main {
       ;;
 
     *)
-      echo ERROR: "Invalid virtualization type: $nm_provider" 1>&2
+      echo ERROR: "Invalid virtualization type: $VAGRANT_DEFAULT_PROVIDER" 1>&2
       return 1
       ;;
   esac
 
   local tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer.json" | jq \
-    --arg provider "$nm_provider" \
+    --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
     --arg basebox_type "${BASEBOX_TYPE:+-${BASEBOX_TYPE}}" \
     '.provisioners[].scripts = [
         "script/first.sh",
@@ -69,7 +51,7 @@ function main {
 
   local tmp_options="$(mktemp -t XXXXXX)"
   jq -n \
-    --arg provider "$nm_provider" \
+    --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
     --arg iso_path "$shome/iso" \
     --arg iso_dir "$shome" \
     '{  
