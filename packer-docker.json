@@ -46,6 +46,12 @@
     "basebox_name": "{{ env `BASEBOX_NAME` }}",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "tag": "{{ env `BASEBOX_TAG` }}",
-    "cache": "{{ env `BASEBOX_CACHE` }}"
+    "cache": "{{ env `BASEBOX_CACHE` }}",
+    "_CACHE_BUILDS_________________________________________________________": "",
+    "http_proxy": "{{env `http_proxy`}}",
+    "https_proxy": "{{env `https_proxy`}}",
+    "ftp_proxy": "{{env `ftp_proxy`}}",
+    "rsync_proxy": "{{env `rsync_proxy`}}",
+    "no_proxy": "{{env `no_proxy`}}"
   }
 }
