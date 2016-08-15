@@ -2,15 +2,15 @@
   "builders": [
     {
       "vm_name": "{{ user `vm_name` }}",
-      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
+      "headless": "{{ user `headless` }}",
+      "shutdown_command": "sudo -S shutdown -h now",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
-      "headless": "{{ user `headless` }}",
-      "shutdown_command": "sudo -S shutdown -h now",
-      "source_path": "{{ user `source`}}",
       "type": "virtualbox-ovf",
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-ovf",
+      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
+      "source_path": "{{ user `source`}}",
       "vboxmanage": [
         [
           "modifyvm",
@@ -93,7 +93,6 @@
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "tag": "{{ env `BASEBOX_TAG` }}",
     "cache": "{{ env `BASEBOX_CACHE` }}",
-    "boot_command": "<esc><esc><enter><wait>",
-    "virtualbox_guest_os_type": "Ubuntu_64"
+    "boot_command": "<esc><esc><enter><wait>"
   }
 }
