@@ -10,7 +10,6 @@ apt-get update >/dev/null
 apt-get install -y aptitude
 
 aptitude update >/dev/null
-#aptitude hold -y libpcre3
 
 aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils linux-headers-$(uname -r)
 update-locale LANG=en_US.UTF-8
@@ -24,5 +23,6 @@ cat > /etc/sudoers.d/90-cloud-init-users <<EOF
 ubuntu ALL=(ALL) NOPASSWD:ALL
 EOF
 chmod 440 /etc/sudoers.d/90-cloud-init-users
+touch ~root/.cloud-init.hostname
 
 install -d -o ubuntu -g ubuntu /opt/pkgsrc /vagrant
