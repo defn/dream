@@ -9,15 +9,11 @@ function main {
   local nm_packer_builder=
 
   case "${VAGRANT_DEFAULT_PROVIDER:-}" in
-    vmware*) nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}" ;;
-
+    vmware*)    nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}" ;;
     virtualbox) nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}" ;;
-
-    parallels) nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}" ;;
-
-    docker) nm_packer_builder='docker' ;;
-
-    aws) nm_packer_builder="amazon-ebs" ;;
+    parallels)  nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}" ;;
+    docker)     nm_packer_builder='docker' ;;
+    aws)        nm_packer_builder="amazon-ebs" ;;
 
     null) nm_packer_builder="null"
       if [[ -n "${1:-}" ]]; then
@@ -33,7 +29,7 @@ function main {
   esac
 
   local tmp_packer="$(mktemp -t XXXXXX)"
-  cat "packer.json" | jq \
+  cat "packer-${nm_packer_builder}.json" | jq \
     --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
     --arg basebox_type "${BASEBOX_TYPE:+-${BASEBOX_TYPE}}" \
     '.provisioners[].scripts = [
