@@ -64,7 +64,6 @@
     "basebox_name": "{{ env `BASEBOX_NAME` }}",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "tag": "{{ env `BASEBOX_TAG` }}",
-    "cache": "{{ env `BASEBOX_CACHE` }}",
-    "boot_command": "<esc><esc><enter><wait>"
+    "cache": "{{ env `BASEBOX_CACHE` }}"
   }
 }

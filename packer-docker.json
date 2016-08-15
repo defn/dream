@@ -1,247 +1,6 @@
 {
   "builders": [
     {
-      "ssh_host": "{{ user `ssh_host` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "type": "null"
-    },
-    {
-      "vm_name": "{{ user `vm_name` }}",
-      "disk_size": "{{ user `disk_size` }}",
-      "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "headless": "{{ user `headless` }}",
-      "shutdown_command": "sudo -S shutdown -P now",
-      "iso_urls": [
-        "{{ user `iso_url` }}"
-      ],
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "floppy_files": [
-        "http/{{ user `preseed` }}"
-      ],
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "hard_drive_interface": "sata",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "{{ user `memory` }}"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "{{ user `cpus` }}"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--nictype1",
-          "virtio"
-        ],
-        [
-          "storagectl",
-          "{{.Name}}",
-          "--name",
-          "SATA Controller",
-          "--hostiocache",
-          "on"
-        ]
-      ],
-      "boot_command": [
-        "{{ user `boot_command` }}",
-        "/install/vmlinuz noapic ",
-        "file=/floppy/{{ user `preseed` }} ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `hostname` }} ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "passwd/user-fullname={{ user `ssh_fullname` }} ",
-        "passwd/user-password={{ user `ssh_password` }} ",
-        "passwd/user-password-again={{ user `ssh_password` }} ",
-        "passwd/username={{ user `ssh_username` }} ",
-        "initrd=/install/initrd.gz -- <enter>"
-      ],
-      "type": "virtualbox-iso",
-      "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
-      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-iso",
-      "virtualbox_version_file": ".vbox_version"
-    },
-    {
-      "vm_name": "{{ user `vm_name` }}",
-      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "ssh_handshake_attempts": 100,
-      "headless": "{{ user `headless` }}",
-      "shutdown_command": "sudo -S shutdown -h now",
-      "source_path": "{{ user `source`}}",
-      "type": "virtualbox-ovf",
-      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-virtualbox-ovf",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "{{ user `memory` }}"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "{{ user `cpus` }}"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--nictype1",
-          "virtio"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--nictype2",
-          "virtio"
-        ],
-        [
-          "storagectl",
-          "{{.Name}}",
-          "--name",
-          "SATA Controller",
-          "--hostiocache",
-          "on"
-        ]
-      ]
-    },
-    {
-      "vm_name": "{{ user `vm_name` }}",
-      "disk_size": "{{ user `disk_size` }}",
-      "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "headless": "{{ user `headless` }}",
-      "shutdown_command": "sudo -S shutdown -P now",
-      "iso_urls": [
-        "{{ user `iso_url` }}"
-      ],
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "floppy_files": [
-        "http/{{ user `preseed` }}"
-      ],
-      "boot_command": [
-        "{{ user `boot_command` }}",
-        "/install/vmlinuz noapic ",
-        "file=/floppy/{{ user `preseed` }} ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `hostname` }} ",
-        "grub-installer/bootdev=/dev/sda<wait> ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "passwd/user-fullname={{ user `ssh_fullname` }} ",
-        "passwd/user-password={{ user `ssh_password` }} ",
-        "passwd/user-password-again={{ user `ssh_password` }} ",
-        "passwd/username={{ user `ssh_username` }} ",
-        "initrd=/install/initrd.gz -- <enter>"
-      ],
-      "type": "vmware-iso",
-      "guest_os_type": "{{ user `vmware_guest_os_type` }}",
-      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-iso",
-      "vmx_data": {
-        "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.vnet": "vmnet3"
-      }
-    },
-    {
-      "vm_name": "{{ user `vm_name` }}",
-      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "ssh_handshake_attempts": 100,
-      "headless": "{{ user `headless` }}",
-      "shutdown_command": "sudo -S shutdown -h now",
-      "source_path": "{{ user `source`}}",
-      "type": "vmware-vmx",
-      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-vmx",
-      "vmx_data": {
-        "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.vnet": "vmnet3",
-        "ethernet1.vnet": "vmnet3"
-      }
-    },
-    {
-      "vm_name": "{{ user `vm_name` }}",
-      "disk_size": "{{ user `disk_size` }}",
-      "ssh_password": "{{ user `ssh_password` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_wait_timeout": "10000s",
-      "shutdown_command": "echo '{{ user `ssh_password` }}' | sudo -S shutdown -P now",
-      "iso_urls": [
-        "{{ user `iso_url` }}"
-      ],
-      "iso_checksum": "{{ user `iso_checksum` }}",
-      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "floppy_files": [
-        "http/{{ user `preseed` }}"
-      ],
-      "boot_command": [
-        "{{ user `boot_command` }}",
-        "/install/vmlinuz noapic ",
-        "file=/floppy/{{ user `preseed` }} ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `hostname` }} ",
-        "grub-installer/bootdev=/dev/sda<wait> ",
-        "fb=false debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "passwd/user-fullname={{ user `ssh_fullname` }} ",
-        "passwd/user-password={{ user `ssh_password` }} ",
-        "passwd/user-password-again={{ user `ssh_password` }} ",
-        "passwd/username={{ user `ssh_username` }} ",
-        "initrd=/install/initrd.gz -- <wait><enter>"
-      ],
-      "prlctl": [
-        [
-          "set",
-          "{{.Name}}",
-          "--memsize",
-          "{{ user `memory` }}"
-        ],
-        [
-          "set",
-          "{{.Name}}",
-          "--cpus",
-          "{{ user `cpus` }}"
-        ]
-      ],
-      "type": "parallels-iso",
-      "guest_os_type": "{{ user `parallels_guest_os_type` }}",
-      "output_directory": "output-{{ user `vm_name` }}-parallels-iso",
-      "prlctl_version_file": ".prlctl_version",
-      "parallels_tools_flavor": "lin"
-    },
-    {
-      "type": "amazon-ebs",
-      "access_key": "{{ user `access_key` }}",
-      "secret_key": "{{ user `secret_key` }}",
-      "source_ami": "{{ user `source_ami` }}",
-      "region": "{{ user `region` }}",
-      "instance_type": "{{ user `instance_type` }}",
-      "ssh_username": "{{ user `ssh_username` }}",
-      "ami_name": "{{ user `target_ami_name` }}",
-      "run_tags": {
-        "Provisioner": "packer"
-      }
-    },
-    {
       "type": "docker",
       "image": "{{ user `source` }}",
       "commit": "true",
@@ -250,24 +9,7 @@
   ],
   "post-processors": [
     {
-      "type": "vagrant",
-      "keep_input_artifact": false,
-      "output": "{{ user `cache` }}/box/{{ user `provider` }}/{{ user `vm_name` }}.box",
-      "vagrantfile_template": "{{ user `vagrantfile_template` }}",
-      "compression_level": 0,
-      "only": [
-        "virtualbox-iso",
-        "virtualbox-ovf",
-        "vmware-iso",
-        "vmware-vmx",
-        "amazon-ebs"
-      ]
-    },
-    {
       "type": "docker-tag",
-      "only": [
-        "docker"
-      ],
       "repository": "{{ user `basebox_name` }}",
       "tag": "{{ user `tag` }}",
       "force": "true"
@@ -282,52 +24,10 @@
         "rsync_proxy={{user `rsync_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-      "scripts": [],
-      "type": "shell",
-      "skip_clean": "true",
-      "only": [
-        "virtualbox-iso",
-        "vmware-iso"
-      ]
-    },
-    {
-      "environment_vars": [
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "ftp_proxy={{user `ftp_proxy`}}",
-        "rsync_proxy={{user `rsync_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
-      ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
       "type": "shell",
-      "skip_clean": "true",
-      "only": [
-        "virtualbox-ovf",
-        "vmware-vmx",
-        "docker"
-      ]
-    },
-    {
-      "environment_vars": [],
-      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-      "scripts": [],
-      "type": "shell",
-      "skip_clean": "true",
-      "only": [
-        "amazon-ebs"
-      ]
-    },
-    {
-      "environment_vars": [],
-      "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
-      "scripts": [],
-      "type": "shell",
-      "skip_clean": "true",
-      "only": [
-        "null"
-      ]
+      "skip_clean": "true"
     }
   ],
   "variables": {
@@ -341,30 +41,11 @@
     "ssh_password": "ubuntu",
     "ssh_username": "ubuntu",
     "ssh_host": "{{env `BASEBOX_REMOTE`}}",
-    "ssh_private_key_file": "{{ env `BASEBOX_CACHE` }}/.ssh/ssh-vagrant",
+    "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
-    "iso_url": "http://cdimage.ubuntu.com/releases/14.04.4/release/ubuntu-14.04.4-server-amd64+mac.iso",
-    "iso_checksum": "14ae82a5ff69435c35650b21d9c19acc06b09422",
-    "iso_checksum_type": "sha1",
-    "http_proxy": "{{env `http_proxy`}}",
-    "https_proxy": "{{env `https_proxy`}}",
-    "ftp_proxy": "{{env `ftp_proxy`}}",
-    "rsync_proxy": "{{env `rsync_proxy`}}",
-    "no_proxy": "{{env `no_proxy`}}",
-    "preseed": "preseed.cfg",
     "basebox_name": "{{ env `BASEBOX_NAME` }}",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "tag": "{{ env `BASEBOX_TAG` }}",
-    "cache": "{{ env `BASEBOX_CACHE` }}",
-    "access_key": "{{ env `AWS_ACCESS_KEY` }}",
-    "secret_key": "{{ env `AWS_SECRET_KEY` }}",
-    "region": "{{ env `AWS_REGION` }}",
-    "source_ami": "{{ env `EC2_SOURCE_AMI` }}",
-    "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
-    "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
-    "boot_command": "<esc><esc><enter><wait>",
-    "virtualbox_guest_os_type": "Ubuntu_64",
-    "vmware_guest_os_type": "ubuntu-64",
-    "parallels_guest_os_type": "ubuntu"
+    "cache": "{{ env `BASEBOX_CACHE` }}"
   }
 }
