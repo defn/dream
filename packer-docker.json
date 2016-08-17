@@ -11,8 +11,7 @@
     {
       "type": "docker-tag",
       "repository": "{{ user `basebox_name` }}",
-      "tag": "{{ user `tag` }}",
-      "force": "true"
+      "tag": "{{ user `tag` }}"
     }
   ],
   "provisioners": [
