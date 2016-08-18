@@ -28,6 +28,11 @@ function main {
       ;;
   esac
 
+  if [[ -n "${1:-}" ]]; then
+    export BASEBOX_NAME="${BASEBOX_NAME}-$1"
+    shift
+  fi
+
   local tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer-${nm_packer_builder}.json" | jq \
     --arg provider "$VAGRANT_DEFAULT_PROVIDER" \

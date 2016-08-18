@@ -10,7 +10,7 @@
   "post-processors": [
     {
       "type": "docker-tag",
-      "repository": "{{ user `basebox_name` }}",
+      "repository": "{{ user `vm_name` }}",
       "tag": "{{ user `tag` }}"
     }
   ],
@@ -30,9 +30,7 @@
     }
   ],
   "variables": {
-    "headless": "true",
     "vm_name": "{{ env `BASEBOX_NAME` }}",
-    "hostname": "{{ env `BASEBOX_NAME` }}",
     "cpus": "2",
     "disk_size": "100000",
     "memory": "2048",
@@ -42,15 +40,15 @@
     "ssh_host": "{{env `BASEBOX_REMOTE`}}",
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
-    "basebox_name": "{{ env `BASEBOX_NAME` }}",
-    "source": "{{ env `BASEBOX_SOURCE` }}",
-    "tag": "{{ env `BASEBOX_TAG` }}",
     "cache": "{{ env `BASEBOX_CACHE` }}",
     "_CACHE_BUILDS_________________________________________________________": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
-    "no_proxy": "{{env `no_proxy`}}"
+    "no_proxy": "{{env `no_proxy`}}",
+    "_DOCKER_BUILDS________________________________________________________": "",
+    "source": "{{ env `BASEBOX_SOURCE` }}",
+    "tag": "{{ env `BASEBOX_TAG` }}"
   }
 }

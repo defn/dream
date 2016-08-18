@@ -33,9 +33,7 @@
     }
   ],
   "variables": {
-    "headless": "true",
     "vm_name": "{{ env `BASEBOX_NAME` }}",
-    "hostname": "{{ env `BASEBOX_NAME` }}",
     "cpus": "2",
     "disk_size": "100000",
     "memory": "2048",
@@ -45,11 +43,7 @@
     "ssh_host": "{{env `BASEBOX_REMOTE`}}",
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
-    "basebox_name": "{{ env `BASEBOX_NAME` }}",
-    "source": "{{ env `BASEBOX_SOURCE` }}",
-    "tag": "{{ env `BASEBOX_TAG` }}",
     "cache": "{{ env `BASEBOX_CACHE` }}",
-
     "_AWS_BUILDS___________________________________________________________": "",
     "access_key": "{{ env `AWS_ACCESS_KEY` }}",
     "secret_key": "{{ env `AWS_SECRET_KEY` }}",

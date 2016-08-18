@@ -7,8 +7,7 @@
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
-      "type": "vmware-iso",
-      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-vmware-iso",
+      "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_password": "{{ user `ssh_password` }}",
       "disk_size": "{{ user `disk_size` }}",
       "iso_urls": [
@@ -30,7 +29,7 @@
         "/install/vmlinuz noapic ",
         "file=/floppy/{{ user `preseed` }} ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{ user `hostname` }} ",
+        "hostname={{ user `vm_name` }} ",
         "grub-installer/bootdev=/dev/sda<wait> ",
         "fb=false debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
@@ -40,7 +39,8 @@
         "passwd/user-password-again={{ user `ssh_password` }} ",
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
-      ]
+      ],
+      "type": "vmware-iso"
     }
   ],
   "post-processors": [
@@ -68,9 +68,7 @@
     }
   ],
   "variables": {
-    "headless": "true",
     "vm_name": "{{ env `BASEBOX_NAME` }}",
-    "hostname": "{{ env `BASEBOX_NAME` }}",
     "cpus": "2",
     "disk_size": "100000",
     "memory": "2048",
@@ -80,9 +78,6 @@
     "ssh_host": "{{env `BASEBOX_REMOTE`}}",
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
-    "basebox_name": "{{ env `BASEBOX_NAME` }}",
-    "source": "{{ env `BASEBOX_SOURCE` }}",
-    "tag": "{{ env `BASEBOX_TAG` }}",
     "cache": "{{ env `BASEBOX_CACHE` }}",
     "_CACHE_BUILDS_________________________________________________________": "",
     "http_proxy": "{{env `http_proxy`}}",
@@ -96,6 +91,7 @@
     "iso_checksum": "14ae82a5ff69435c35650b21d9c19acc06b09422",
     "iso_checksum_type": "sha1",
     "preseed": "preseed.cfg",
-    "vmware_guest_os_type": "ubuntu-64"
+    "vmware_guest_os_type": "ubuntu-64",
+    "headless": "true"
   }
 }
