@@ -5,10 +5,10 @@
       "type": "amazon-ebs",
       "access_key": "{{ user `access_key` }}",
       "secret_key": "{{ user `secret_key` }}",
-      "source_ami": "{{ user `source_ami` }}",
+      "source_ami": "{{ user `source` }}",
       "region": "{{ user `region` }}",
       "instance_type": "{{ user `instance_type` }}",
-      "ami_name": "{{ user `target_ami_name` }}",
+      "ami_name": "{{ user `target` }}",
       "run_tags": {
         "Provisioner": "packer"
       }
@@ -45,11 +45,11 @@
     "vagrantfile_template": "",
     "cache": "{{ env `BASEBOX_CACHE` }}",
     "_AWS_BUILDS___________________________________________________________": "",
+    "source": "{{ env `BASEBOX_SOURCE` }}",
+    "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
     "access_key": "{{ env `AWS_ACCESS_KEY` }}",
     "secret_key": "{{ env `AWS_SECRET_KEY` }}",
     "region": "{{ env `AWS_REGION` }}",
-    "source_ami": "{{ env `BASEBOX_SOURCE` }}",
-    "target_ami_name": "{{ env `EC2_TARGET_AMI_NAME` }}",
     "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
   }
 }

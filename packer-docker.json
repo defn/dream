@@ -11,7 +11,7 @@
     {
       "type": "docker-tag",
       "repository": "{{ user `vm_name` }}",
-      "tag": "{{ user `tag` }}"
+      "tag": "{{ user `target` }}"
     }
   ],
   "provisioners": [
@@ -41,14 +41,14 @@
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
     "cache": "{{ env `BASEBOX_CACHE` }}",
+    "_DOCKER_BUILDS________________________________________________________": "",
+    "source": "{{ env `BASEBOX_SOURCE` }}",
+    "target": "{{ env `BASEBOX_TAG` }}",
     "_CACHE_BUILDS_________________________________________________________": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
     "ftp_proxy": "{{env `ftp_proxy`}}",
     "rsync_proxy": "{{env `rsync_proxy`}}",
-    "no_proxy": "{{env `no_proxy`}}",
-    "_DOCKER_BUILDS________________________________________________________": "",
-    "source": "{{ env `BASEBOX_SOURCE` }}",
-    "tag": "{{ env `BASEBOX_TAG` }}"
+    "no_proxy": "{{env `no_proxy`}}"
   }
 }
