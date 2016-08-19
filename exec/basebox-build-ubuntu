@@ -28,7 +28,7 @@ function main {
       ;;
   esac
 
-  if [[ -n "${1:-}" ]]; then
+  if [[ -n "${1:-}" && "${nm_packer_builder}" != "docker" ]]; then
     export BASEBOX_NAME="${BASEBOX_NAME}-$1"
     shift
   fi
