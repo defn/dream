@@ -9,8 +9,8 @@
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "source_path": "{{ user `source`}}",
-      "headless": "{{ user `headless` }}",
       "type": "vmware-vmx"
+      "headless": "{{ user `headless` }}",
       "vmx_data": {
         "memsize": "{{ user `memory` }}",
         "numvcpus": "{{ user `cpus` }}",

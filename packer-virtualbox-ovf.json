@@ -9,8 +9,8 @@
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "source_path": "{{ user `source`}}",
-      "headless": "{{ user `headless` }}",
       "type": "virtualbox-ovf",
+      "headless": "{{ user `headless` }}",
       "vboxmanage": [
         [
           "modifyvm",
