@@ -37,7 +37,6 @@
       "type": "parallels-iso",
       "prlctl_version_file": ".prlctl_version",
       "parallels_tools_flavor": "lin",
-      "skip_compaction": "false",
       "prlctl": [
         [
           "set",
