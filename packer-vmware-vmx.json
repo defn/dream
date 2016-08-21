@@ -2,7 +2,6 @@
   "builders": [
     {
       "vm_name": "{{ user `vm_name` }}",
-      "headless": "{{ user `headless` }}",
       "shutdown_command": "sudo -S shutdown -h now",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
@@ -10,13 +9,14 @@
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "source_path": "{{ user `source`}}",
+      "headless": "{{ user `headless` }}",
+      "type": "vmware-vmx"
       "vmx_data": {
         "memsize": "{{ user `memory` }}",
         "numvcpus": "{{ user `cpus` }}",
         "ethernet0.vnet": "vmnet3",
         "ethernet1.vnet": "vmnet3"
-      },
-      "type": "vmware-vmx"
+      }
     }
   ],
   "post-processors": [

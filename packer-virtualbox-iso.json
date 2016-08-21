@@ -2,7 +2,6 @@
   "builders": [
     {
       "vm_name": "{{ user `vm_name` }}",
-      "headless": "{{ user `headless` }}",
       "shutdown_command": "sudo -S shutdown -h now",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
@@ -35,6 +34,7 @@
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
+      "headless": "{{ user `headless` }}",
       "type": "virtualbox-iso",
       "hard_drive_interface": "sata",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",

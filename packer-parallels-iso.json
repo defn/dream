@@ -2,7 +2,6 @@
   "builders": [
     {
       "vm_name": "{{ user `vm_name` }}",
-      "headless": "{{ user `headless` }}",
       "shutdown_command": "sudo -S shutdown -h now",
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_wait_timeout": "10000s",
@@ -97,7 +96,6 @@
     "preseed": "preseed.cfg",
     "os_tye": "ubuntu",
     "boot_command": "<esc><esc><enter><wait>",
-    "headless": "true",
     "_CACHE_BUILDS_________________________________________________________": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
