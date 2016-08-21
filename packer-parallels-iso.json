@@ -94,7 +94,7 @@
     "iso_checksum": "14ae82a5ff69435c35650b21d9c19acc06b09422",
     "iso_checksum_type": "sha1",
     "preseed": "preseed.cfg",
-    "os_tye": "ubuntu",
+    "os_type": "ubuntu",
     "boot_command": "<esc><esc><enter><wait>",
     "_CACHE_BUILDS_________________________________________________________": "",
     "http_proxy": "{{env `http_proxy`}}",
