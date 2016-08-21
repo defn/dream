@@ -45,7 +45,6 @@ function main {
         "script/pre-\($provider)\($basebox_type).sh",
         "script/\($provider).sh",
         "script/site.sh",
-        "script/lxd.sh",
         "script/cleanup.sh",
         "script/last.sh" 
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
