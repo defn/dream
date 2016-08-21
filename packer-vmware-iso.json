@@ -14,11 +14,11 @@
       ],
       "iso_checksum": "{{ user `iso_checksum` }}",
       "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-      "vmx_data": {
-        "memsize": "{{ user `memory` }}",
-        "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.vnet": "vmnet3"
-      },
+      "disk_size": "{{ user `disk_size` }}",
+      "floppy_files": [
+        "http/{{ user `preseed` }}"
+      ],
+      "guest_os_type": "{{ user `os_type` }}",
       "boot_command": [
         "{{ user `boot_command` }}",
         "/install/vmlinuz noapic ",
@@ -35,12 +35,12 @@
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
-      "disk_size": "{{ user `disk_size` }}",
-      "floppy_files": [
-        "http/{{ user `preseed` }}"
-      ],
-      "guest_os_type": "{{ user `os_type` }}",
-      "type": "vmware-iso"
+      "type": "vmware-iso",
+      "vmx_data": {
+        "memsize": "{{ user `memory` }}",
+        "numvcpus": "{{ user `cpus` }}",
+        "ethernet0.vnet": "vmnet3"
+      }
     }
   ],
   "post-processors": [
