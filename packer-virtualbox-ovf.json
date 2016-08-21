@@ -27,6 +27,12 @@
         [
           "modifyvm",
           "{{.Name}}",
+          "--paravirtprovider",
+          "kvm"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
           "--nictype1",
           "virtio"
         ],
