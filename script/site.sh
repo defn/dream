@@ -4,7 +4,7 @@ source /etc/lsb-release
 
 aptitude -y purge nano mlocate
 
-aptitude install -y software-properties-common
+aptitude install -y software-properties-common xfsprogs
 
 case "$DISTRIB_CODENAME" in
   trusty)
