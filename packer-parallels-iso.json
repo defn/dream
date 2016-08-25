@@ -78,9 +78,9 @@
   ],
   "variables": {
     "vm_name": "{{ env `BASEBOX_NAME` }}",
-    "cpus": "2",
+    "cpus": "1",
     "disk_size": "100000",
-    "memory": "2048",
+    "memory": "1024",
     "ssh_fullname": "ubuntu",
     "ssh_password": "ubuntu",
     "ssh_username": "ubuntu",
