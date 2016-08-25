@@ -19,3 +19,8 @@ case "$DISTRIB_CODENAME" in
 esac
 
 aptitude install -y lxd
+
+lxc launch ubuntu-daily:16.04 docker -p default -p docker
+lxc exec docker -- apt update
+lxc exec docker -- apt dist-upgrade -y
+lxc exec docker -- apt install docker.io -y
