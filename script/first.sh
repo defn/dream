@@ -15,6 +15,12 @@ aptitude update >/dev/null
 aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils linux-headers-$(uname -r)
 update-locale LANG=en_US.UTF-8
 
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+locale-gen en_US.UTF-8
+dpkg-reconfigure locales
+
 useradd -s /bin/bash -m ubuntu || true
 chsh -s /bin/bash ubuntu
 gpasswd -a ubuntu sudo
