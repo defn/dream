@@ -13,4 +13,4 @@ sync
 
 cat ~ubuntu/.ssh/authorized_keys 2>&- || true
 
-chown -v -R ubuntu:ubuntu ~ubuntu/.config
+chown -v -R ubuntu:ubuntu ~ubuntu/.config 2>&- || true
