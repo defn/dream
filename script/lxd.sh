@@ -20,7 +20,5 @@ esac
 
 aptitude install -y lxd
 
-lxc launch ubuntu-daily:16.04 docker -p default -p docker
-lxc exec docker -- apt update
-lxc exec docker -- apt dist-upgrade -y
-lxc exec docker -- apt install docker.io -y
+lxc image copy ubuntu-daily:16.04 local: --alias xenial
+lxc image copy ubuntu:14.04 local: --alias trusty
