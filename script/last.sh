@@ -12,3 +12,5 @@ rm -f /etc/apt/apt.conf.d/99boxcache
 sync
 
 cat ~ubuntu/.ssh/authorized_keys 2>&- || true
+
+chown -v -R ubuntu:ubuntu ~ubuntu/.config
