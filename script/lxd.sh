@@ -24,5 +24,5 @@ aptitude install -y lxd
 
 cd ~root
 lxc image copy ubuntu-daily:16.04 local: --alias xenial
-lxc image copy ubuntu:14.04 local: --alias trusty
+lxc image copy ubuntu-daily:14.04 local: --alias trusty
 rm -rf ~ubuntu/.config/lxc
