@@ -48,7 +48,7 @@ EOF
 service lxc restart
 
 modprobe zfs || true
-if !zpool list lxd; then
+if ! zpool list lxd; then
   zpool create lxd /dev/mapper/system-lxd--data
   lxc config set storage.zfs_pool_name lxd
 
