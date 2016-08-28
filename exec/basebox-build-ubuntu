@@ -40,13 +40,8 @@ function main {
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
-  jq -n \
-    --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
-    --arg iso_path "$shome/iso" \
-    --arg iso_dir "$shome" \
+  jq -n --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
     '{  
-        iso_path: $iso_path, 
-        iso_dir: $iso_dir,
         provider: $provider
      }' | tee "$tmp_options"
 
