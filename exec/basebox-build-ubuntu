@@ -15,13 +15,6 @@ function main {
     docker)     nm_packer_builder='docker' ;;
     aws)        nm_packer_builder="amazon-ebs" ;;
 
-    null) nm_packer_builder="null"
-      if [[ -n "${1:-}" ]]; then
-        export BASEBOX_REMOTE="${1:-}"
-        shift
-      fi
-      ;;
-
     *)
       echo ERROR: "Invalid virtualization type: $VAGRANT_DEFAULT_PROVIDER" 1>&2
       return 1
