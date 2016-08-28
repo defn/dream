@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function main {
-  local shome="${_basebox_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
   local nm_provider="$VAGRANT_DEFAULT_PROVIDER"
   local pth_box="$(set +f; ls -trd "${BASEBOX_CACHE}/box/$nm_provider"/*.box | tail -1)"

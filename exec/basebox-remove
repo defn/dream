@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function main {
-  local shome="${_basebox_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
     vmware*) vagrant box remove -f --provider "vmware_desktop" ${BASEBOX_NAME} ;;
