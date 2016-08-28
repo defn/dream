@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export DEBUG=1
+
+source sub "$BASH_SOURCE" "$@"

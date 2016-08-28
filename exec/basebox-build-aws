@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+function main {
+  local shome="${_basebox_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  source "$shome/script/profile"
+
+  local nm_region="$(aws configure get region)"
+  export AWS_REGION="${nm_region}"
+
+  export BASEBOX_SUFFIX="-${nm_region}"
+
+  # target aminame
+  EC2_TARGET_AMI_NAME="packer-${nm_region}-$(date +%s)"
+  export EC2_TARGET_AMI_NAME
+
+  if [[ "$#" -gt 0 ]]; then
+    EC2_INSTANCE_TYPE="$1"; shift
+  else
+    EC2_INSTANCE_TYPE="m3.medium"
+  fi
+  export EC2_INSTANCE_TYPE
+
+  if [[ -z "${EC2_SOURCE_AMI:-}" ]]; then
+    export EC2_SOURCE_AMI="$(aws ami)"
+  fi
+
+  # build it
+  exec basebox build ubuntu "$@"
+}
+
+source sub "$BASH_SOURCE" "$@"

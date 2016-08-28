@@ -2,9 +2,9 @@
   "require": [
     "parity",
     "jq",
-    [
-      "packer",
-      "vagrant"
-    ]
+    "pkgsrc",
+    "cache",
+    "packer",
+    "vagrant"
   ]
 }
