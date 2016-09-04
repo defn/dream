@@ -9,8 +9,6 @@ aptitude install -y cloud-init
 
 aptitude -y purge nano mlocate
 
-rm -f /etc/apt/apt.conf.d/99boxcache
-
 cat ~ubuntu/.ssh/authorized_keys 2>&- || true
 
 chown -R ubuntu:ubuntu ~ubuntu
