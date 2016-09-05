@@ -9,7 +9,7 @@ aptitude install -y cloud-init
 
 aptitude -y purge nano mlocate
 
-cat ~ubuntu/.ssh/authorized_keys 2>&- || true
+cat ~ubuntu/.ssh/authorized_keys 2>/dev/null || true
 
 chown -R ubuntu:ubuntu ~ubuntu
 
