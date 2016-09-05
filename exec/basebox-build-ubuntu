@@ -45,6 +45,8 @@ function main {
         provider: $provider
      }' | tee "$tmp_options"
 
+  export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
+  mkdir -p "${PACKER_TMP_DIR}"
   packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -force -var-file "$tmp_options" "$tmp_packer"
   rm -f "$tmp_options" "$tmp_packer"
 }
