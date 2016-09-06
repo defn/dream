@@ -42,6 +42,7 @@
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
     "cache": "{{ env `BASEBOX_CACHE` }}",
+    "provider": "{{ env `VAGRANT_DEFAULT_PROVIDER` }},
     "_AWS_BUILDS___________________________________________________________": "",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "target": "{{ env `EC2_TARGET_AMI_NAME` }}",

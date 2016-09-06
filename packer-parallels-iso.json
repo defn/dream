@@ -86,6 +86,7 @@
     "ssh_password": "ubuntu",
     "vagrantfile_template": "",
     "cache": "{{ env `BASEBOX_CACHE` }}",
+    "provider": "{{ env `VAGRANT_DEFAULT_PROVIDER` }},
     "_ISO_BUILDS___________________________________________________________": "",
     "source": "http://cdimage.ubuntu.com/releases/14.04.5/release/ubuntu-14.04.5-server-amd64+mac.iso",
     "iso_checksum": "1535fffab9d96f2c94414fe5929a1d8763fd96c7",

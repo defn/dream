@@ -40,6 +40,7 @@
     "ssh_private_key_file": "{{ env `LIMBO_HOME` }}/.ssh/ssh-vagrant",
     "vagrantfile_template": "",
     "cache": "{{ env `BASEBOX_CACHE` }}",
+    "provider": "{{ env `VAGRANT_DEFAULT_PROVIDER` }},
     "_DOCKER_BUILDS________________________________________________________": "",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "target": "{{ env `BASEBOX_TAG` }}",

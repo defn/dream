@@ -40,9 +40,8 @@ function main {
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
-  jq -n --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
+  jq -n \
     '{  
-        provider: $provider
      }' | tee "$tmp_options"
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
