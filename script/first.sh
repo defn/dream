@@ -14,7 +14,7 @@ apt-get update >/dev/null
 apt-get install -y aptitude
 
 aptitude update >/dev/null
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common aptitude
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common
 aptitude install -y linux-headers-$(uname -r)
 
 update-locale LANG=en_US.UTF-8
@@ -34,8 +34,10 @@ cat > /etc/sudoers.d/90-cloud-init-users <<EOF
 ubuntu ALL=(ALL) NOPASSWD:ALL
 EOF
 chmod 440 /etc/sudoers.d/90-cloud-init-users
+
+aptitude install -y cloud-init
 touch ~root/.cloud-init.hostname
-
-install -d -o ubuntu -g ubuntu /opt/pkgsrc /vagrant
-
-
+rm -f /var/lib/cloud/instance
+cloud-init init
+rm -f /var/lib/cloud/instance
+cloud-init init

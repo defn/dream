@@ -3,9 +3,7 @@
 umask 022
 
 passwd -l ubuntu
-
-# install cloud-init last until TODO ssh breakage identified
-aptitude install -y cloud-init
+passwd -l root
 
 aptitude -y purge nano mlocate ubuntu-release-upgrader-core
 
