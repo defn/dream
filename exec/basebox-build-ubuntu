@@ -38,8 +38,10 @@ function main {
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
-  jq -n --argfile p "$shome/packer.json" \
-    '$p + {}' | tee "$tmp_options"
+  jq -n \
+    --argfile p "$shome/packer.json" \
+    --argfile t "$shome/packer-trusty.json" \
+    '$p + $t + {}' | tee "$tmp_options"
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
   mkdir -p "${PACKER_TMP_DIR}"
