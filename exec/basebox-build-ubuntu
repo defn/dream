@@ -28,21 +28,18 @@ function main {
 
   local tmp_packer="$(mktemp -t XXXXXX)"
   cat "packer-${nm_packer_builder}.json" | jq \
-    --arg provider "$VAGRANT_DEFAULT_PROVIDER" \
-    --arg basebox_type "${BASEBOX_TYPE:+-${BASEBOX_TYPE}}" \
     '.provisioners[].scripts = [
         "script/first.sh",
         "script/update.sh",
         "script/sshd.sh",
-        "script/\($provider).sh",
+        "script/\(env.VAGRANT_DEFAULT_PROVIDER).sh",
         "script/cleanup.sh",
         "script/last.sh" 
       ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   local tmp_options="$(mktemp -t XXXXXX)"
-  jq -n \
-    '{  
-     }' | tee "$tmp_options"
+  jq -n --argfile p "$shome/packer.json" \
+    '$p + {}' | tee "$tmp_options"
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
   mkdir -p "${PACKER_TMP_DIR}"
