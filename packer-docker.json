@@ -31,6 +31,6 @@
   ],
   "variables": {
     "source": "{{ env `BASEBOX_SOURCE` }}",
-    "target": "{{ env `BASEBOX_TAG` }}",
+    "target": "{{ env `BASEBOX_TAG` }}"
   }
 }

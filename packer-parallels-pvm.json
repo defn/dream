@@ -52,6 +52,6 @@
     }
   ],
   "variables": {
-    "source": "{{ env `BASEBOX_SOURCE` }}",
+    "source": "{{ env `BASEBOX_SOURCE` }}"
   }
 }

@@ -77,11 +77,6 @@
     }
   ],
   "variables": {
-    "source": "http://cdimage.ubuntu.com/releases/14.04.5/release/ubuntu-14.04.5-server-amd64+mac.iso",
-    "iso_checksum": "1535fffab9d96f2c94414fe5929a1d8763fd96c7",
-    "iso_checksum_type": "sha1",
-    "preseed": "preseed.cfg",
-    "os_type": "ubuntu",
-    "boot_command": "<esc><esc><enter><wait>",
+    "os_type": "ubuntu"
   }
 }

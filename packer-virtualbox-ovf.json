@@ -78,6 +78,6 @@
   ],
   "variables": {
     "source": "{{ env `BASEBOX_SOURCE` }}",
-    "headless": "true",
+    "headless": "true"
   }
 }
