@@ -37,9 +37,5 @@ chmod 440 /etc/sudoers.d/90-cloud-init-users
 
 aptitude install -y cloud-init
 touch ~root/.cloud-init.hostname
-rm -f /var/lib/cloud/instance
-cloud-init init
-rm -f /var/lib/cloud/instance
-cloud-init init
 
-aptitude -y purge nano mlocate ubuntu-release-upgrader-core
+aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core
