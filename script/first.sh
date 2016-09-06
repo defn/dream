@@ -36,6 +36,16 @@ EOF
 chmod 440 /etc/sudoers.d/90-cloud-init-users
 
 aptitude install -y cloud-init
+
 touch ~root/.cloud-init.hostname
+touch /var/lib/cloud/seed/nocloud/user-data
+touch /var/lib/cloud/seed/nocloud/meta-data
+
+cat <<EOF | tee /etc/cloud/cloud.cfg.d/no-ec2.cfg
+datasource:
+  NoCloud
+datasource_list: [ NoCloud ]
+disable_ec2_metadata: True
+EOF
 
 aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core
