@@ -27,26 +27,23 @@ function main {
   fi
 
   local tmp_packer="$(mktemp -t XXXXXX)"
-  cat "packer-${nm_packer_builder}.json" | jq \
-    '.provisioners[].scripts = [
-        "script/first.sh",
-        "script/update.sh",
-        "script/sshd.sh",
-        "script/\(env.VAGRANT_DEFAULT_PROVIDER).sh",
-        "script/cleanup.sh",
-        "script/last.sh" 
-      ]' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
-
-  local tmp_options="$(mktemp -t XXXXXX)"
-  jq -n \
-    --argfile p "$shome/packer.json" \
-    --argfile t "$shome/packer-trusty.json" \
-    '$p + $t + {}' | tee "$tmp_options"
+  cat "packer-${nm_packer_builder}.json" | \
+    jq \
+      --argfile p "$shome/packer.json" \
+      --argfile t "$shome/packer-trusty.json" \
+      '.provisioners[].scripts = [
+          "script/first.sh",
+          "script/update.sh",
+          "script/sshd.sh",
+          "script/\(env.VAGRANT_DEFAULT_PROVIDER).sh",
+          "script/cleanup.sh",
+          "script/last.sh" 
+          ] | .variables |= (. + $t + $p)' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
   mkdir -p "${PACKER_TMP_DIR}"
-  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -force -var-file "$tmp_options" "$tmp_packer"
-  rm -f "$tmp_options" "$tmp_packer"
+  packer build${nm_packer_builder:+ -only="$nm_packer_builder"} -force "$tmp_packer"
+  rm -f "$tmp_packer"
 }
 
 source sub "$BASH_SOURCE" "$@"
