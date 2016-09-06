@@ -34,8 +34,6 @@
   "variables": {
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
-    "access_key": "{{ env `AWS_ACCESS_KEY` }}",
-    "secret_key": "{{ env `AWS_SECRET_KEY` }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
     "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
   }
