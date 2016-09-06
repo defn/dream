@@ -8,6 +8,7 @@ aptitude upgrade -y
 
 aptitude install -y cloud-init
 
+mkir -p /var/lib/cloud/seed/nocloud
 touch /var/lib/cloud/seed/nocloud/meta-data
 
 cat <<EOF | tee /var/lib/cloud/seed/nocloud/user-data
