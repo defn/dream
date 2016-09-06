@@ -2,7 +2,10 @@
 
 if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
   if [[ -n "${http_proxy:-}" ]]; then
-    echo "Acquire::http::Proxy \"$http_proxy\";" | tee /etc/apt/apt.conf.d/99boxcache
+    {
+      echo "Acquire::http::Proxy \"$http_proxy\";" 
+      echo 'Acquire::Languages "none";'
+    } | tee /etc/apt/apt.conf.d/99boxcache
   fi
 fi
 
