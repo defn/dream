@@ -41,3 +41,5 @@ rm -f /var/lib/cloud/instance
 cloud-init init
 rm -f /var/lib/cloud/instance
 cloud-init init
+
+aptitude -y purge nano mlocate ubuntu-release-upgrader-core
