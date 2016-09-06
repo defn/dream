@@ -25,27 +25,4 @@ export LC_ALL=en_US.UTF-8
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
 
-useradd -s /bin/bash -m ubuntu || true
-chsh -s /bin/bash ubuntu
-gpasswd -a ubuntu sudo
-
-cat > /etc/sudoers.d/90-cloud-init-users <<EOF
-# User rules for ubuntu
-ubuntu ALL=(ALL) NOPASSWD:ALL
-EOF
-chmod 440 /etc/sudoers.d/90-cloud-init-users
-
-aptitude install -y cloud-init
-
-touch ~root/.cloud-init.hostname
-touch /var/lib/cloud/seed/nocloud/user-data
-touch /var/lib/cloud/seed/nocloud/meta-data
-
-cat <<EOF | tee /etc/cloud/cloud.cfg.d/no-ec2.cfg
-datasource:
-  NoCloud
-datasource_list: [ NoCloud ]
-disable_ec2_metadata: True
-EOF
-
 aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core
