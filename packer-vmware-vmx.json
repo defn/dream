@@ -8,8 +8,8 @@
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "source_path": "{{ user `source`}}",
       "type": "vmware-vmx",
+      "source_path": "{{ user `source`}}",
       "headless": "{{ user `headless` }}",
       "vmx_data": {
         "memsize": "{{ user `memory` }}",
@@ -38,8 +38,7 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
-      "type": "shell",
-      "skip_clean": "true"
+      "type": "shell"
     }
   ],
   "variables": {

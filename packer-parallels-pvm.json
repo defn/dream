@@ -8,8 +8,8 @@
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
-      "source_path": "{{ user `source`}}",
       "type": "parallels-pvm",
+      "source_path": "{{ user `source`}}",
       "prlctl_version_file": ".prlctl_version",
       "parallels_tools_flavor": "lin",
       "prlctl": [
@@ -47,8 +47,7 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
-      "type": "shell",
-      "skip_clean": "true"
+      "type": "shell"
     }
   ],
   "variables": {

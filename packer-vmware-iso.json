@@ -7,7 +7,8 @@
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
-      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
+      "type": "vmware-iso",
       "iso_urls": [
         "{{ user `source` }}"
       ],
@@ -34,12 +35,15 @@
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
-      "type": "vmware-iso",
       "headless": "{{ user `headless` }}",
       "vmx_data": {
         "memsize": "{{ user `memory` }}",
         "numvcpus": "{{ user `cpus` }}",
-        "ethernet0.vnet": "vmnet3"
+        "ethernet0.vnet": "vmnet3",
+        "ide1:0.present": "TRUE",
+        "ide1:0.fileName": "cidata.iso",
+        "ide1:0.deviceType": "cdrom-image",
+        "ide1:0.startconnected": "TRUE"
       }
     }
   ],
@@ -60,10 +64,9 @@
         "rsync_proxy={{user `rsync_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
-      "type": "shell",
-      "skip_clean": "true"
+      "type": "shell"
     }
   ],
   "variables": {
