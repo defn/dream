@@ -10,6 +10,7 @@
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "type": "virtualbox-ovf",
       "source_path": "{{ user `source`}}",
+      "guest_additions_mode": "disable",
       "headless": "{{ user `headless` }}",
       "vboxmanage": [
         [
