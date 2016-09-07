@@ -7,7 +7,8 @@
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
-      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
+      "type": "virtualbox-iso",
       "iso_urls": [
         "{{ user `source` }}"
       ],
@@ -34,11 +35,9 @@
         "passwd/username={{ user `ssh_username` }} ",
         "initrd=/install/initrd.gz -- <enter>"
       ],
-      "type": "virtualbox-iso",
-      "headless": "{{ user `headless` }}",
       "hard_drive_interface": "sata",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
+      "guest_additions_mode": "disable",
+      "headless": "{{ user `headless` }}",
       "vboxmanage": [
         [
           "modifyvm",
@@ -71,7 +70,17 @@
           "SATA Controller",
           "--hostiocache",
           "on"
-        ]
+        ],
+				[
+        	"storageattach", 
+					"{{.Name}}",
+					"--storagectl", 
+					"SATA Controller",
+					"--port", "1",
+					"--device", "0",
+					"--type", "dvddrive",
+					"--medium", "cidata.iso"
+      	]
       ]
     }
   ],
@@ -92,10 +101,9 @@
         "rsync_proxy={{user `rsync_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo '{{ user `ssh_password` }}' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
-      "type": "shell",
-      "skip_clean": "true"
+      "type": "shell"
     }
   ],
   "variables": {

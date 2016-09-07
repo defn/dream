@@ -1,3 +1,5 @@
 # vagrant
 /.bundle
 /packer_cache
+/cidata*
+/.ssh

@@ -31,7 +31,7 @@ function main {
     jq \
       --argfile p "$shome/packer.json" \
       --argfile t "$shome/packer-trusty.json" \
-      '.provisioners[].scripts = [
+      '.provisioners[].scripts |= . + [
           "script/first.sh",
           "script/update.sh",
           "script/sshd.sh",
