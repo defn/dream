@@ -36,19 +36,19 @@
           "--nictype1",
           "virtio"
         ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--nictype2",
-          "virtio"
-        ],
-        [
+       [
           "storagectl",
           "{{.Name}}",
           "--name",
           "SATA Controller",
           "--hostiocache",
           "on"
+        ],
+         [
+          "modifyvm",
+          "{{.Name}}",
+          "--nictype2",
+          "virtio"
         ]
       ]
     }
@@ -72,8 +72,7 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [],
-      "type": "shell",
-      "skip_clean": "true"
+      "type": "shell"
     }
   ],
   "variables": {
