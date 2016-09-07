@@ -9,6 +9,9 @@ if [[ ! $PACKER_BUILDER_TYPE =~ amazon ]]; then
   fi
 fi
 
+passwd -l ubuntu
+passwd -l root
+
 dpkg --remove-architecture i386
 apt-get update >/dev/null
 apt-get install -y aptitude

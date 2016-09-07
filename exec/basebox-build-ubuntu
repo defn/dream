@@ -36,8 +36,7 @@ function main {
           "script/update.sh",
           "script/sshd.sh",
           "script/\(env.VAGRANT_DEFAULT_PROVIDER).sh",
-          "script/cleanup.sh",
-          "script/last.sh" 
+          "script/cleanup.sh"
           ] | .variables |= ({___packer: ""} + $p + {___trusty: ""} + $t + {___custom: ""} + .)' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"
