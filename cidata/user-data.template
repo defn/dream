@@ -15,4 +15,10 @@ users:
     ssh-authorized-keys:
       - ${PACKER_SSH_KEY}
 
+packages:
+ - openssh-server
+
+runcmd:
+  - install -d -o root -g root -m 0755  /var/run/sshd
+
 --===============88888888888888888888888888==
