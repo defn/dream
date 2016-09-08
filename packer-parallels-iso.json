@@ -51,11 +51,11 @@
           "{{ user `cpus` }}"
         ],
         [
-          "set", 
+          "set",
           "{{.Name}}",
-          "--device-set", 
+          "--device-set",
           "cdrom0",
-          "--image", 
+          "--image",
           "cidata.iso",
           "--connect"
         ]

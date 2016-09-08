@@ -37,7 +37,7 @@
           "--nictype1",
           "virtio"
         ],
-       [
+        [
           "storagectl",
           "{{.Name}}",
           "--name",
@@ -45,7 +45,7 @@
           "--hostiocache",
           "on"
         ],
-         [
+        [
           "modifyvm",
           "{{.Name}}",
           "--nictype2",

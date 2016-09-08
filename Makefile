@@ -1,3 +1,6 @@
+all: cidata.iso
+	@runmany 'echo $$1; jq . <$$1 >/dev/null' *.json
+
 cidata.iso: cidata/user-data cidata/meta-data
 	mkisofs -R -V cidata -o $@.tmp cidata
 	mv $@.tmp $@
