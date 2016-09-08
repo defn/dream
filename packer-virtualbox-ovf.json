@@ -72,7 +72,11 @@
         "no_proxy={{user `no_proxy`}}"
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
-      "scripts": [],
+      "scripts": [
+        "script/first.sh",
+        "script/update.sh",
+        "script/cleanup.sh"
+      ],
       "type": "shell"
     }
   ],
