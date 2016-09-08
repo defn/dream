@@ -35,6 +35,7 @@ function main {
           "script/first.sh",
           "script/update.sh",
           "script/sshd.sh",
+          "script/lxd.sh",
           "script/cleanup.sh"
           ] | .variables |= ({___packer: ""} + $p + {___trusty: ""} + $t + {___custom: ""} + .)' | tee "$tmp_packer" | jq --arg builder "$nm_packer_builder" '.builders = [ .builders[] | select(.type == $builder) ]'
 
