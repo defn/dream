@@ -17,7 +17,7 @@ cidata/user-data: cidata/user-data.template .ssh/ssh-packer
 
 .ssh/ssh-packer:
 	@mkdir -p $(shell dirname $@)
-	@ssh-keygen -f $@ -P ''
+	@ssh-keygen -f $@ -P '' -C "packer@$(shell uname -n)"
 
 key: .ssh/ssh-packer
 	@aws ec2 import-key-pair --key-name vagrant-$(shell md5 -q .ssh/ssh-packer.pub) --public-key-material "$(shell cat .ssh/ssh-packer.pub)"

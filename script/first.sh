@@ -12,6 +12,14 @@ fi
 passwd -l ubuntu
 passwd -l root
 
+while true; do 
+  if [[ -f "/var/lib/cloud/instance/boot-finished" ]]; then
+    break
+  fi
+  find /var/lib/cloud/instance/ -ls
+  sleep 1
+done
+
 dpkg --remove-architecture i386
 apt-get update >/dev/null
 apt-get install -y aptitude
