@@ -19,7 +19,7 @@ packages:
  - openssh-server
 
 runcmd:
-  - touch /root/.cloud-init.hosname
+  - touch /root/.cloud-init.hostname
   - install -d -o root -g root -m 0755  /var/run/sshd
 
 --===============88888888888888888888888888==
