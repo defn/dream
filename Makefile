@@ -8,7 +8,7 @@ cidata.iso: cidata/user-data cidata/meta-data
 cidata/meta-data: cidata/user-data
 	@mkdir -p cidata
 	@echo --- | tee $@.tmp
-	@echo instance-id: $(shell date +%s) | tee -a $@.tmp
+	@echo instance-id: p-$(shell date +%s) | tee -a $@.tmp
 	mv $@.tmp $@
 
 cidata/user-data: cidata/user-data.template .ssh/ssh-packer
