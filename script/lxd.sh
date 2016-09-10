@@ -21,7 +21,7 @@ function main {
 
     mkfs.btrfs /dev/system/lxd
     mkdir -p /var/lib/lxd
-    mount -o user_subvol_rm_allowed /dev/system/lxd /var/lib/lxd
+    printf 'UUID=%s /var/lib/lxd btrfs user_subvol_rm_allowed\n' "$(blkid /dev/system/lxd | cut -d\" -f2)" >> /etc/fstab
   fi
 
   aptitude install -y lxd
