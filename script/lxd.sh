@@ -18,6 +18,9 @@ function main {
     lvcreate -n lxd -l '100%FREE' system
 
     mkfs.ext4 /dev/system/docker
+    mount /dev/system/docker /mnt
+    chown -R 165536:165536 /mnt/.
+    umount /mnt
 
     mkfs.btrfs /dev/system/lxd
     mkdir -p /var/lib/lxd
