@@ -17,7 +17,7 @@ while true; do
     break
   fi
   find /var/lib/cloud/instance/ -ls
-  sleep 1
+  sleep 3
 done
 
 dpkg --remove-architecture i386
@@ -25,7 +25,7 @@ apt-get update >/dev/null
 apt-get install -y aptitude
 
 aptitude update >/dev/null
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common btrfs-tools
 aptitude install -y linux-headers-$(uname -r)
 
 update-locale LANG=en_US.UTF-8
