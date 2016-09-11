@@ -14,8 +14,8 @@ function main {
 
   if lvs system/placeholder 1>/dev/null 2>&1; then
     lvremove -f system/placeholder 2>/dev/null >/dev/null || true
-    lvcreate -n docker -l '50%FREE' system
-    lvcreate -n lxd -l '100%FREE' system
+    lvcreate -l '50%FREE' -T system/docker
+    lvcreate -l '100%FREE' system/lxd
 
     mkfs.ext4 /dev/system/docker
     mount /dev/system/docker /mnt
