@@ -4,6 +4,8 @@ function main {
  	source /etc/lsb-release
   export DEBIAN_FRONTEND=noninteractive
 
+  set -x
+
   case "$DISTRIB_CODENAME" in
     trusty)
       add-apt-repository -y ppa:ubuntu-lxc/lxd-stable
@@ -14,8 +16,8 @@ function main {
 
   if lvs system/placeholder 1>/dev/null 2>&1; then
     lvremove -f system/placeholder 2>/dev/null >/dev/null || true
-    lvcreate -l '50%FREE' -T system/docker
-    lvcreate -l '100%FREE' system/lxd
+    lvcreate -l '50%FREE' -n lxd system
+    lvs
 
     mkfs.btrfs /dev/system/lxd
     mkdir -p /var/lib/lxd
