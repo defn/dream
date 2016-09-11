@@ -17,11 +17,6 @@ function main {
     lvcreate -l '50%FREE' -T system/docker
     lvcreate -l '100%FREE' system/lxd
 
-    mkfs.ext4 /dev/system/docker
-    mount /dev/system/docker /mnt
-    chown -R 165536:165536 /mnt/.
-    umount /mnt
-
     mkfs.btrfs /dev/system/lxd
     mkdir -p /var/lib/lxd
     printf 'UUID=%s /var/lib/lxd btrfs user_subvol_rm_allowed\n' "$(blkid /dev/system/lxd | cut -d\" -f2)" >> /etc/fstab
