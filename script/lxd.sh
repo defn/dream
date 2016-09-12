@@ -14,14 +14,14 @@ function main {
 
   esac
 
-  if lvs system/placeholder 1>/dev/null 2>&1; then
-    lvremove -f system/placeholder 2>/dev/null >/dev/null || true
-    lvcreate -l '50%FREE' -n lxd system
+  if lvs inception/placeholder 1>/dev/null 2>&1; then
+    lvremove -f inception/placeholder 2>/dev/null >/dev/null || true
+    lvcreate -l '50%FREE' -n lxd inception
     lvs
 
-    mkfs.btrfs /dev/system/lxd
+    mkfs.btrfs /dev/inception/lxd
     mkdir -p /var/lib/lxd
-    printf 'UUID=%s /var/lib/lxd btrfs user_subvol_rm_allowed\n' "$(blkid /dev/system/lxd | cut -d\" -f2)" >> /etc/fstab
+    printf 'UUID=%s /var/lib/lxd btrfs user_subvol_rm_allowed\n' "$(blkid /dev/inception/lxd | cut -d\" -f2)" >> /etc/fstab
   fi
 
   aptitude install -y lxd
