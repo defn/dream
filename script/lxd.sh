@@ -6,13 +6,8 @@ function main {
 
   set -x
 
-  case "$DISTRIB_CODENAME" in
-    trusty)
-      add-apt-repository -y ppa:ubuntu-lxc/lxd-stable
-      aptitude update
-      ;;
-
-  esac
+  add-apt-repository ppa:ubuntu-lxc/lxd-stable
+  aptitude update
 
   if lvs inception/placeholder 1>/dev/null 2>&1; then
     lvremove -f inception/placeholder 2>/dev/null >/dev/null || true
