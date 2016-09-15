@@ -25,7 +25,7 @@ apt-get update >/dev/null
 apt-get install -y aptitude
 
 aptitude update >/dev/null
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common btrfs-tools
+aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common btrfs-tools ubuntu-fan
 aptitude install -y linux-headers-$(uname -r)
 
 update-locale LANG=en_US.UTF-8
