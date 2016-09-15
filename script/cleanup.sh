@@ -1,5 +1,7 @@
 #!/usr/bin/env bash -eux
 
+aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core
+
 # virtualbox
 rm -f ~ubuntu/VBoxGuestAdditions.iso || true
 

@@ -35,5 +35,3 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
-
-aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core

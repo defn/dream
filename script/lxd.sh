@@ -4,14 +4,15 @@ function main {
  	source /etc/lsb-release
   export DEBIAN_FRONTEND=noninteractive
 
-  set -x
+  set -exfu
 
   add-apt-repository ppa:ubuntu-lxc/lxd-stable
   aptitude update
 
-  if lvs inception/placeholder 1>/dev/null 2>&1; then
-    lvremove -f inception/placeholder 2>/dev/null >/dev/null || true
+  if ! lvs inception/lxd 1>/dev/null 2>&1; then
+    lvreduce -f -L 1M inception/placeholder
     lvcreate -l '50%FREE' -n lxd inception
+    lvcreate -T -l '50%FREE' inception/docker
     lvs
 
     mkfs.btrfs /dev/inception/lxd
