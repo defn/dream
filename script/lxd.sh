@@ -1,10 +1,9 @@
 #!/usr/bin/env bash -eux
 
 function main {
- 	source /etc/lsb-release
-  export DEBIAN_FRONTEND=noninteractive
-
   set -exfu
+
+  export DEBIAN_FRONTEND=noninteractive
 
   add-apt-repository ppa:ubuntu-lxc/lxd-stable
   aptitude update
