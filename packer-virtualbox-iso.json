@@ -107,6 +107,7 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
+        "script/lvm.sh",
         "script/first.sh",
         "script/lxd.sh",
         "script/update.sh",
