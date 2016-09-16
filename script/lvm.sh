@@ -7,6 +7,7 @@ function main {
     true
   fi
   lvs
+  df -klh
 }
 
 main "$@"

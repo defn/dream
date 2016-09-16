@@ -30,8 +30,8 @@ function main {
   cat "packer-${nm_packer_builder}.json" | \
     jq \
       --argfile p "$shome/packer.json" \
-      --argfile t "$shome/packer-trusty.json" \
-      '.variables |= ({___packer: ""} + $p + {___trusty: ""} + $t + {___custom: ""} + .)' \
+      --argfile t "$shome/packer-xenial.json" \
+      '.variables |= ({___packer: ""} + $p + {___ubuntu: ""} + $t + {___custom: ""} + .)' \
       | tee "$tmp_packer"
 
   export PACKER_TMP_DIR="${CACHE_DIR}/tmp/packer"

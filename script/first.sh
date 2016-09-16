@@ -28,10 +28,13 @@ aptitude update >/dev/null
 aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common btrfs-tools ubuntu-fan
 aptitude install -y linux-headers-$(uname -r)
 
-update-locale LANG=en_US.UTF-8
+export DEBIAN_FRONTEND=noninteractive 
 
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
+locale
+
 locale-gen en_US.UTF-8
 dpkg-reconfigure locales
+dpkg-reconfigure keyboard-configuration
+localedef -i en_US -c -f UTF-8 en_US.UTF-8
+
+locale
