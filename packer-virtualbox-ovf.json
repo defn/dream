@@ -74,7 +74,6 @@
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "script/first.sh",
-        "script/update.sh",
         "script/cleanup.sh"
       ],
       "type": "shell"

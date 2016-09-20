@@ -1,4 +1,6 @@
-#!/usr/bin/env bash -eux
+#!/usr/bin/env bash
+
+set -exfu
 
 function main {
   lvreduce -f -L 1M inception/placeholder

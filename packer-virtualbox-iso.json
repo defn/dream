@@ -110,8 +110,6 @@
         "script/lvm.sh",
         "script/first.sh",
         "script/lxd.sh",
-        "script/update.sh",
-        "script/sshd.sh",
         "script/cleanup.sh"
       ],
       "type": "shell"

@@ -1,31 +1,23 @@
 #!/usr/bin/env bash
 
-passwd -l ubuntu
-passwd -l root
+set -exfu
 
 while true; do 
-  if [[ -f "/var/lib/cloud/instance/boot-finished" ]]; then
-    break
-  fi
+  if [[ -f "/var/lib/cloud/instance/boot-finished" ]]; then break; fi
   find /var/lib/cloud/instance/ -ls
   sleep 3
 done
 
+export DEBIAN_FRONTEND=noninteractive 
+
 dpkg --remove-architecture i386
+
 apt-get update >/dev/null
 apt-get install -y aptitude
 
 aptitude update >/dev/null
-aptitude install -y ntp curl unzip git perl ruby language-pack-en nfs-common build-essential dkms lvm2 xfsprogs xfsdump bridge-utils thin-provisioning-tools software-properties-common btrfs-tools ubuntu-fan
-aptitude install -y linux-headers-$(uname -r)
-
-export DEBIAN_FRONTEND=noninteractive 
-
-locale
-
-locale-gen en_US.UTF-8
-dpkg-reconfigure locales
-dpkg-reconfigure keyboard-configuration
-localedef -i en_US -c -f UTF-8 en_US.UTF-8
-
-locale
+if aptitude dist-upgrade -y; then
+  if aptitude upgrade -y; then
+    true
+  fi
+fi

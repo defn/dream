@@ -44,9 +44,13 @@ packages:
  - software-properties-common
  - btrfs-tools
  - ubuntu-fan
+ - linux-generic
+ - zfsutils-linux
 
 runcmd:
   - touch /root/.cloud-init.hostname
-  - install -d -o root -g root -m 0755  /var/run/sshd
+  - install -d -o root -g root -m 0755 /var/run/sshd
+  - sed -i -e '$a\\nUseDNS no\\nMaxAuthTries 20\\n" /etc/ssh/sshd_config
+  - systemctl restart ssh
 
 --===============88888888888888888888888888==
