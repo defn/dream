@@ -11,13 +11,13 @@ cidata/meta-data: cidata/user-data
 	@echo instance-id: p-$(shell date +%s) | tee -a $@.tmp
 	mv $@.tmp $@
 
-cidata/user-data: cidata/user-data.template .ssh/ssh-packer
+cidata/user-data: cidata/user-data.template .ssh/ssh-container
 	@cat "$<" | env CONTAINER_SSH_KEY="$(shell cat .ssh/ssh-container.pub)" envsubst '$$USER $$CONTAINER_SSH_KEY $$CACHE_VIP' | tee "$@.tmp"
 	mv "$@.tmp" "$@"
 
-.ssh/ssh-packer:
+.ssh/ssh-container:
 	@mkdir -p $(shell dirname $@)
 	@ssh-keygen -f $@ -P '' -C "packer@$(shell uname -n)"
 
-key: .ssh/ssh-packer
-	@aws ec2 import-key-pair --key-name vagrant-$(shell md5 -q .ssh/ssh-packer.pub) --public-key-material "$(shell cat .ssh/ssh-packer.pub)"
+key: .ssh/ssh-container
+	@aws ec2 import-key-pair --key-name vagrant-$(shell md5 -q .ssh/ssh-container.pub) --public-key-material "$(shell cat .ssh/ssh-container.pub)"
