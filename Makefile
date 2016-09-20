@@ -12,7 +12,7 @@ cidata/meta-data: cidata/user-data
 	mv $@.tmp $@
 
 cidata/user-data: cidata/user-data.template .ssh/ssh-packer
-	@cat "$<" | env CONTAINER_SSH_KEY="$(shell cat .ssh/ssh-packer.pub)" envsubst '$$USER $$CONTAINER_SSH_KEY $$CACHE_VIP' | tee "$@.tmp"
+	@cat "$<" | env CONTAINER_SSH_KEY="$(shell cat .ssh/ssh-container.pub)" envsubst '$$USER $$CONTAINER_SSH_KEY $$CACHE_VIP' | tee "$@.tmp"
 	mv "$@.tmp" "$@"
 
 .ssh/ssh-packer:
