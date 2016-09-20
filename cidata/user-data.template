@@ -13,10 +13,37 @@ users:
     shell: /bin/bash
     sudo: "ALL=(ALL) NOPASSWD: ALL"
     ssh-authorized-keys:
-      - ${PACKER_SSH_KEY}
+      - ${CONTAINER_SSH_KEY}
+
+write_files:
+ - owner: root:root
+   path: /etc/apt/apt.conf.d/99boxcache
+   permissions: '0644'
+   content: |
+       Acquire::http::Proxy "http://${CACHE_VIP}:3128";
+       Acquire::Languages "none";
 
 packages:
  - openssh-server
+ - aptitude
+ - ntp
+ - curl
+ - unzip
+ - git
+ - perl
+ - ruby
+ - language-pack-en
+ - nfs-common
+ - build-essential
+ - dkms
+ - lvm2
+ - xfsprogs
+ - xfsdump
+ - bridge-utils
+ - thin-provisioning-tools
+ - software-properties-common
+ - btrfs-tools
+ - ubuntu-fan
 
 runcmd:
   - touch /root/.cloud-init.hostname
