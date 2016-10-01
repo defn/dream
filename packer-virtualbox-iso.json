@@ -36,7 +36,6 @@
         "initrd=/install/initrd.gz -- <enter>"
       ],
       "hard_drive_interface": "sata",
-      "guest_additions_mode": "disable",
       "headless": "{{ user `headless` }}",
       "vboxmanage": [
         [
@@ -109,6 +108,7 @@
       "scripts": [
         "script/lvm.sh",
         "script/first.sh",
+        "script/virtualbox.sh",
         "script/lxd.sh",
         "script/cleanup.sh"
       ],
