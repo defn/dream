@@ -2,13 +2,17 @@
 
 set -exfu
 
-while true; do 
-  if [[ -f "/var/lib/cloud/instance/boot-finished" ]]; then break; fi
-  find /var/lib/cloud/instance/ -ls
-  sleep 3
+while true; do
+  case "$(echo | "$@" systemctl is-active cloud-final.service)" in
+    active|failed) break ;;
+    *) echo "Waiting for cloud-init"; sleep 5 ;;
+  esac
 done
 
 export DEBIAN_FRONTEND=noninteractive 
+
+mkdir -p ~ubuntu/.config/lx{c,d}
+chown ubuntu:ubuntu ~ubuntu/.config{,/lxc,/lxd}
 
 dpkg --remove-architecture i386
 
