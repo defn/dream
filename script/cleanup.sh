@@ -5,8 +5,6 @@ set -exfu
 passwd -l ubuntu
 passwd -l root
 
-aptitude -y purge nano mlocate ubuntu-release-upgrader-core update-manager-core
-
 systemctl disable apt-daily.service
 systemctl disable apt-daily.timer
 
