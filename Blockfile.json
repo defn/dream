@@ -5,6 +5,6 @@
     "pkgsrc",
     "cache",
     "packer",
-    "vagrant"
+    "provision"
   ]
 }
