@@ -56,15 +56,14 @@ packages:
  - btrfs-tools
  - ubuntu-fan
  - linux-generic
- - zfsutils-linux
  - ifmetric
 
 runcmd:
-  - "apt purge -y open-iscsi nano mlocate ubuntu-release-upgrader-core update-manager-core"
+  - "aptitude purge -y open-iscsi nano mlocate ubuntu-release-upgrader-core update-manager-core"
   - "add-apt-repository -y ppa:ubuntu-lxc/lxd-stable"
-  - "apt update"
-  - "env DEBIAN_FRONTEND=noninteractive apt -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install -y lxd zfsutils-linux criu lxd-tools docker.io"
-  - "env DEBIAN_FRONTEND=noninteractive apt -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold upgrade -y"
+  - "aptitude update"
+  - "env DEBIAN_FRONTEND=noninteractive aptitude -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold install -y lxd lxd-tools criu docker.io"
+  - "env DEBIAN_FRONTEND=noninteractive aptitude -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold upgrade -y"
   - "usermod -aG lxd ubuntu"
   - "usermod -aG docker ubuntu"
 
