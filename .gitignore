@@ -2,5 +2,4 @@
 /.bundle
 /packer_cache
 /cidata*
-/.ssh
 *.log
