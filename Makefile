@@ -1,7 +1,7 @@
 all: cidata.iso
 	@runmany 'echo $$1; jq . <$$1 >/dev/null' *.json
 
-cidata/user-data: cidata/user-data.template .ssh/ssh-container Makefile
+cidata/user-data: ../provision/cidata/user-data-packer.template .ssh/ssh-container Makefile
 	@cat "$<" | env CONTAINER_SSH_KEY="$(shell cat .ssh/ssh-container.pub)" envsubst '$$USER $$CONTAINER_SSH_KEY $$CACHE_VIP' | tee "$@.tmp"
 	mv "$@.tmp" "$@"
 
