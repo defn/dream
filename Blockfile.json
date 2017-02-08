@@ -1,9 +1,5 @@
 {
   "require": [
-    "parity",
-    "jq",
-    "pkgsrc",
-    "cache",
     "packer",
     "provision"
   ]
