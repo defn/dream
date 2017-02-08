@@ -11,9 +11,6 @@ done
 
 export DEBIAN_FRONTEND=noninteractive 
 
-mkdir -p ~ubuntu/.config/lx{c,d}
-chown ubuntu:ubuntu ~ubuntu/.config{,/lxc,/lxd}
-
 dpkg --remove-architecture i386
 
 apt-get update >/dev/null
