@@ -12,7 +12,6 @@ function main {
     vmware*)    nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}" ;;
     virtualbox) nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}" ;;
     parallels)  nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}" ;;
-    docker)     nm_packer_builder='docker' ;;
     aws)        nm_packer_builder="amazon-ebs" ;;
 
     *)
@@ -21,7 +20,7 @@ function main {
       ;;
   esac
 
-  if [[ -n "${1:-}" && "${nm_packer_builder}" != "docker" ]]; then
+  if [[ -n "${1:-}" ]]; then
     export BASEBOX_NAME="${BASEBOX_NAME}-$1"
     shift
   fi
