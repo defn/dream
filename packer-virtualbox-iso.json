@@ -7,6 +7,7 @@
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
+      "post_shutdown_delay": "1m",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "type": "virtualbox-iso",
       "iso_urls": [
