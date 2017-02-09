@@ -102,10 +102,10 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "script/lvm.sh",
-        "script/first.sh",
-        "script/virtualbox.sh",
-        "script/cleanup.sh"
+        "../base/script/lvm.sh",
+        "../base/script/first.sh",
+        "../base/script/virtualbox.sh",
+        "../base/script/last.sh"
       ],
       "type": "shell"
     }

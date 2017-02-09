@@ -73,8 +73,8 @@
       ],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "script/first.sh",
-        "script/cleanup.sh"
+        "../script/first.sh",
+        "../script/last.sh"
       ],
       "type": "shell"
     }
