@@ -41,7 +41,7 @@
         "numvcpus": "{{ user `cpus` }}",
         "ethernet0.vnet": "vmnet3",
         "ide1:0.present": "TRUE",
-        "ide1:0.fileName": "cidata.iso",
+        "ide1:0.fileName": "../base/cidata.iso",
         "ide1:0.deviceType": "cdrom-image",
         "ide1:0.startconnected": "TRUE"
       }

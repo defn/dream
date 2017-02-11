@@ -83,7 +83,7 @@
           "--type",
           "dvddrive",
           "--medium",
-          "cidata.iso"
+          "../base/cidata.iso"
         ]
       ]
     }

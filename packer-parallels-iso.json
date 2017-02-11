@@ -56,7 +56,7 @@
           "--device-set",
           "cdrom0",
           "--image",
-          "cidata.iso",
+          "../base/cidata.iso",
           "--connect"
         ]
       ]
