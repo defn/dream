@@ -98,8 +98,7 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [
-      ],
+      "environment_vars": [],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "../base/script/lvm.sh",
