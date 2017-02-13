@@ -1,6 +1,0 @@
-for packet:
-
-useradd -s /bin/bash -m ubuntu
-install -d -o ubuntu -g ubuntu ~ubuntu/.ssh
-install -o ubuntu -g ubuntu ~root/.ssh/authorized_keys ~ubuntu/.ssh/authorized_keys
-echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/90-cloud-init-users
