@@ -101,7 +101,7 @@
       "environment_vars": [],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "../base/script/lvm.sh",
+        "../base/script/volume.sh",
         "../base/script/first.sh",
         "../base/script/virtualbox.sh",
         "../base/script/last.sh"
