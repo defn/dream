@@ -1,6 +1,6 @@
 {
-  "source": "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso",
-  "iso_checksum": "de5ee8665048f009577763efbf4a6f0558833e59",
+  "source": "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso",
+  "iso_checksum": "f529548fa7468f2d8413b8427d8e383b830df5f6",
   "iso_checksum_type": "sha1",
   "preseed": "preseed.cfg",
   "boot_command": "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>"
