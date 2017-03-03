@@ -7,6 +7,7 @@
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
+      "post_shutdown_delay": "1m",
       "ssh_private_key_file": "{{ user `ssh_private_key_file` }}",
       "type": "virtualbox-ovf",
       "source_path": "{{ user `source`}}",
@@ -46,6 +47,20 @@
           "on"
         ],
         [
+          "storageattach",
+          "{{.Name}}",
+          "--storagectl",
+          "SATA Controller",
+          "--port",
+          "1",
+          "--device",
+          "0",
+          "--type",
+          "dvddrive",
+          "--medium",
+          "../base/cidata.iso"
+        ]
+        [
           "modifyvm",
           "{{.Name}}",
           "--nictype2",
@@ -64,13 +79,7 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "ftp_proxy={{user `ftp_proxy`}}",
-        "rsync_proxy={{user `rsync_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
-      ],
+      "environment_vars": [],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
         "../base/script/first.sh",
