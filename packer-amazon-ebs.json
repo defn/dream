@@ -7,6 +7,7 @@
       "region": "{{ user `region` }}",
       "instance_type": "{{ user `instance_type` }}",
       "ami_name": "{{ user `target` }}",
+      "user_data_file": "{{ user `block_path` }}/base/cidata/user-data",
       "run_tags": {
         "Provisioner": "packer"
       }
@@ -32,6 +33,7 @@
     }
   ],
   "variables": {
+    "block_path": "{{ env `BLOCK_PATH` }}",
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
