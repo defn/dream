@@ -59,7 +59,7 @@
           "dvddrive",
           "--medium",
           "../base/cidata.iso"
-        ]
+        ],
         [
           "modifyvm",
           "{{.Name}}",
