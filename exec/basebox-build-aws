@@ -15,7 +15,7 @@ function main {
   if [[ "$#" -gt 0 ]]; then
     EC2_INSTANCE_TYPE="$1"; shift
   else
-    EC2_INSTANCE_TYPE="t2.nano"
+    EC2_INSTANCE_TYPE="m3.medium"
   fi
   export EC2_INSTANCE_TYPE
 
