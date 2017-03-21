@@ -2,7 +2,8 @@
   "builders": [
     {
       "ssh_username": "{{ user `ssh_username` }}",
-      "ssh_agent_auth": "false",
+      "ssh_agent_auth": "true",
+      "ssh_keypair_name": "{{ user `ssh_keypair` }}",
       "type": "amazon-ebs",
       "source_ami": "{{ user `source` }}",
       "region": "{{ user `region` }}",
@@ -38,6 +39,7 @@
     "source": "{{ env `BASEBOX_SOURCE` }}",
     "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
-    "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}"
+    "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
+    "ssh_keypair": "{{ env `AWS_KEYPAIR` }}"
   }
 }
