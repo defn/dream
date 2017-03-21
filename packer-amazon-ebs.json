@@ -3,7 +3,6 @@
     {
       "ssh_username": "{{ user `ssh_username` }}",
       "ssh_agent_auth": "false",
-      "ssh_private_key_file": "{{ user `block_path` }}/base/.ssh/ssh-container",
       "type": "amazon-ebs",
       "source_ami": "{{ user `source` }}",
       "region": "{{ user `region` }}",
