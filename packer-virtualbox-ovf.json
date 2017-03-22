@@ -4,6 +4,7 @@
       "vm_name": "{{ user `vm_name` }}",
       "shutdown_command": "sudo -S shutdown -h now",
       "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_private_key_file": "../base/.ssh/ssh-iso",
       "ssh_wait_timeout": "10000s",
       "ssh_handshake_attempts": 100,
       "output_directory": "{{ user `cache` }}/output/{{ user `vm_name` }}-{{ user `provider` }}",
