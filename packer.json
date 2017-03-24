@@ -1,7 +1,7 @@
 {
   "vm_name": "{{ env `BASEBOX_NAME` }}",
   "cpus": "1",
-  "disk_size": "100000",
+  "disk_size": "200000",
   "memory": "1024",
   "ssh_fullname": "ubuntu",
   "ssh_username": "ubuntu",
