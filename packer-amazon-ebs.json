@@ -40,6 +40,10 @@
     "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
     "instance_type": "{{ env `EC2_INSTANCE_TYPE` }}",
-    "ssh_keypair": "{{ env `AWS_KEYPAIR` }}"
+    "ssh_keypair": "{{ env `AWS_KEYPAIR` }}",
+    "associate_public_ip_address": "{{ env `AWS_PUBLIC` }}",
+    "ssh_private_ip": "{{ env `AWS_PRIVATE` }}",
+    "security_group_id": "{{ env `AWS_SG` }",
+    "subnet_id": "{{ env `AWS_SUBNET` }"
   }
 }
