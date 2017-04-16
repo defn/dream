@@ -13,7 +13,7 @@
       "associate_public_ip_address": "{{ user `associate_public_ip_address` }}",
       "ssh_private_ip": "{{ user `ssh_private_ip` }}",
       "security_group_id": "{{ user `security_group_id` }}",
-      "subnet_id": "{{ user `subnet_id` }",
+      "subnet_id": "{{ user `subnet_id` }}",
       "run_tags": {
         "Provisioner": "packer"
       }
@@ -48,6 +48,6 @@
     "associate_public_ip_address": "{{ env `AWS_PUBLIC` }}",
     "ssh_private_ip": "{{ env `AWS_PRIVATE` }}",
     "security_group_id": "{{ env `AWS_SG` }}",
-    "subnet_id": "{{ env `AWS_SUBNET` }"
+    "subnet_id": "{{ env `AWS_SUBNET` }}"
   }
 }
