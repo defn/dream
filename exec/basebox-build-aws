@@ -15,7 +15,7 @@ function main {
   if [[ "$#" -gt 0 ]]; then
     AWS_TYPE="$1"; shift
   else
-    AWS_TYPE="t2.medium"
+    AWS_TYPE="c4.large"
   fi
   export AWS_TYPE
 
