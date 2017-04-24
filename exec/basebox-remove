@@ -6,8 +6,6 @@ function main {
   local nm_suffix="${1:-}"
   nm_suffix="${nm_suffix#:}"
   nm_suffix="${nm_suffix#-}"
-  nm_suffix="${nm_suffix#:}"
-  nm_suffix="${nm_suffix#-}"
   nm_suffix=":${nm_suffix}"
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
