@@ -3,7 +3,10 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
-  local nm_suffix="${1:+:${1}}"
+  local nm_suffix="${1:-}"
+  nm_suffix="${nm_suffix#:}"
+  nm_suffix="${nm_suffix#-}"
+  nm_suffix=":${nm_suffix}"
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
     vmware*) vagrant box remove -f --provider "vmware_desktop" "${BASEBOX_NAME}${nm_suffix}" ;;
