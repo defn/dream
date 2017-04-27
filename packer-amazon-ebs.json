@@ -12,7 +12,7 @@
       "user_data_file": "{{ user `block_path` }}/base/cidata/user-data",
       "associate_public_ip_address": "false",
       "ssh_private_ip": "true",
-      "security_group_id": "{{ user `security_group_id` }}",
+      "security_group_ids": "{{ user `security_group_ids` }}",
       "subnet_id": "{{ user `subnet_id` }}",
       "run_tags": {
         "Provisioner": "packer"
@@ -45,7 +45,7 @@
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
     "instance_type": "{{ env `AWS_TYPE` }}",
     "ssh_keypair": "{{ env `AWS_KEYPAIR` }}",
-    "security_group_id": "{{ env `AWS_SG` }}",
+    "security_group_ids": "{{ env `AWS_SG_COMMA` }}",
     "subnet_id": "{{ env `AWS_SUBNET` }}"
   }
 }
