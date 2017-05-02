@@ -9,9 +9,7 @@ function main {
   local nm_packer_builder=
 
   case "${VAGRANT_DEFAULT_PROVIDER:-}" in
-    vmware*)    nm_packer_builder="vmware-${BASEBOX_TYPE:-iso}" ;;
     virtualbox) nm_packer_builder="virtualbox-${BASEBOX_TYPE:-iso}" ;;
-    parallels)  nm_packer_builder="parallels-${BASEBOX_TYPE:-iso}" ;;
     aws)        nm_packer_builder="amazon-ebs" ;;
 
     *)

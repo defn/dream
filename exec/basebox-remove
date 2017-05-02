@@ -9,7 +9,6 @@ function main {
   nm_suffix=":${nm_suffix}"
 
   case "$VAGRANT_DEFAULT_PROVIDER" in
-    vmware*) vagrant box remove -f --provider "vmware_desktop" "${BASEBOX_NAME}${nm_suffix}" ;;
     *) vagrant box remove -f --provider "$VAGRANT_DEFAULT_PROVIDER" "${BASEBOX_NAME}${nm_suffix}" ;;
   esac
 }
