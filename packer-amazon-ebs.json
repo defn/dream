@@ -46,6 +46,7 @@
     "instance_type": "{{ env `AWS_TYPE` }}",
     "ssh_keypair": "{{ env `AWS_KEYPAIR` }}",
     "security_group_ids": "{{ env `AWS_SG_COMMA` }}",
-    "subnet_id": "{{ env `AWS_SUBNET` }}"
+    "subnet_id": "{{ env `AWS_SUBNET` }}",
+    "vagrantfile_template": "../base/Vagrantfile.aws"
   }
 }
