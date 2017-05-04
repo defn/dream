@@ -41,7 +41,7 @@
   "variables": {
     "block_path": "{{ env `BLOCK_PATH` }}",
     "source": "{{ env `BASEBOX_SOURCE` }}",
-    "target": "{{ env `EC2_TARGET_AMI_NAME` }}",
+    "target": "packer-{{ timestamp }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
     "instance_type": "{{ env `AWS_TYPE` }}",
     "ssh_keypair": "{{ env `AWS_KEYPAIR` }}",
