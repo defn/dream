@@ -16,6 +16,10 @@
       "subnet_id": "{{ user `subnet_id` }}",
       "run_tags": {
         "Provisioner": "packer"
+      },
+      "tags": {
+        "Provisioner": "packer",
+        "Block": "{{ user `vm_name` }}-{{ timestamp }}"
       }
     }
   ],
