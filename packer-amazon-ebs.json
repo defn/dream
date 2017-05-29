@@ -9,7 +9,7 @@
       "region": "{{ user `region` }}",
       "instance_type": "{{ user `instance_type` }}",
       "ami_name": "{{ user `target` }}",
-      "user_data_file": "{{ user `block_path` }}/base/cidata/user-data",
+      "user_data_file": "{{ user `base_home` }}/cidata/user-data",
       "associate_public_ip_address": "false",
       "ssh_private_ip": "true",
       "security_group_ids": "{{ user `security_group_ids` }}",
@@ -51,7 +51,7 @@
     "ssh_keypair": "{{ env `AWS_KEYPAIR` }}",
     "security_group_ids": "{{ env `AWS_SG_COMMA` }}",
     "subnet_id": "{{ env `AWS_SUBNET` }}",
-    "vagrantfile_template": "../base/Vagrantfile.aws",
+    "vagrantfile_template": "{ env `_base_home` }}/Vagrantfile.aws",
     "base_home": "{{ env `_base_home` }}"
   }
 }
