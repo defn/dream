@@ -8,7 +8,7 @@
   "ssh_username": "ubuntu",
   "ssh_password": "ubuntu",
   "vagrantfile_template": "",
-  "cache": "{{ env `BASEBOX_CACHE` }}",
+  "cache": "/data/cache",
   "provider": "{{ env `VAGRANT_DEFAULT_PROVIDER` }}",
   "http_proxy": "{{env `http_proxy`}}",
   "https_proxy": "{{env `https_proxy`}}",
