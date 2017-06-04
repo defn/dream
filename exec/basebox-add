@@ -9,7 +9,7 @@ function main {
   nm_suffix=":${nm_suffix}"
 
   local nm_provider="$VAGRANT_DEFAULT_PROVIDER"
-  local pth_box="${BASEBOX_CACHE}/box/$nm_provider/${BASEBOX_NAME}${nm_suffix/:/-}.box"
+  local pth_box="/data/cache/box/$nm_provider/${BASEBOX_NAME}${nm_suffix/:/-}.box"
   
   vagrant box add --name "${BASEBOX_NAME}${nm_suffix}" "${pth_box}"
 }
