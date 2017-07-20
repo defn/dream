@@ -44,7 +44,7 @@
   ],
   "variables": {
     "block_path": "{{ env `BLOCK_PATH` }}",
-    "source": "{{ env `BASEBOX_SOURCE` }}",
+    "source": "{{ env `FOGG_AMI` }}",
     "target": "packer-{{ timestamp }}",
     "region": "{{ env `AWS_DEFAULT_REGION` }}",
     "instance_type": "{{ env `AWS_TYPE` }}",
