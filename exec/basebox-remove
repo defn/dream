@@ -3,13 +3,8 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
-  local nm_suffix="${1:-}"
-  nm_suffix="${nm_suffix#:}"
-  nm_suffix="${nm_suffix#-}"
-  nm_suffix=":${nm_suffix}"
-
   case "$VAGRANT_DEFAULT_PROVIDER" in
-    *) vagrant box remove -f --provider "$VAGRANT_DEFAULT_PROVIDER" "${BASEBOX_NAME}${nm_suffix}" ;;
+    *) vagrant box remove -f --provider "$VAGRANT_DEFAULT_PROVIDER" "${SOURCE_NAME}" ;;
   esac
 }
 

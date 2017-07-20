@@ -3,15 +3,10 @@
 function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
-  local nm_suffix="${1:-}"
-  nm_suffix="${nm_suffix#:}"
-  nm_suffix="${nm_suffix#-}"
-  nm_suffix=":${nm_suffix}"
-
   local nm_provider="$VAGRANT_DEFAULT_PROVIDER"
-  local pth_box="/data/cache/box/$nm_provider/${BASEBOX_NAME}${nm_suffix/:/-}.box"
+  local pth_box="/data/cache/box/$nm_provider/${SOURCE_NAME/:/-}.box"
   
-  vagrant box add --name "${BASEBOX_NAME}${nm_suffix}" "${pth_box}"
+  vagrant box add --name "${SOURCE_NAME}" "${pth_box}"
 }
 
 source sub "$0" "$@"

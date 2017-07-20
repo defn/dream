@@ -19,10 +19,7 @@ function main {
   esac
 
   if [[ -n "${1:-}" ]]; then
-    export BASEBOX_NAME="block-$1"
     shift
-  else
-    export BASEBOX_NAME="block"
   fi
 
   local tmp_packer="$(mktemp -t XXXXXX)"

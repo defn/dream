@@ -1,5 +1,5 @@
 {
-  "vm_name": "{{ env `BASEBOX_NAME` }}",
+  "vm_name": "{{ env `SOURCE_NAME` }}",
   "golden_name": "{{ env `GOLDEN_NAME` }}",
   "cpus": "1",
   "disk_size": "200000",
