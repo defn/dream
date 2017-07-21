@@ -4,7 +4,7 @@ function main {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
 
   local nm_provider="$VAGRANT_DEFAULT_PROVIDER"
-  local pth_box="/data/cache/box/$nm_provider/${SOURCE_NAME/:/-}.box"
+  local pth_box="/data/cache/box/$nm_provider/${SOURCE_NAME}.box"
   
   vagrant box add --name "${SOURCE_NAME}" "${pth_box}"
 }
