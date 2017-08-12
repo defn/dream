@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function _dream_profile {
-  local shome="${_dream_home:-"$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
+  local shome="${_dream_home:="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"}"
   PATH="$shome/bin:$shome/exec:$PATH"
 
   export PACKER_CACHE_DIR='/data/cache/packer'
