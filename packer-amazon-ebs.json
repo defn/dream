@@ -36,8 +36,7 @@
       "environment_vars": [],
       "execute_command": "{{.Vars}} sudo -E -S bash '{{.Path}}'",
       "scripts": [
-        "{{ user `base_home` }}/script/first.sh",
-        "{{ user `base_home` }}/script/last.sh"
+        "script/dream.sh"
       ],
       "type": "shell"
     }
