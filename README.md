@@ -1,1 +1,1 @@
-Visit http://defn.sh/basebox-ubuntu/ or open `docs/index.html`
+content/dream.md
