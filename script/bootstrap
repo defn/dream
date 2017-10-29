@@ -4,7 +4,14 @@ function bootstrap {
   local shome="$(cd -P -- "${BASH_SOURCE%/*}/.." && pwd -P)"
   source "$shome/script/profile"
 
-  pkg ensure sysutils/cdrtools
+  case "${DISTRIB_ID}" in
+    Darwin)
+      brew install cdrtools
+      ;;
+    *)
+      pkg ensure sysutils/cdrtools
+      ;;
+  esac
 }
 
 bootstrap
