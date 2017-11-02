@@ -6,8 +6,9 @@ function bootstrap {
 
   case "${DISTRIB_ID}" in
     Darwin)
-      brew install cdrtools
-      brew link cdrtools
+      brew unlink cdrtools || true
+      brew install dvdrtools
+      brew link dvdrtools
       ;;
     *)
       pkg ensure sysutils/cdrtools
